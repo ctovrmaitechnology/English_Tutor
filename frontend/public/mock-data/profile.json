@@ -1,0 +1,20 @@
+{
+  "user": {
+    "name": "Priya Rajan",
+    "title": "Voice Process Associate",
+    "department": "Customer Support - Inbound Telecom",
+    "email": "priya.rajan@company.com",
+    "phone": "+91 98765 43210",
+    "location": "Chennai, India"
+  },
+  "metrics": {
+    "totalXp": "4,250",
+    "completedSessions": 42,
+    "averageAccuracy": "84%"
+  },
+  "preferences": {
+    "grammarStrict": true,
+    "speechCoaching": true,
+    "speechThreshold": 80
+  }
+}

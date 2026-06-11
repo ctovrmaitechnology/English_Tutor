@@ -1,0 +1,30 @@
+.hold-music { min-height: 100vh; background: var(--gray-50); }
+.hm-game { max-width: 560px; margin: 0 auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; }
+.hm-progress { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; color: var(--gray-500); }
+.hm-progress-track { flex: 1; height: 6px; background: var(--gray-200); border-radius: 999px; overflow: hidden; }
+.hm-progress-fill { height: 100%; background: #f59e0b; border-radius: 999px; transition: width 0.4s; }
+.hm-timer { display: flex; align-items: center; gap: 12px; }
+.hm-timer-track { flex: 1; height: 8px; background: var(--gray-200); border-radius: 999px; overflow: hidden; }
+.hm-timer-bar { height: 100%; background: #f59e0b; border-radius: 999px; transition: width 1s linear; }
+.hm-timer-bar--urgent { background: #ef4444; }
+.hm-timer-num { font-size: 18px; font-weight: 800; color: var(--gray-700); min-width: 28px; }
+.hm-timer-num--urgent { color: #ef4444; animation: pulse .5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+.hm-scenario-box { background: white; border-radius: 20px; padding: 28px; box-shadow: 0 2px 16px rgba(245,158,11,.08); border: 2px solid #fef3c7; min-height: 120px; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+.hm-scenario-label { font-size: 13px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; }
+.hm-scenario-text { font-size: 18px; font-weight: 600; color: var(--gray-800); line-height: 1.5; }
+.hm-feedback { border-radius: 14px; padding: 14px 18px; }
+.hm-feedback--good { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+.hm-feedback--bad { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+.hm-filler-warning { font-size: 13px; margin-top: 6px; }
+.hm-round-score { font-size: 13px; font-weight: 700; margin-top: 4px; }
+.hm-input-row { display: flex; gap: 12px; }
+.hm-input { flex: 1; padding: 14px 18px; border: 2px solid var(--gray-200); border-radius: 14px; font-size: 15px; outline: none; }
+.hm-input:focus { border-color: #f59e0b; }
+.hm-submit-btn { width: 52px; height: 52px; background: #f59e0b; color: white; border: none; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.hm-submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.hm-stats { display: flex; gap: 16px; width: 100%; margin-bottom: 16px; }
+.hm-stat { flex: 1; background: var(--gray-50); border-radius: 12px; padding: 14px; text-align: center; font-size: 13px; color: var(--gray-600); }
+.hm-stat-value { display: block; font-size: 28px; font-weight: 800; margin-top: 4px; }
+.hm-stat-value--good { color: #10b981; }
+.hm-stat-value--bad { color: #ef4444; }

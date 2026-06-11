@@ -1,0 +1,25 @@
+.streak-shield { min-height: 100vh; background: var(--gray-50); }
+.ss-game { max-width: 480px; margin: 0 auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; }
+.ss-shield-display { background: white; border-radius: 20px; padding: 28px; text-align: center; box-shadow: 0 2px 12px rgba(59,130,246,.08); border: 2px solid #dbeafe; }
+.ss-shields-row { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; }
+.ss-shield--active { color: #3b82f6; filter: drop-shadow(0 0 8px rgba(59,130,246,.4)); }
+.ss-shield--empty { color: var(--gray-300); }
+.ss-shield-count { font-size: 16px; font-weight: 700; color: var(--gray-700); }
+.ss-info-card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+.ss-info-title { font-size: 15px; font-weight: 700; color: var(--gray-800); margin-bottom: 8px; }
+.ss-info-text { font-size: 14px; color: var(--gray-600); line-height: 1.6; margin-bottom: 14px; }
+.ss-info-steps { display: flex; flex-direction: column; gap: 8px; }
+.ss-step { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--gray-700); }
+.ss-step-icon { font-size: 18px; }
+.ss-earn-card { background: #eff6ff; border-radius: 16px; padding: 18px; }
+.ss-earn-title { font-size: 14px; font-weight: 700; color: #1d4ed8; margin-bottom: 6px; }
+.ss-earn-text { font-size: 13px; color: #3b82f6; margin-bottom: 14px; }
+.ss-streak-visual { display: flex; justify-content: space-between; }
+.ss-day { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.ss-day-circle { width: 32px; height: 32px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 12px; color: transparent; }
+.ss-day--done .ss-day-circle { background: #3b82f6; color: white; }
+.ss-day-label { font-size: 10px; font-weight: 600; color: var(--gray-500); }
+.ss-use-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; background: #3b82f6; color: white; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.ss-use-btn:hover { background: #2563eb; }
+.ss-success-msg { text-align: center; color: #16a34a; font-weight: 600; font-size: 14px; }
+.ss-tip { text-align: center; font-size: 13px; color: var(--gray-500); }

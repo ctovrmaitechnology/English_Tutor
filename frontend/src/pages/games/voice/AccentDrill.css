@@ -1,0 +1,30 @@
+.accent-drill { min-height: 100vh; background: var(--gray-50); }
+.ad-game { max-width: 560px; margin: 0 auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+.ad-progress { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: var(--gray-500); }
+.ad-target-sounds { display: flex; gap: 6px; }
+.ad-sound-chip { background: #fef3c7; color: #92400e; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.ad-exercise-box { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 2px 12px rgba(236,72,153,.08); border: 2px solid #fdf2f8; }
+.ad-type-badge { display: inline-block; background: #fdf2f8; color: #be185d; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+.ad-instruction { font-size: 13px; color: var(--gray-500); margin-bottom: 8px; }
+.ad-text { font-size: 22px; font-weight: 700; color: var(--gray-800); margin-bottom: 10px; }
+.ad-tip { font-size: 13px; color: #be185d; }
+.ad-feedback { border-radius: 14px; padding: 14px 18px; }
+.ad-feedback--good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.ad-feedback--mti { background: #fffbeb; border: 1px solid #fde68a; }
+.ad-feedback-scores { display: flex; gap: 16px; font-size: 13px; font-weight: 600; color: var(--gray-600); margin-bottom: 8px; }
+.ad-feedback-text { font-size: 13px; color: var(--gray-600); }
+.ad-mti-warning { font-size: 12px; color: #92400e; margin-top: 6px; }
+.ad-listen-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; background: #fdf2f8; color: #be185d; border: 2px solid #fbcfe8; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.ad-listen-btn:disabled { opacity: .5; cursor: not-allowed; }
+.ad-listen-btn--active { background: #fce7f3; }
+.ad-record-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; background: #ec4899; color: white; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.ad-record-btn:disabled { opacity: .4; cursor: not-allowed; }
+.ad-recording { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.ad-rec-indicator { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #ef4444; }
+.ad-rec-dot { width: 10px; height: 10px; background: #ef4444; border-radius: 50%; animation: blink 1s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.ad-stop-btn { display: flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--gray-800); color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; }
+.ad-mti-summary { text-align: left; width: 100%; background: #fffbeb; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; }
+.ad-mti-label { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+.ad-mti-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ad-mti-chip { background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }

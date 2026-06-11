@@ -1,0 +1,13 @@
+{
+  "placement": {
+    "level": "B2 (Upper Intermediate)",
+    "score": 76,
+    "completedPercentage": 75,
+    "voiceProcessEligible": true
+  },
+  "pastAssessments": [
+    { "id": 1, "name": "Refund Authorization Dispute", "grade": "A-", "score": 88, "date": "May 28, 2026", "wpm": 124, "fluency": "High" },
+    { "id": 2, "name": "Broadband Setup Callback", "grade": "B+", "score": 81, "date": "May 22, 2026", "wpm": 112, "fluency": "Moderate" },
+    { "id": 3, "name": "Contract Cancellation Retention", "grade": "A", "score": 94, "date": "May 14, 2026", "wpm": 130, "fluency": "High" }
+  ]
+}

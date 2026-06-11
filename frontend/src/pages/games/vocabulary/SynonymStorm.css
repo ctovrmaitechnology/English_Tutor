@@ -1,0 +1,204 @@
+.synonym-storm {
+  min-height: 100vh;
+  background: var(--gray-50);
+}
+
+/* ── Game area ─────────────────────────────────────────────── */
+.ss-game {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Timer ─────────────────────────────────────────────────── */
+.ss-timer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ss-timer-track {
+  flex: 1;
+  height: 8px;
+  background: var(--gray-200);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ss-timer-bar {
+  height: 100%;
+  background: #f59e0b;
+  border-radius: 999px;
+  transition: width 1s linear, background 0.3s;
+}
+
+.ss-timer-bar--urgent { background: #ef4444; }
+
+.ss-timer-num {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gray-700);
+  min-width: 32px;
+  text-align: right;
+}
+
+.ss-timer-num--urgent {
+  color: #ef4444;
+  animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── Word box ──────────────────────────────────────────────── */
+.ss-word-box {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 2px 16px rgba(245, 158, 11, 0.1);
+  border: 2px solid #fef3c7;
+}
+
+.ss-word-label {
+  font-size: 13px;
+  color: var(--gray-500);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.ss-word {
+  font-size: 52px;
+  font-weight: 900;
+  color: #d97706;
+  text-transform: capitalize;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.ss-word-hint {
+  font-size: 13px;
+  color: var(--gray-400);
+}
+
+/* ── Input area ────────────────────────────────────────────── */
+.ss-input-area {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ss-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--gray-200);
+  border-radius: 14px;
+  font-size: 16px;
+  color: var(--gray-900);
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  line-height: 1.6;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.ss-textarea:focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.ss-textarea:disabled { opacity: 0.6; }
+
+.ss-word-count {
+  font-size: 12px;
+  color: var(--gray-400);
+  text-align: right;
+}
+
+.ss-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  background: #f59e0b;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ss-submit-btn:hover:not(:disabled) {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+.ss-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Example box ───────────────────────────────────────────── */
+.ss-example-box {
+  background: #fffbeb;
+  border-radius: 14px;
+  padding: 14px 18px;
+  border: 1px solid #fde68a;
+}
+
+.ss-example-label {
+  font-size: 13px;
+  color: #92400e;
+  text-align: center;
+}
+
+/* ── Result ────────────────────────────────────────────────── */
+.ss-result-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.ss-result-section { width: 100%; }
+
+.ss-result-label {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ss-result-label--valid   { color: #166534; }
+.ss-result-label--invalid { color: #991b1b; }
+.ss-result-label--missed  { color: #92400e; }
+
+.ss-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ss-chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ss-chip--valid   { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.ss-chip--invalid { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.ss-chip--missed  { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }

@@ -1,0 +1,228 @@
+/* ===== CENTERED CARD LOGIN SYSTEM ===== */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at top right, var(--blue-50) 0%, #f1f5f9 100%);
+  font-family: var(--font);
+  padding: 24px;
+}
+
+/* Centralized Glass/Solid White Card */
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 25px -5px rgba(30, 41, 59, 0.05), 0 8px 16px -6px rgba(30, 41, 59, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+/* Header & Branding */
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.login-logo svg {
+  width: 36px;
+  height: 36px;
+}
+
+.login-brand-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--blue-900);
+  letter-spacing: -0.02em;
+}
+
+.login-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.login-header p {
+  font-size: 0.88rem;
+  color: var(--gray-500);
+  line-height: 1.4;
+}
+
+/* Form Styles */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.login-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-link-forgot {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--blue-600);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.login-link-forgot:hover {
+  color: var(--blue-800);
+}
+
+/* Input Fields */
+.login-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-input-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 1rem;
+  color: var(--gray-400);
+  pointer-events: none;
+}
+
+.login-input-box input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-200);
+  background: var(--gray-50);
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--gray-900);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.login-input-box input:focus {
+  border-color: var(--blue-500);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Keep device option */
+.login-options {
+  display: flex;
+  align-items: center;
+}
+
+.login-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--gray-600);
+  cursor: pointer;
+  user-select: none;
+}
+
+.login-checkbox input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--blue-600);
+  cursor: pointer;
+}
+
+/* Submit Action */
+.login-button {
+  background: var(--blue-600);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 13px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+.login-button:hover {
+  background: var(--blue-700);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
+}
+
+.login-button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+/* Custom Alert Feedback */
+.login-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  color: #e53e3e;
+}
+
+.login-alert-text {
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* Footer note */
+.login-footer {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--gray-500);
+  line-height: 1.4;
+  border-top: 1px dashed var(--gray-200);
+  padding-top: 20px;
+}
+
+/* Loading Spin Animation */
+.login-spin-loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: login-spin 0.6s linear infinite;
+}
+
+@keyframes login-spin {
+  to { transform: rotate(360deg); }
+}
