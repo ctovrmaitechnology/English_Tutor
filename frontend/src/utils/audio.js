@@ -9,8 +9,8 @@ export const playBase64Audio = (base64String, mimeType = 'audio/wav') => {
 };
 
 // Record audio from microphone
-export const startRecording = async () => {
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+export const startRecording = async (existingStream = null) => {
+  const stream = existingStream || await navigator.mediaDevices.getUserMedia({ audio: true });
   const mediaRecorder = new MediaRecorder(stream);
   const chunks = [];
 
@@ -24,7 +24,9 @@ export const startRecording = async () => {
     stop: () => new Promise((resolve) => {
       mediaRecorder.onstop = () => {
         const blob = new Blob(chunks, { type: 'audio/wav' });
-        stream.getTracks().forEach(t => t.stop());
+        if (!existingStream) {
+          stream.getTracks().forEach(t => t.stop());
+        }
         resolve(blob);
       };
       mediaRecorder.stop();

@@ -106,28 +106,20 @@ export default function ChatWidget() {
     try {
       const audioBlob = await recorderRef.current.stop();
       const formData  = blobToFormData(audioBlob);
+      const audioUrl  = URL.createObjectURL(audioBlob);
 
-      // Show recording indicator
+      // Show voice message bubble immediately
       setMessages(prev => [...prev, {
         role: 'user',
-        text: '🎤 (voice message)',
+        text: '🎤 Voice Message',
         isVoice: true,
+        audioUrl: audioUrl,
       }]);
 
       CompanionEvents.emit('AI_SPEAKING_START');
 
       const res = await chatService.sendVoice(formData);
       const data = res.data;
-
-      // Update the voice message with actual transcript
-      setMessages(prev => {
-        const updated = [...prev];
-        const lastUserMsg = updated.findLastIndex(m => m.role === 'user');
-        if (lastUserMsg !== -1) {
-          updated[lastUserMsg] = { role: 'user', text: data.userText };
-        }
-        return updated;
-      });
 
       // Add AI response
       setMessages(prev => [...prev, {
@@ -239,6 +231,20 @@ export default function ChatWidget() {
                     >
                       <Volume2 size={12} />
                       {isPlaying ? 'Playing...' : 'Listen'}
+                    </button>
+                  )}
+
+                  {/* Replay audio button for user voice messages */}
+                  {msg.role === 'user' && msg.isVoice && msg.audioUrl && (
+                    <button
+                      className="cw-replay-btn"
+                      onClick={() => {
+                        const audio = new Audio(msg.audioUrl);
+                        audio.play().catch(err => console.error('Error playing user voice audio:', err));
+                      }}
+                    >
+                      <Volume2 size={12} />
+                      Listen
                     </button>
                   )}
                 </div>

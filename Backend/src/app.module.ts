@@ -7,6 +7,7 @@ import { GeminiModule } from './modules/gemini/gemini.module';
 import { VoiceModule } from './modules/voice/voice.module';
 import { GamesModule } from './modules/games/games.module';
 import { ChatModule } from './modules/chat/chat.module';
+import { AssessmentModule } from './modules/assessment/assessment.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ChatModule } from './modules/chat/chat.module';
     VoiceModule,
     GamesModule,
     ChatModule,
+    AssessmentModule,
   ],
 })
 export class AppModule {}

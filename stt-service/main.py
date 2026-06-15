@@ -1,8 +1,12 @@
+import os
+os.environ["MKL_DISABLE_FAST_MM"] = "1"
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from faster_whisper import WhisperModel
 import tempfile
-import os
 
 app = FastAPI(title="STT Service", version="1.0.0")
 
@@ -15,8 +19,8 @@ app.add_middleware(
 
 # Load model once at startup
 print("Loading Whisper model...")
-model = WhisperModel("base.en", device="cpu", compute_type="int8")
-print("Whisper model ready ✅")
+model = WhisperModel("tiny.en", device="cpu", compute_type="int8", cpu_threads=2)
+print("Whisper model ready")
 
 
 @app.post("/transcribe")
@@ -37,7 +41,7 @@ async def transcribe(audio: UploadFile = File(...)):
         segments, info = model.transcribe(
             tmp_path,
             language="en",
-            beam_size=5,
+            beam_size=1,
             vad_filter=True,
             vad_parameters=dict(min_silence_duration_ms=500),
         )
@@ -57,7 +61,7 @@ async def transcribe(audio: UploadFile = File(...)):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "model": "faster-whisper base.en"}
+    return {"status": "ok", "model": "faster-whisper tiny.en"}
 
 
 if __name__ == "__main__":

@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchFromCDN } from '../utils/cdn';
+import api from '../services/api';
 import './Overview.css';
+import './Assessment.css';
 import { 
   Clock, 
   BookOpen, 
@@ -20,11 +22,13 @@ import {
   Activity,
   Sliders,
   ChevronDown,
-  UserCheck
+  UserCheck,
+  X,
+  Printer
 } from 'lucide-react';
 import { CompanionEvents } from '../components';
 
-export default function Overview() {
+export default function Overview({ user: currentUser, onNavigate }) {
   const [activeView, setActiveView] = useState('overview'); // 'overview', 'assessment', 'progress'
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -40,6 +44,75 @@ export default function Overview() {
     queryKey: ['overviewData'],
     queryFn: () => fetchFromCDN('mock-data/overview.json'),
   });
+
+  // Fetch real assessment status
+  const { data: assessmentStatus } = useQuery({
+    queryKey: ['assessmentStatus'],
+    queryFn: async () => {
+      const res = await api.get('/assessment/status');
+      return res.data;
+    }
+  });
+
+  // Calculate real Overall Score and Progress
+  let overallScore = 78; // default mock
+  let isRealScore = false;
+  let progressVal = 78; // default mock
+
+  if (assessmentStatus) {
+    const hasSpCert = !!assessmentStatus.speakingCertificate;
+    const hasWrCert = !!assessmentStatus.writingCertificate;
+    const spCertScore = assessmentStatus.speakingCertificate?.score || 0;
+    const wrCertScore = assessmentStatus.writingCertificate?.score || 0;
+    
+    if (hasSpCert && hasWrCert) {
+      overallScore = Math.round((spCertScore + wrCertScore) / 2);
+      isRealScore = true;
+    } else if (hasSpCert) {
+      overallScore = spCertScore;
+      isRealScore = true;
+    } else if (hasWrCert) {
+      overallScore = wrCertScore;
+      isRealScore = true;
+    } else {
+      // Average of attempt scores
+      const sp = assessmentStatus.speaking?.scores || {};
+      const wr = assessmentStatus.writing?.scores || {};
+      const attempts = [
+        sp.beginner, sp.intermediate, sp.advanced,
+        wr.beginner, wr.intermediate, wr.advanced
+      ].filter(s => s !== null && s !== undefined);
+      
+      if (attempts.length > 0) {
+        overallScore = Math.round(attempts.reduce((a, b) => a + b, 0) / attempts.length);
+        isRealScore = true;
+      }
+    }
+
+    if (assessmentStatus.overallProgress !== undefined) {
+      progressVal = assessmentStatus.overallProgress;
+    }
+  }
+
+  // Calculate real Speaking and Writing percentages
+  const realSpeakingScore = assessmentStatus?.speaking?.passingScore || 
+    (assessmentStatus?.speaking?.scores ? 
+      (Object.values(assessmentStatus.speaking.scores).filter(s => s !== null).length > 0 ?
+        Math.round(Object.values(assessmentStatus.speaking.scores).filter(s => s !== null).reduce((a, b) => a + b, 0) / 
+        Object.values(assessmentStatus.speaking.scores).filter(s => s !== null).length) 
+        : 0)
+      : 0);
+
+  const realWritingScore = assessmentStatus?.writing?.passingScore || 
+    (assessmentStatus?.writing?.scores ? 
+      (Object.values(assessmentStatus.writing.scores).filter(s => s !== null).length > 0 ?
+        Math.round(Object.values(assessmentStatus.writing.scores).filter(s => s !== null).reduce((a, b) => a + b, 0) / 
+        Object.values(assessmentStatus.writing.scores).filter(s => s !== null).length) 
+        : 0)
+      : 0);
+
+  const speakingPercentage = realSpeakingScore || 76;
+  const writingPercentage = realWritingScore || 72;
 
   const simulatedSpeeches = data?.simulatedSpeeches || [
     "Thank you for calling Customer Care. My name is Priya...",
@@ -144,6 +217,7 @@ export default function Overview() {
   }
 
   const user = data?.user || { name: 'Priya', level: 'B2 Level', streak: 4, dailyGoal: { completed: 20, target: 30, percentage: 66.7 } };
+  const name = currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : user.name;
   const stats = data?.stats || [];
   const skills = data?.skills || [];
   const dailyInsight = data?.dailyInsight || '';
@@ -188,7 +262,7 @@ export default function Overview() {
                 <span className="item-icon">👨‍💼</span>
                 <div className="item-meta">
                   <span className="item-label">Overview</span>
-                  <span className="item-sub">AK Sharma overall score & status</span>
+                  <span className="item-sub">{name} overall score & status</span>
                 </div>
               </button>
 
@@ -229,7 +303,7 @@ export default function Overview() {
               </div>
               <div className="ov-profile-info">
                 <span className="ov-welcome-tag">👋 Welcome back,</span>
-                <h2>AK Sharma</h2>
+                <h2>{name}</h2>
                 <p className="ov-designation">Customer Support Associate</p>
               </div>
             </div>
@@ -250,10 +324,12 @@ export default function Overview() {
             <div className="summary-card">
               <span className="card-label-gray">Overall Score</span>
               <div className="score-main-row">
-                <span className="score-big">78</span>
+                <span className="score-big">{overallScore}</span>
                 <span className="score-denominator">/100</span>
               </div>
-              <span className="score-trend-up">↑ +7 points from last cycle</span>
+              <span className="score-trend-up">
+                {isRealScore ? (assessmentStatus?.speakingCertificate || assessmentStatus?.writingCertificate ? '✅ Certified Overall Score' : '📈 Real-time Assessment Average') : '↑ +7 points from last cycle'}
+              </span>
             </div>
 
             <div className="summary-card">
@@ -267,13 +343,159 @@ export default function Overview() {
             <div className="summary-card">
               <span className="card-label-gray">Progress</span>
               <div className="score-main-row">
-                <span className="score-big">78%</span>
+                <span className="score-big">{progressVal}%</span>
               </div>
               <div className="db-progress-bar-wrap">
-                <div className="db-progress-bar-fill" style={{ width: '78%' }} />
+                <div className="db-progress-bar-fill" style={{ width: `${progressVal}%` }} />
               </div>
             </div>
           </section>
+
+          {/* Certificate Banner Section */}
+          {assessmentStatus && (assessmentStatus.speakingCertificate || assessmentStatus.writingCertificate) && (
+            <section className="ov-certificates-section" style={{
+              background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+              border: '1.5px dashed #22c55e',
+              borderRadius: '16px',
+              padding: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
+              boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '24px' }}>🏆</span>
+                <div>
+                  <h3 style={{ margin: 0, color: '#14532d', fontSize: '18px', fontWeight: 700 }}>
+                    Earned Certificates
+                  </h3>
+                  <p style={{ margin: '2px 0 0', color: '#166534', fontSize: '14px' }}>
+                    Congratulations! You have successfully certified in the following communication modules.
+                  </p>
+                </div>
+              </div>
+              
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '8px' }}>
+                {assessmentStatus.speakingCertificate && (
+                  <div 
+                    onClick={() => onNavigate('modules')}
+                    onMouseOver={e => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 6px 12px rgba(34, 197, 94, 0.12)';
+                      e.currentTarget.style.borderColor = '#4ade80';
+                    }}
+                    onMouseOut={e => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+                      e.currentTarget.style.borderColor = '#bbf7d0';
+                    }}
+                    style={{
+                      background: '#fff',
+                      border: '1px solid #bbf7d0',
+                      borderRadius: '12px',
+                      padding: '14px 18px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      flex: '1 1 280px',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <div>
+                      <h4 style={{ margin: 0, fontSize: '15px', color: '#1f2937', fontWeight: 600 }}>
+                        🎙️ Speaking Certificate
+                      </h4>
+                      <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#6b7280' }}>
+                        Score: <strong style={{ color: '#166534' }}>{assessmentStatus.speakingCertificate.score}%</strong> • {new Date(assessmentStatus.speakingCertificate.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onNavigate('modules');
+                      }}
+                      style={{
+                        background: '#22c55e',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '8px 14px',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'background 0.2s'
+                      }}
+                      onMouseOver={e => e.currentTarget.style.background = '#16a34a'}
+                      onMouseOut={e => e.currentTarget.style.background = '#22c55e'}
+                    >
+                      View 🎓
+                    </button>
+                  </div>
+                )}
+                
+                {assessmentStatus.writingCertificate && (
+                  <div 
+                    onClick={() => onNavigate('modules')}
+                    onMouseOver={e => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 6px 12px rgba(34, 197, 94, 0.12)';
+                      e.currentTarget.style.borderColor = '#4ade80';
+                    }}
+                    onMouseOut={e => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+                      e.currentTarget.style.borderColor = '#bbf7d0';
+                    }}
+                    style={{
+                      background: '#fff',
+                      border: '1px solid #bbf7d0',
+                      borderRadius: '12px',
+                      padding: '14px 18px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      flex: '1 1 280px',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <div>
+                      <h4 style={{ margin: 0, fontSize: '15px', color: '#1f2937', fontWeight: 600 }}>
+                        ✍️ Writing Certificate
+                      </h4>
+                      <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#6b7280' }}>
+                        Score: <strong style={{ color: '#166534' }}>{assessmentStatus.writingCertificate.score}%</strong> • {new Date(assessmentStatus.writingCertificate.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onNavigate('modules');
+                      }}
+                      style={{
+                        background: '#22c55e',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '8px 14px',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'background 0.2s'
+                      }}
+                      onMouseOver={e => e.currentTarget.style.background = '#16a34a'}
+                      onMouseOut={e => e.currentTarget.style.background = '#22c55e'}
+                    >
+                      View 🎓
+                    </button>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
 
           {/* Strengths & Let's Improve Grid */}
           <div className="ov-split-section">
@@ -329,9 +551,9 @@ export default function Overview() {
                     <span className="ar-row-label">Speaking</span>
                   </div>
                   <div className="ar-bar-container">
-                    <div className="ar-bar-fill fill-purple" style={{ width: '76%' }} />
-                    <span className="ar-score-text">38 / 50</span>
-                    <span className="ar-percentage-text">76%</span>
+                    <div className="ar-bar-fill fill-purple" style={{ width: `${speakingPercentage}%` }} />
+                    <span className="ar-score-text">{Math.round(speakingPercentage * 0.5)} / 50</span>
+                    <span className="ar-percentage-text">{speakingPercentage}%</span>
                   </div>
                 </div>
 
@@ -341,9 +563,9 @@ export default function Overview() {
                     <span className="ar-row-label">Listening</span>
                   </div>
                   <div className="ar-bar-container">
-                    <div className="ar-bar-fill fill-blue" style={{ width: '76%' }} />
-                    <span className="ar-score-text">19 / 25</span>
-                    <span className="ar-percentage-text">76%</span>
+                    <div className="ar-bar-fill fill-blue" style={{ width: `${speakingPercentage}%` }} />
+                    <span className="ar-score-text">{Math.round(speakingPercentage * 0.25)} / 25</span>
+                    <span className="ar-percentage-text">{speakingPercentage}%</span>
                   </div>
                 </div>
 
@@ -353,9 +575,9 @@ export default function Overview() {
                     <span className="ar-row-label">Writing</span>
                   </div>
                   <div className="ar-bar-container">
-                    <div className="ar-bar-fill fill-emerald" style={{ width: '72%' }} />
-                    <span className="ar-score-text">18 / 25</span>
-                    <span className="ar-percentage-text">72%</span>
+                    <div className="ar-bar-fill fill-emerald" style={{ width: `${writingPercentage}%` }} />
+                    <span className="ar-score-text">{Math.round(writingPercentage * 0.25)} / 25</span>
+                    <span className="ar-percentage-text">{writingPercentage}%</span>
                   </div>
                 </div>
 
@@ -395,8 +617,8 @@ export default function Overview() {
               <div className="ar-chart-bar-container">
                 <div className="ar-chart-bar-item">
                   <div className="ar-chart-bar-track">
-                    <div className="ar-chart-bar-fill chart-fill-purple" style={{ height: '76%' }}>
-                      <span className="chart-val">76%</span>
+                    <div className="ar-chart-bar-fill chart-fill-purple" style={{ height: `${speakingPercentage}%` }}>
+                      <span className="chart-val">{speakingPercentage}%</span>
                     </div>
                   </div>
                   <span className="ar-chart-label">Speaking</span>
@@ -404,8 +626,8 @@ export default function Overview() {
 
                 <div className="ar-chart-bar-item">
                   <div className="ar-chart-bar-track">
-                    <div className="ar-chart-bar-fill chart-fill-blue" style={{ height: '76%' }}>
-                      <span className="chart-val">76%</span>
+                    <div className="ar-chart-bar-fill chart-fill-blue" style={{ height: `${speakingPercentage}%` }}>
+                      <span className="chart-val">{speakingPercentage}%</span>
                     </div>
                   </div>
                   <span className="ar-chart-label">Listening</span>
@@ -413,8 +635,8 @@ export default function Overview() {
 
                 <div className="ar-chart-bar-item">
                   <div className="ar-chart-bar-track">
-                    <div className="ar-chart-bar-fill chart-fill-emerald" style={{ height: '72%' }}>
-                      <span className="chart-val">72%</span>
+                    <div className="ar-chart-bar-fill chart-fill-emerald" style={{ height: `${writingPercentage}%` }}>
+                      <span className="chart-val">{writingPercentage}%</span>
                     </div>
                   </div>
                   <span className="ar-chart-label">Writing</span>

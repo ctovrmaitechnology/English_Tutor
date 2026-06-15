@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from kokoro import KPipeline
@@ -15,21 +15,41 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-print("Loading Kokoro American English pipeline...")
-pipeline_american = KPipeline(lang_code='a')
+pipeline_american = None
+pipeline_british = None
 
-print("Loading Kokoro British English pipeline...")
-pipeline_british = KPipeline(lang_code='b')
+try:
+    print("Loading Kokoro American English pipeline...")
+    pipeline_american = KPipeline(lang_code='a')
+except Exception as e:
+    print(f"Warning: Failed to load American English pipeline at startup: {e}")
 
-print("✅ Kokoro TTS ready!")
+print("Kokoro TTS ready!")
 
 BRITISH_VOICES = {'bf_emma', 'bf_isabella', 'bm_george', 'bm_lewis'}
 
 def get_pipeline(voice: str):
-    return pipeline_british if voice in BRITISH_VOICES else pipeline_american
+    global pipeline_american, pipeline_british
+    if voice in BRITISH_VOICES:
+        if pipeline_british is None:
+            try:
+                print("Loading Kokoro British English pipeline...")
+                pipeline_british = KPipeline(lang_code='b')
+            except Exception as e:
+                print(f"Warning: Failed to load British English pipeline ({e}). Falling back to American G2P.")
+                if pipeline_american is None:
+                    print("Loading Kokoro American English pipeline...")
+                    pipeline_american = KPipeline(lang_code='a')
+                return pipeline_american
+        return pipeline_british
+    else:
+        if pipeline_american is None:
+            print("Loading Kokoro American English pipeline...")
+            pipeline_american = KPipeline(lang_code='a')
+        return pipeline_american
 
 @app.post("/synthesize")
-async def synthesize(payload: dict):
+def synthesize(payload: dict):
     text  = payload.get("text", "").strip()
     voice = payload.get("voice", "af_bella")
     speed = float(payload.get("speed", 1.1))

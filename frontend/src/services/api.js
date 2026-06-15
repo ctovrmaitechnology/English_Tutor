@@ -24,6 +24,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('buddy_token');
       localStorage.removeItem('buddy_user');
+      localStorage.removeItem('vrm_remember_me'); // <-- clear remember me flag
       window.location.reload();
     }
     return Promise.reject(error);

@@ -341,3 +341,141 @@ VITE_CLOUDFRONT_URL=https://your-cf-distribution.cloudfront.net
 3. **CORS** — Ensure CORS is enabled for the frontend origin (e.g., `https://your-frontend.cloudfront.net`).
 4. **The `type` field in quests** must be one of: `"completed"`, `"active"`, `"locked"`.
 5. **Badge `unlocked` field** is a boolean — `true` shows the badge as earned, `false` shows "CLICK TO UNLOCK".
+
+
+
+
+
+
+# Speaking Assessment — Bug Analysis & Fix
+
+## What Was Broken
+
+The speaking assessment had a **missing link** between the STT service and the scoring engine.
+
+### The Existing Flow (Broken)
+```
+GET  /assessment/questions/speaking/BEGINNER
+  → Returns 5 passages with empty options[] array ✅
+
+POST /assessment/submit/speaking/BEGINNER  { answers: { uuid: NUMBER } }
+  → Grades each answer: isCorrect = (NUMBER >= 70) ✅ — logic is correct!
+
+❌ MISSING: Nothing converts "user reads a passage" → "a NUMBER to submit"
+```
+
+### Root Cause
+The `AssessmentController` had no endpoint that:
+1. Accepted audio from the user reading a passage
+2. Called the Whisper STT service
+3. Computed how closely the transcript matched the expected passage
+4. Returned a similarity score (0–100) to use as the answer
+
+The `VoiceService` (with full STT/TTS wiring) existed — but was **never injected** into `AssessmentService`.
+
+---
+
+## The Fix — 3 Files Changed
+
+### 1. `assessment.module.ts` — Import VoiceModule
+```typescript
+// BEFORE
+imports: [TypeOrmModule.forFeature([...]), GeminiModule]
+
+// AFTER  
+imports: [TypeOrmModule.forFeature([...]), GeminiModule, VoiceModule]
+```
+
+### 2. `assessment.service.ts` — Add `transcribeSpeakingPassage` method
+- Inject `VoiceService` into the constructor
+- New method: takes `(questionId, audioBuffer)` → returns `{ similarityScore, transcript, feedback }`
+- Scoring uses **word-level F1** (precision × recall harmonic mean) on normalized tokens
+- Same metric as SQuAD reading comprehension benchmarks — robust to minor word reordering
+
+### 3. `assessment.controller.ts` — Add new endpoint
+```
+POST /assessment/speaking/transcribe/:questionId
+  Content-Type: multipart/form-data
+  Body: audio (binary file)
+  
+  Returns:
+    questionId      : string
+    passage         : string   (expected text)
+    transcript      : string   (what Whisper heard)
+    similarityScore : number   (0–100)
+    passed          : boolean  (score >= 70)
+    feedback        : string   (human-readable with tip)
+```
+
+---
+
+## Scoring Logic
+
+### How similarity is computed
+```
+normalize(text) = lowercase → strip punctuation → split on whitespace
+
+F1 = 2 * precision * recall / (precision + recall)
+
+precision = (words user said that are in passage) / (total words user said)
+recall    = (passage words covered by user)        / (total passage words)
+
+similarityScore = round(F1 * 100)   → 0 to 100
+```
+
+**Why F1 and not Levenshtein / edit-distance?**
+- Edit distance is character-level → unfairly penalizes word reordering
+- F1 on word tokens handles natural speech variation gracefully
+- A score of 70 ≈ "70% of passage words spoken correctly" — fair beginner threshold
+
+### Passing thresholds (unchanged from original service)
+| Level        | Must pass | Meaning                          |
+|-------------|-----------|----------------------------------|
+| BEGINNER    | 85%       | 5/5 passages OR 4/5 at high scores |
+| INTERMEDIATE| 80%       | 4–5/5 passages                   |
+| ADVANCED    | 75%       | ~4/5 passages                    |
+
+A passage is "correct" if `similarityScore >= 70`.
+
+---
+
+## Complete API Flow (BEGINNER Speaking)
+
+```
+① GET  /assessment/questions/speaking/BEGINNER
+   → { id, questionText, explanation }[5]
+
+② For each of the 5 passages:
+   POST /assessment/speaking/transcribe/:questionId
+   Body: multipart/form-data  →  audio field (WAV/WEBM/MP3)
+   ← { similarityScore, transcript, passed, feedback }
+
+③ POST /assessment/submit/speaking/BEGINNER
+   Body: { answers: { "uuid1": 85, "uuid2": 72, "uuid3": 45, ... } }
+   ← { score, percentage, passed, details[] }
+```
+
+---
+
+## Session ID vs Question ID
+
+The `LessonQuestion` entity uses `sessionId` (e.g. `"sp-1-1"`) for **lesson practice** prompts.
+The `AssessmentQuestion` entity uses UUID `id` for **assessment** passages.
+
+These are two separate flows:
+- **Lesson**: `GET /assessment/lesson-question/sp-1-1` → user practices, no grading
+- **Assessment**: `GET /assessment/questions/speaking/BEGINNER` → 5 questions with UUIDs → must score ≥ 85% to pass
+
+---
+
+## Files in this fix
+
+```
+speaking-assessment-fix/
+├── src/modules/assessment/
+│   ├── assessment.controller.ts         ← complete updated file (drop-in replace)
+│   ├── assessment.module.ts             ← adds VoiceModule import
+│   ├── assessment.service.diff.ts       ← annotated diff of what to add to service
+│   └── assessment.controller.patch.ts   ← standalone patch notes
+└── frontend-speaking-flow.ts            ← end-to-end TypeScript usage example
+```

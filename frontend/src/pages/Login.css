@@ -226,3 +226,124 @@
 @keyframes login-spin {
   to { transform: rotate(360deg); }
 }
+
+/* ===== Registration Flow Extensions ===== */
+.login-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 480px) {
+  .login-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.login-label-hint {
+  font-size: 0.72rem;
+  font-weight: normal;
+  color: var(--gray-400);
+  margin-left: 4px;
+}
+
+.login-success-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  color: #16a34a;
+}
+
+.companion-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+@media (max-width: 400px) {
+  .companion-selector {
+    grid-template-columns: 1fr;
+  }
+}
+
+.companion-select-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid var(--gray-200);
+  background: var(--gray-50);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.companion-select-card:hover:not(:disabled) {
+  border-color: var(--blue-300);
+  background: var(--blue-50);
+}
+
+.companion-select-card.active {
+  border-color: var(--blue-600);
+  background: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.companion-select-card:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.companion-emoji {
+  font-size: 1.5rem;
+}
+
+.companion-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.companion-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.companion-desc {
+  font-size: 0.7rem;
+  color: var(--gray-500);
+}
+
+.login-toggle-mode {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--gray-500);
+  margin-top: 16px;
+}
+
+.login-toggle-link {
+  background: none;
+  border: none;
+  color: var(--blue-600);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 4px;
+  font-size: inherit;
+  font-family: inherit;
+  transition: color 0.15s ease;
+}
+
+.login-toggle-link:hover {
+  color: var(--blue-800);
+  text-decoration: underline;
+}
+

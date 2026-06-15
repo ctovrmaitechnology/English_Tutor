@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import CompanionEvents from './CompanionEvents';
+import api from '../../services/api';
 
 // Mapped speech databases for standard events
 const SPEECH_DB = {
@@ -124,6 +125,7 @@ export function useCompanionState() {
 
   const lastStateTimeRef = useRef(Date.now());
   const bubbleTimeoutRef = useRef(null);
+  const companionAudioRef = useRef(null);
 
   // Trigger state changes and speak corresponding messages (for dashboard mode)
   const triggerState = useCallback((newState, forceSpeech = null) => {
@@ -156,16 +158,12 @@ export function useCompanionState() {
     }
   }, []);
 
-  // Text-to-speech voice execution
-  const speakResponse = useCallback((text) => {
+  // Text-to-speech fallback execution using browser speech synthesis
+  const fallbackSpeakResponse = useCallback((text) => {
     if (!window.speechSynthesis) return;
 
-    // Cancel any active speech
     window.speechSynthesis.cancel();
-
     const utterance = new SpeechSynthesisUtterance(text);
-
-    // Pick a premium English voice if available
     const voices = window.speechSynthesis.getVoices();
     const enVoice = voices.find(v => v.lang.startsWith('en-US')) || 
                     voices.find(v => v.lang.startsWith('en')) || 
@@ -191,6 +189,60 @@ export function useCompanionState() {
 
     window.speechSynthesis.speak(utterance);
   }, []);
+
+  // Text-to-speech execution using backend Kokoro service
+  const speakResponse = useCallback(async (text) => {
+    // Cancel any active speech playback
+    if (companionAudioRef.current) {
+      companionAudioRef.current.pause();
+      companionAudioRef.current = null;
+    }
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+
+    setState('ai_talking');
+    setSubtitles(text);
+
+    try {
+      const response = await api.post('/voice/synthesize', {
+        text,
+        voice: 'bf_emma', // Standard warm British voice for VRM buddy
+        speed: 1.1
+      }, {
+        responseType: 'blob'
+      });
+
+      const audioUrl = URL.createObjectURL(response.data);
+      const audio = new Audio(audioUrl);
+      companionAudioRef.current = audio;
+
+      audio.onplay = () => {
+        setState('ai_talking');
+        setSubtitles(text);
+      };
+
+      audio.onended = () => {
+        setState('idle');
+        setSubtitles('');
+        companionAudioRef.current = null;
+        URL.revokeObjectURL(audioUrl);
+      };
+
+      audio.onerror = () => {
+        setState('idle');
+        setSubtitles('');
+        companionAudioRef.current = null;
+        URL.revokeObjectURL(audioUrl);
+        fallbackSpeakResponse(text);
+      };
+
+      await audio.play();
+    } catch (err) {
+      console.error('Failed to play companion TTS from backend:', err);
+      fallbackSpeakResponse(text);
+    }
+  }, [fallbackSpeakResponse]);
 
   // Send message flow (called by text input or speech-to-text results)
   const sendChatMessage = useCallback((text) => {
@@ -369,15 +421,28 @@ export function useCompanionState() {
     };
   }, [triggerState, isExpanded]);
 
-  // Stop active speech or recording when collapsing chat mode
+  // Stop active speech or recording when collapsing chat mode or unmounting
   useEffect(() => {
     if (!isExpanded) {
+      if (companionAudioRef.current) {
+        companionAudioRef.current.pause();
+        companionAudioRef.current = null;
+      }
       if (window.speechSynthesis) {
         window.speechSynthesis.cancel();
       }
       setSubtitles('');
       setState('idle');
     }
+    return () => {
+      if (companionAudioRef.current) {
+        companionAudioRef.current.pause();
+        companionAudioRef.current = null;
+      }
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
   }, [isExpanded]);
 
   return {

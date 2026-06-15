@@ -2,6 +2,7 @@ import {
   Injectable,
   ConflictException,
   UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -55,34 +56,52 @@ export class AuthService {
     };
   }
 
-async login(loginDto: LoginDto) {
-  const user = await this.userRepository
-    .createQueryBuilder('user')
-    .addSelect('user.password_hash')        // ← explicitly load it
-    .where('user.username = :username', { username: loginDto.username })
-    .getOne();
+  async login(loginDto: LoginDto) {
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password_hash')        // ← explicitly load it
+      .where('user.username = :username', { username: loginDto.username })
+      .getOne();
 
-  if (!user || !user.is_active) {
-    throw new UnauthorizedException('Invalid credentials');
+    if (!user || !user.is_active) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const isValid = await bcrypt.compare(
+      loginDto.password,
+      user.password_hash,
+    );
+
+    if (!isValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const payload = {
+      sub: user.id,
+      username: user.username,
+      character: user.character,
+    };
+
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
-  const isValid = await bcrypt.compare(
-    loginDto.password,
-    user.password_hash,
-  );
-
-  if (!isValid) {
-    throw new UnauthorizedException('Invalid credentials');
+  async getProfile(userId: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId, is_active: true },
+    });
+    if (!user) {
+      throw new NotFoundException('User profile not found');
+    }
+    return {
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      username: user.username,
+      email: user.email,
+      character: user.character,
+      phone: user.phone,
+    };
   }
-
-  const payload = {
-    sub: user.id,
-    username: user.username,
-    character: user.character,
-  };
-
-  return {
-    access_token: this.jwtService.sign(payload),
-  };
-}
 }

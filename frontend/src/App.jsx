@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, lazy, Suspense } from 'react';
 import { Sidebar, CompanionEvents } from './components';
+import api from './services/api';
 
 // Lazy load page views to minimize the initial JS chunk size
 const Login      = lazy(() => import('./pages/Login'));
@@ -38,14 +39,33 @@ function PageSkeleton() {
 }
 
 /**
- * App Component — main shell of LingoCoach AI dashboard.
+ * App Component — main shell of VRM Buddy AI dashboard.
  */
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem('lingocoach_remember_me') === 'true';
+    return localStorage.getItem('vrm_remember_me') === 'true';
   });
 
   const [activePage, setActivePage] = useState('overview');
+  const [isAssessmentRunning, setIsAssessmentRunning] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const fetchCurrentUser = useCallback(async () => {
+    try {
+      const response = await api.get('/auth/me');
+      setCurrentUser(response.data);
+    } catch (err) {
+      console.error('Failed to fetch user profile:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchCurrentUser();
+    } else {
+      setCurrentUser(null);
+    }
+  }, [isLoggedIn, fetchCurrentUser]);
 
   // Emit greeting event once user is logged in
   useEffect(() => {
@@ -60,6 +80,7 @@ export default function App() {
   // Navigate to a main page
   const handleNavigate = useCallback((page) => {
     setActivePage(page);
+    setIsAssessmentRunning(false);
     if (page === 'challenges') {
       CompanionEvents.emit('CHALLENGE_OPENED');
     } else if (page === 'profile') {
@@ -70,12 +91,12 @@ export default function App() {
   }, []);
 
   const handleLoginSuccess = useCallback((rememberMe) => {
-    if (rememberMe) localStorage.setItem('lingocoach_remember_me', 'true');
+    if (rememberMe) localStorage.setItem('vrm_remember_me', 'true');
     setIsLoggedIn(true);
   }, []);
 
   const handleLogout = useCallback(() => {
-    localStorage.removeItem('lingocoach_remember_me');
+    localStorage.removeItem('vrm_remember_me');
     setIsLoggedIn(false);
   }, []);
 
@@ -100,12 +121,12 @@ export default function App() {
 
 const renderActivePage = () => {
   switch (activePage) {
-    case 'overview':   return <Overview />;
-    case 'assessment': return <Assessment />;
-    case 'modules':    return <Modules />;     // ← add
-    case 'games':      return <GamesPage />;
-    case 'profile':    return <Profile />;
-    default:           return <Overview />;
+    case 'overview':   return <Overview user={currentUser} onNavigate={handleNavigate} />;
+    case 'assessment': return <Assessment onNavigate={handleNavigate} onAssessmentActiveChange={setIsAssessmentRunning} />;
+    case 'modules':    return <Modules onNavigate={handleNavigate} />;
+    case 'games':      return <GamesPage onNavigate={handleNavigate} />;
+    case 'profile':    return <Profile user={currentUser} onNavigate={handleNavigate} />;
+    default:           return <Overview user={currentUser} onNavigate={handleNavigate} />;
   }
 };
 
@@ -131,7 +152,7 @@ const renderActivePage = () => {
 
       {/* 3D Companion character — animations only, no chat */}
       <Suspense fallback={null}>
-        <Companion />
+        {!isAssessmentRunning && <Companion />}
       </Suspense>
 
       {/* AI Chat Widget — text + voice tutor (bottom right) */}

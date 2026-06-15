@@ -25,7 +25,7 @@ export class VoiceService {
 
       const response = await axios.post(`${this.sttUrl}/transcribe`, form, {
         headers: form.getHeaders(),
-        timeout: 30000,
+        timeout: 60000,
       });
 
       return response.data.transcript as string;
@@ -45,7 +45,7 @@ async synthesize(
       const response = await axios.post(
         `${this.ttsUrl}/synthesize`,
         { text, voice, speed },
-        { responseType: 'arraybuffer', timeout: 30000 },
+        { responseType: 'arraybuffer', timeout: 60000 },
       );
 
       return Buffer.from(response.data);

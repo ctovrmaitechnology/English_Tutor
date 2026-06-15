@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 import CompanionEvents from './CompanionEvents';
@@ -48,6 +48,68 @@ function TalkingAvatarModel() {
       action.stop();
     };
   }, [actions, names]);
+
+  // Clean up and reset morph targets when unmounting
+  useEffect(() => {
+    return () => {
+      if (!scene) return;
+      scene.traverse((child) => {
+        if (child.isMesh && child.morphTargetDictionary && child.morphTargetInfluences) {
+          const dict = child.morphTargetDictionary;
+          Object.keys(dict).forEach((key) => {
+            child.morphTargetInfluences[dict[key]] = 0;
+          });
+        }
+      });
+    };
+  }, [scene]);
+
+  // Animate mouth/lip targets dynamically to simulate talking
+  useFrame((state) => {
+    if (!scene) return;
+
+    const time = state.clock.getElapsedTime();
+    
+    // Generate a natural mouth open/close pattern
+    const mouthOpen = (Math.sin(time * 16) * 0.45 + 0.45) * (0.6 + Math.random() * 0.4);
+    const jawOpen = mouthOpen * 0.8;
+    const visemeAE = (Math.sin(time * 12) * 0.3 + 0.3) * mouthOpen;
+    const visemeO = (Math.cos(time * 10) * 0.3 + 0.3) * mouthOpen;
+
+    scene.traverse((child) => {
+      if (child.isMesh && child.morphTargetDictionary && child.morphTargetInfluences) {
+        const dict = child.morphTargetDictionary;
+        
+        // Ready Player Me and standard blendshape targets
+        if ('mouthOpen' in dict) {
+          child.morphTargetInfluences[dict['mouthOpen']] = mouthOpen;
+        }
+        if ('jawOpen' in dict) {
+          child.morphTargetInfluences[dict['jawOpen']] = jawOpen;
+        }
+        if ('mouthSmile' in dict) {
+          child.morphTargetInfluences[dict['mouthSmile']] = 0.15; // friendly smile
+        }
+
+        // Standard speech visemes
+        if ('viseme_aa' in dict) {
+          child.morphTargetInfluences[dict['viseme_aa']] = mouthOpen;
+        }
+        if ('viseme_O' in dict) {
+          child.morphTargetInfluences[dict['viseme_O']] = visemeO;
+        }
+        if ('viseme_E' in dict) {
+          child.morphTargetInfluences[dict['viseme_E']] = visemeAE;
+        }
+        if ('viseme_I' in dict) {
+          child.morphTargetInfluences[dict['viseme_I']] = visemeAE * 0.5;
+        }
+        if ('viseme_U' in dict) {
+          child.morphTargetInfluences[dict['viseme_U']] = visemeO * 0.5;
+        }
+      }
+    });
+  });
 
   return (
     <group ref={outerGroup} rotation={[0, 0, 0]}>

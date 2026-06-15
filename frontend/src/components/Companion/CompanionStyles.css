@@ -267,12 +267,28 @@
   border-radius: 18px;
   font-size: 0.95rem;
   line-height: 1.5;
+  white-space: pre-wrap;
   animation: messageFadeIn 0.3s ease-out forwards;
 }
 
 @keyframes messageFadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.panda-chat-message-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 6px;
+}
+
+.panda-chat-message-row--user {
+  align-items: flex-end;
+}
+
+.panda-chat-message-row--ai {
+  align-items: flex-start;
 }
 
 .panda-chat-bubble--user {

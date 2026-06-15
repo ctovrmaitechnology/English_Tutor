@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { CompanionEvents } from '../components';
 
-export default function Profile() {
+export default function Profile({ user: currentUser }) {
   // Fetch user profile and preferences using React Query
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['profileData'],
@@ -84,13 +84,13 @@ export default function Profile() {
     );
   }
 
-  const user = data?.user || {
-    name: "Priya Rajan",
-    title: "Voice Process Associate",
-    department: "Customer Support - Inbound Telecom",
-    email: "priya.rajan@company.com",
-    phone: "+91 98765 43210",
-    location: "Chennai, India"
+  const user = {
+    name: currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : (data?.user?.name || "Priya Rajan"),
+    title: data?.user?.title || "Voice Process Associate",
+    department: data?.user?.department || "Customer Support - Inbound Telecom",
+    email: currentUser?.email || data?.user?.email || "priya.rajan@company.com",
+    phone: currentUser?.phone || data?.user?.phone || "+91 98765 43210",
+    location: data?.user?.location || "Chennai, India"
   };
 
   const metrics = data?.metrics || {

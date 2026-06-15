@@ -93,9 +93,9 @@ export class GeminiService {
       } catch (err: any) {
         lastError = err;
 
-        if (this.isRateLimitError(err)) {
+        if (this.isRetryableError(err)) {
           this.logger.warn(
-            `⚠️  429 Rate limit → ${model} (key ${keyIndex + 1})`,
+            `⚠️  Transient error (retryable) → ${model} (key ${keyIndex + 1}): ${err?.message}`,
           );
           continue;
         }
@@ -169,8 +169,10 @@ export class GeminiService {
       } catch (err: any) {
         lastError = err;
 
-        if (this.isRateLimitError(err)) {
-          this.logger.warn(`⚠️  429 Chat → ${model} (key ${keyIndex + 1})`);
+        if (this.isRetryableError(err)) {
+          this.logger.warn(
+            `⚠️  Transient error (retryable chat) → ${model} (key ${keyIndex + 1}): ${err?.message}`,
+          );
           continue;
         }
         throw err;
@@ -218,16 +220,28 @@ export class GeminiService {
     return 2000;
   }
 
-  private isRateLimitError(error: any): boolean {
+  private isRetryableError(error: any): boolean {
+    const status = error?.status || error?.code || error?.status_code;
     const msg = (error?.message || '').toLowerCase();
+    
+    if (status === 429 || status === 503 || status === 500 || status === 408) {
+      return true;
+    }
+
     return (
-      error?.status === 429 ||
-      error?.code   === 429 ||
       msg.includes('429') ||
+      msg.includes('503') ||
+      msg.includes('500') ||
       msg.includes('resource_exhausted') ||
       msg.includes('quota exceeded') ||
       msg.includes('rate limit') ||
-      msg.includes('too many requests')
+      msg.includes('too many requests') ||
+      msg.includes('service unavailable') ||
+      msg.includes('high demand') ||
+      msg.includes('temporary') ||
+      msg.includes('try again later') ||
+      msg.includes('overloaded') ||
+      msg.includes('spikes in demand')
     );
   }
 
