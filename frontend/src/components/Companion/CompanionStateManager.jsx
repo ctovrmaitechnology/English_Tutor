@@ -399,6 +399,11 @@ export function useCompanionState() {
       setState(prev => (prev === 'hover_wave' || prev === 'hello' ? 'idle' : prev));
     });
 
+    const unsubTutorSession = CompanionEvents.on('OPEN_TUTOR_SESSION', () => {
+      setIsExpanded(true);
+      triggerState('ai_talking', "Let me explain this lesson for you!");
+    });
+
     return () => {
       unsubLogin();
       unsubReturn();
@@ -417,6 +422,7 @@ export function useCompanionState() {
       unsubAIEnd();
       unsubHighScore();
       unsubWaveFinished();
+      unsubTutorSession();
       if (bubbleTimeoutRef.current) clearTimeout(bubbleTimeoutRef.current);
     };
   }, [triggerState, isExpanded]);

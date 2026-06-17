@@ -1452,56 +1452,99 @@ Do not return any markdown wraps, explanation paragraphs, or characters outside 
   }
 
   async seedLessonQuestions() {
-    const existing = await this.lessonQuestionRepository.count();
-    if (existing > 0) return; // already seeded
+    // Delete existing speaking prompts so they get re-seeded with updated content
+    await this.lessonQuestionRepository.delete({ category: 'speaking' } as any);
+    const existingWriting = await this.lessonQuestionRepository.count();
+    // Only skip writing questions if they already exist
+    const skipWriting = existingWriting > 0;
 
     this.logger.log('Seeding lesson questions and prompts into tutor_lesson_questions...');
 
     const speakingPrompts = {
       'sp-1-1': {
         prompt: "Vowel Sounds Practice",
-        text: "Read the following vowel sounds aloud clearly:\n• /i:/ as in 'see'\n• /ɪ/ as in 'sit'\n• /æ/ as in 'cat'\n• /u:/ as in 'too'",
-        tip: "Focus on the difference between the long /i:/ sound and the short /ɪ/ sound."
+        text: "Please read this sentence aloud clearly:\n'I see a big cat and a blue shoe.'",
+        tip: "Say each word slowly. Focus on the vowel sounds: 'see', 'big', 'cat', 'blue', 'shoe'."
       },
       'sp-1-2': {
         prompt: "Consonant Sounds Practice",
-        text: "Read the following sentence aloud focusing on clear consonants:\n'The quick brown fox jumps over the lazy dog.'",
-        tip: "Make sure you articulate the 'th', 'v', and 'z' sounds clearly."
+        text: "Please read this sentence aloud clearly:\n'The dog and the cat sit on the mat.'",
+        tip: "Pronounce the 'th' in 'the' and the final consonants in each word clearly."
       },
       'sp-1-3': {
         prompt: "Word Stress Practice",
-        text: "Read the noun and verb stress difference aloud:\n• 'RE-cord' (noun) vs. 're-CORD' (verb)\n• 'PRE-sent' (noun) vs. 'pre-SENT' (verb)",
-        tip: "Stress the first syllable for nouns, and the second syllable for verbs."
+        text: "Please read this sentence aloud clearly:\n'I want to record a new record today.'",
+        tip: "RE-cord is a noun. re-CORD is a verb. Stress the first part for nouns."
       },
       'sp-1-4': {
         prompt: "Sentence Intonation Practice",
-        text: "Read the following sentences with correct intonation:\n1. 'Are you joining us today?' (Rising intonation)\n2. 'Where is the customer billing info?' (Falling intonation)",
-        tip: "Questions starting with helping verbs rise at the end; WH-questions fall."
+        text: "Please read this question aloud clearly:\n'Are you coming to the office today?'",
+        tip: "Your voice should go up at the end of a yes or no question."
       },
       'sp-2-1': {
         prompt: "Call Opening Practice",
-        text: "Read this professional BPO call opening greeting:\n'Thank you for calling RuralShores Customer Support. My name is Alex. How may I help you today?'",
-        tip: "Sound energetic, polite, and clear during the first 10 seconds."
+        text: "Please read this sentence aloud clearly:\n'Good morning. My name is Alex. How can I help you today?'",
+        tip: "Smile while you speak. It makes your voice sound warm and friendly."
       },
       'sp-2-2': {
         prompt: "Active Listening Practice",
-        text: "Say this active listening confirmation response:\n'I understand that you have not received your invoice yet, Mr. Smith. Let me search that for you in our system right now.'",
-        tip: "Acknowledge the customer's specific problem to show you are listening."
+        text: "Please read this sentence aloud clearly:\n'I understand your problem. I will help you fix it right now.'",
+        tip: "Speak with care and empathy. The customer should feel heard."
       },
       'sp-2-3': {
         prompt: "Objection Handling Practice",
-        text: "Read the following objection response:\n'I completely agree that the service fee is higher than expected. However, this includes our 24/7 premium technical support.'",
-        tip: "Use the 'Feel-Felt-Found' technique to validate and pivot."
+        text: "Please read this sentence aloud clearly:\n'I am sorry to hear that. Let me find the best solution for you.'",
+        tip: "Keep a calm and polite tone even when the customer is upset."
       },
       'sp-2-4': {
         prompt: "Call Closing Practice",
-        text: "Read this polite call closure statement:\n'It was a pleasure assisting you today. Thank you for choosing RuralShores. Have a wonderful day ahead!'",
-        tip: "Ensure you ask if they need anything else before saying goodbye."
+        text: "Please read this sentence aloud clearly:\n'Thank you for calling. Have a great day ahead!'",
+        tip: "End the call with energy and a smile. Leave the customer feeling good."
+      },
+      'sp-3-1': {
+        prompt: "Natural Speech Rhythm",
+        text: "Please read this sentence aloud clearly:\n'I go to work every day by bus.'",
+        tip: "Speak at a natural pace. Do not rush or pause too long between words."
+      },
+      'sp-3-2': {
+        prompt: "No Filler Words",
+        text: "Please read this sentence aloud clearly:\n'The meeting starts at nine in the morning.'",
+        tip: "Avoid saying 'um', 'uh', or 'like' between words. Speak directly."
+      },
+      'sp-3-3': {
+        prompt: "Speed and Clarity",
+        text: "Please read this sentence aloud clearly:\n'Please hold the line. I will check your account details.'",
+        tip: "Not too fast, not too slow. Every word should be clear and easy to understand."
+      },
+      'sp-3-4': {
+        prompt: "Accent Neutralization",
+        text: "Please read this sentence aloud clearly:\n'Water, butter, and better are common English words.'",
+        tip: "The letter T in the middle of words often sounds like a soft D in American English."
+      },
+      'sp-4-1': {
+        prompt: "Persuasive Language",
+        text: "Please read this sentence aloud clearly:\n'This plan will save you both time and money.'",
+        tip: "Stress the key benefit words: 'save', 'time', and 'money'."
+      },
+      'sp-4-2': {
+        prompt: "Negotiation Phrases",
+        text: "Please read this sentence aloud clearly:\n'Can we find a solution that works for both of us?'",
+        tip: "Use a warm and open tone. Negotiation should feel like a conversation."
+      },
+      'sp-4-3': {
+        prompt: "Escalation Handling",
+        text: "Please read this sentence aloud clearly:\n'I completely understand. I will escalate this to my supervisor right away.'",
+        tip: "Stay calm and confident. Your tone should reassure the customer."
+      },
+      'sp-4-4': {
+        prompt: "Empathy in Customer Service",
+        text: "Please read this sentence aloud clearly:\n'I am really sorry for the trouble. I will make sure this is resolved today.'",
+        tip: "Mean what you say. Empathy is felt in the tone, not just the words."
       },
       'default': {
-        prompt: "Speaking Exercise",
-        text: "Please read this sentence aloud:\n'Our main goal is to deliver high-quality, professional customer support at all times.'",
-        tip: "Keep a steady pace and speak with confidence."
+        prompt: "Speaking Practice",
+        text: "Please read this sentence aloud clearly:\n'Hello, I am happy to help you today.'",
+        tip: "Speak slowly and clearly. Make sure every word is easy to understand."
       }
     };
 
@@ -1587,7 +1630,7 @@ Do not return any markdown wraps, explanation paragraphs, or characters outside 
 
     const entities = [];
 
-    // Map speaking prompts
+    // Always re-seed speaking prompts (already deleted above)
     for (const [sectionId, val] of Object.entries(speakingPrompts)) {
       entities.push(
         this.lessonQuestionRepository.create({
@@ -1603,8 +1646,8 @@ Do not return any markdown wraps, explanation paragraphs, or characters outside 
       );
     }
 
-    // Map writing quizzes
-    for (const [sectionId, val] of Object.entries(writingQuizzes)) {
+    // Map writing quizzes — only add if they don't exist yet
+    if (!skipWriting) for (const [sectionId, val] of Object.entries(writingQuizzes)) {
       entities.push(
         this.lessonQuestionRepository.create({
           sectionId,

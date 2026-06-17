@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Fragment } from 'react';
 import { Send, Mic, MicOff, X, Volume2 } from 'lucide-react';
 import CompanionSpeechBubble from './CompanionSpeechBubble';
 import CompanionAnimations from './CompanionAnimations';
 import { useCompanionState } from './CompanionStateManager';
 import CompanionEvents from './CompanionEvents';
 import { chatService } from '../../services/chat.service';
+import api from '../../services/api';
 import { playBase64Audio, startRecording, blobToFormData } from '../../utils/audio';
 import './CompanionStyles.css';
 
@@ -52,7 +53,37 @@ function formatMessageLine(line) {
 }
 
 /**
+ * Renders a full multi-paragraph AI/user message as ONE single bubble.
+ * Each "\n"-separated paragraph keeps its own line break for readability,
+ * but visually and audio-wise it all belongs to one message/one Listen button.
+ */
+function formatMessageBlock(text) {
+  const paragraphs = text.split('\n').map(l => l.trim()).filter(Boolean);
+  return paragraphs.map((p, idx) => (
+    <Fragment key={idx}>{formatMessageLine(p)}</Fragment>
+  ));
+}
+
+/**
+ * Converts an audio Blob into a raw base64 string (no data: prefix),
+ * matching the format playBase64Audio() expects.
+ */
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result; // "data:audio/wav;base64,XXXX"
+      const base64 = result.split(',')[1] || '';
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+/**
  * Companion Component — Connected to real AI backend
+
  * Text + Voice chat with Gemini AI + TTS audio response
  */
 export default function Companion() {
@@ -84,6 +115,64 @@ export default function Companion() {
   const recorderRef   = useRef(null);
   const inputRef      = useRef(null);
   const micStreamRef  = useRef(null);
+
+  // Listen for lesson tutor session trigger — inject lesson-specific greeting
+  useEffect(() => {
+    const unsub = CompanionEvents.on('OPEN_TUTOR_SESSION', async (data) => {
+      const topic = data?.topic || 'this lesson';
+      const moduleTitle = data?.moduleTitle || 'the module';
+
+      const greetingText = `Hi there! I'm VRM Buddy, your personal AI tutor. Today we're going to reinforce what you learned in "${topic}" from ${moduleTitle}.\n\nFeel free to ask me anything — I can explain concepts, give examples, or quiz you further. Let's get started!`;
+      const greetingId = 'lesson-init';
+
+      // Reset chat with lesson-specific greeting (shown instantly, audio attached once ready)
+      setMessages([{
+        id: greetingId,
+        sender: 'ai',
+        text: `Hi there! 👋 I'm VRM Buddy, your personal AI tutor. Today we're going to reinforce what you learned in **"${topic}"** from **${moduleTitle}**.\n\nFeel free to ask me anything — I can explain concepts, give examples, or quiz you further. Let's get started!`,
+        audioBase64: null,
+      }]);
+
+      // Generate TTS for the greeting itself so it speaks too (not just AI replies)
+      let greetingAudioBase64 = null;
+      try {
+        const ttsRes = await api.post(
+          '/voice/synthesize',
+          { text: greetingText, voice: 'af_sarah', speed: 1.1 },
+          { responseType: 'blob' }
+        );
+        greetingAudioBase64 = await blobToBase64(ttsRes.data);
+        setMessages(prev => prev.map(m => m.id === greetingId ? { ...m, audioBase64: greetingAudioBase64 } : m));
+      } catch {
+        // TTS unavailable for greeting — text-only is still fine
+      }
+      if (greetingAudioBase64) {
+        try { await playBase64Audio(greetingAudioBase64); } catch {}
+      }
+
+      // Auto-send context to the real backend chat
+      try {
+        await chatService.clearHistory?.();
+        const res = await chatService.sendMessage(
+          `I just finished watching the lesson video and quiz on "${topic}" in "${moduleTitle}". Please give me one short, friendly, encouraging summary of this topic in 2 to 3 sentences total — not a list. Use simple language suitable for a BPO trainee.`
+        );
+        if (res?.data?.text) {
+          setMessages(prev => [...prev, {
+            id: `lesson-ai-${Date.now()}`,
+            sender: 'ai',
+            text: res.data.text,
+            audioBase64: res.data.audioBase64 || null,
+          }]);
+          if (res.data.audioBase64) {
+            try { await playBase64Audio(res.data.audioBase64); } catch {}
+          }
+        }
+      } catch {
+        // Fallback: keep the greeting only
+      }
+    });
+    return () => unsub();
+  }, []);
 
   // Pre-initialize microphone stream to avoid latency when holding the record button
   useEffect(() => {
@@ -310,16 +399,15 @@ export default function Companion() {
             {/* Message feed */}
             <div className="panda-chat-history">
               {messages.map((msg) => {
-                // Split multi-line message into separate lines to render as separate bubbles
-                const lines = msg.text.split('\n').map(l => l.trim()).filter(Boolean);
+                // Keep the full message as ONE single bubble (no splitting),
+                // so the audio clip and "Listen" button always match the one bubble shown.
+                const fullText = msg.text.trim();
 
                 return (
                   <div key={msg.id} className={`panda-chat-message-row panda-chat-message-row--${msg.sender}`}>
-                    {lines.map((line, idx) => (
-                      <div key={`${msg.id}-${idx}`} className={`panda-chat-bubble panda-chat-bubble--${msg.sender}`}>
-                        {formatMessageLine(line)}
-                      </div>
-                    ))}
+                    <div className={`panda-chat-bubble panda-chat-bubble--${msg.sender}`}>
+                      {formatMessageBlock(fullText)}
+                    </div>
 
                     {/* Replay audio for AI messages */}
                     {msg.sender === 'ai' && msg.audioBase64 && (
@@ -331,6 +419,11 @@ export default function Companion() {
                         <Volume2 size={11} />
                         {isPlaying ? 'Playing...' : 'Listen'}
                       </button>
+                    )}
+                    {msg.sender === 'ai' && !msg.audioBase64 && !isLoading && (
+                      <span className="panda-audio-unavailable" style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px', display: 'inline-block' }}>
+                        🔇 Voice unavailable for this reply
+                      </span>
                     )}
 
                     {/* Replay audio for User voice messages */}

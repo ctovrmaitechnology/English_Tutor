@@ -41,17 +41,26 @@ async synthesize(
   voice = 'af_heart',
   speed = 1.1,       // ← natural conversational speed
 ): Promise<Buffer> {
-    try {
+    const attempt = async (): Promise<Buffer> => {
       const response = await axios.post(
         `${this.ttsUrl}/synthesize`,
         { text, voice, speed },
-        { responseType: 'arraybuffer', timeout: 60000 },
+        { responseType: 'arraybuffer', timeout: 90000 },
       );
-
       return Buffer.from(response.data);
+    };
+
+    try {
+      return await attempt();
     } catch (err: any) {
-      this.logger.error('TTS synthesis failed:', err?.message);
-      throw new Error('Text-to-speech service unavailable. Please try again.');
+      this.logger.warn(`TTS synthesis attempt 1 failed (text length ${text?.length}): ${err?.message}`);
+      // Retry once — handles transient overload on the Python TTS service
+      try {
+        return await attempt();
+      } catch (err2: any) {
+        this.logger.error(`TTS synthesis failed after retry (text length ${text?.length}):`, err2?.message);
+        throw new Error('Text-to-speech service unavailable. Please try again.');
+      }
     }
   }
 

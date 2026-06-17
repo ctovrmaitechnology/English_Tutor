@@ -917,7 +917,7 @@ export default function Assessment({ onAssessmentActiveChange }) {
                 <span>📋</span>
               </div>
               <div>
-                <h3>Curriculum Assessments</h3>
+                <h3>Module 1</h3>
                 <p>Complete each level to progress to the next</p>
               </div>
             </div>
