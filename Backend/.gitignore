@@ -1,0 +1,25 @@
+# Large files
+*.zip
+*.dll
+
+# Python virtual environments — never commit these
+venv/
+venv311/
+.venv/
+**/venv/**
+**/venv311/**
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment files
+.env

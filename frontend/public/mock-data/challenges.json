@@ -1,0 +1,21 @@
+{
+  "streak": {
+    "days": 4,
+    "multiplier": "XP x1.2 Active"
+  },
+  "quests": [
+    { "id": "q1", "type": "completed", "title": "Pronunciation Workout", "desc": "Read 5 difficult customer service terms aloud.", "reward": "+10 XP" },
+    { "id": "q2", "type": "active", "title": "Idioms Match Challenge", "desc": "Define BPO telecommunication idioms correctly.", "reward": "+15 XP" },
+    { "id": "q3", "type": "locked", "title": "Grammar Polish Run", "desc": "Find grammar faults in 3 customer complaint emails.", "reward": "+20 XP" }
+  ],
+  "badges": [
+    { "id": "b1", "name": "Quick Starter", "desc": "Log in for 3 consecutive days.", "icon": "🚀", "unlocked": true },
+    { "id": "b2", "name": "Speaking Legend", "desc": "Log 60 speaking minutes total.", "icon": "🎙️", "unlocked": true },
+    { "id": "b3", "name": "Daily Devotee", "desc": "Maintain a 3-day practice streak.", "icon": "🔥", "unlocked": true },
+    { "id": "b4", "name": "Customer Champ", "desc": "Score 90% or higher on billing roleplay.", "icon": "🏆", "unlocked": false },
+    { "id": "b5", "name": "Fluency King", "desc": "Reach 130 words per minute average.", "icon": "👑", "unlocked": false },
+    { "id": "b6", "name": "Vocabulary Boss", "desc": "Save 100 words in personal vocabulary.", "icon": "📖", "unlocked": false },
+    { "id": "b7", "name": "Grammar Guru", "desc": "Complete placement with 0 grammar errors.", "icon": "🎯", "unlocked": false },
+    { "id": "b8", "name": "Perfect Pronouncer", "desc": "Score 100% pronunciation in a timed exam.", "icon": "🗣️", "unlocked": false }
+  ]
+}

@@ -1,0 +1,24 @@
+.tense-transformer { min-height: 100vh; background: var(--gray-50); }
+.tt-game { max-width: 580px; margin: 0 auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; }
+.tt-progress { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; color: var(--gray-500); }
+.tt-progress-track { flex: 1; height: 6px; background: var(--gray-200); border-radius: 999px; overflow: hidden; }
+.tt-progress-fill { height: 100%; background: #8b5cf6; border-radius: 999px; transition: width 0.4s; }
+.tt-instruction { display: flex; align-items: center; gap: 12px; justify-content: center; background: white; padding: 14px 20px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+.tt-from { background: #ede9fe; color: #6d28d9; padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+.tt-to { background: #8b5cf6; color: white; padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+.tt-arrow { font-size: 20px; color: var(--gray-400); }
+.tt-sentence-box { background: white; border-radius: 20px; padding: 28px; box-shadow: 0 2px 12px rgba(139,92,246,.08); border: 2px solid #ede9fe; }
+.tt-sentence-label { font-size: 13px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; margin-bottom: 12px; }
+.tt-sentence { font-size: 20px; font-weight: 600; color: var(--gray-800); line-height: 1.5; margin-bottom: 10px; }
+.tt-hint { font-size: 13px; color: #8b5cf6; font-weight: 600; }
+.tt-feedback { border-radius: 16px; padding: 16px 20px; }
+.tt-feedback--correct { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.tt-feedback--wrong { background: #fef2f2; border: 1px solid #fecaca; }
+.tt-feedback-title { font-size: 15px; font-weight: 700; color: var(--gray-800); margin-bottom: 6px; }
+.tt-feedback-answer { font-size: 14px; color: var(--gray-600); margin-bottom: 4px; }
+.tt-grammar-note { font-size: 13px; color: #92400e; background: #fffbeb; padding: 8px 12px; border-radius: 8px; }
+.tt-input-row { display: flex; gap: 12px; }
+.tt-input { flex: 1; padding: 16px 18px; border: 2px solid var(--gray-200); border-radius: 14px; font-size: 16px; outline: none; }
+.tt-input:focus { border-color: #8b5cf6; box-shadow: 0 0 0 3px rgba(139,92,246,.1); }
+.tt-submit-btn { width: 56px; height: 56px; background: #8b5cf6; color: white; border: none; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.tt-submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }

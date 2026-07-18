@@ -1,0 +1,32 @@
+{
+  "user": {
+    "name": "Priya",
+    "level": "B2 Level",
+    "streak": 4,
+    "dailyGoal": {
+      "completed": 20,
+      "target": 30,
+      "percentage": 66.7
+    }
+  },
+  "stats": [
+    { "id": "study-time", "label": "Study Time", "value": "20 mins", "delta": "+10m today", "type": "blue" },
+    { "id": "vocab-bank", "label": "Vocab Bank", "value": "1,420 words", "delta": "+12 today", "type": "emerald" },
+    { "id": "accuracy", "label": "Speech Accuracy", "value": "84%", "delta": "+3% this week", "type": "purple" },
+    { "id": "streak", "label": "Daily Streak", "value": "4 Days", "delta": "Flame is hot!", "type": "amber" }
+  ],
+  "skills": [
+    { "name": "Pronunciation Clarity", "percentage": 82, "color": "blue" },
+    { "name": "Grammar Accuracy", "percentage": 78, "color": "purple" },
+    { "name": "Fluency & Pacing", "percentage": 85, "color": "emerald" },
+    { "name": "Vocabulary Scope", "percentage": 80, "color": "amber" }
+  ],
+  "simulatedSpeeches": [
+    "Thank you for calling Customer Care. My name is Priya...",
+    "I understand you are calling about an unexpected charge on your bill...",
+    "Let me check your billing statement details for this month...",
+    "I have identified the charge. It seems to be a pro-rated subscription fee...",
+    "I will be happy to credit this back to your account as a gesture of goodwill..."
+  ],
+  "dailyInsight": "Your fluency has increased by 5% since using active listening cues (like \"Indeed\", \"Certainly\", \"I understand\")."
+}

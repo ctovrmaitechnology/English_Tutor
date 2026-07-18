@@ -1,0 +1,3077 @@
+[
+  {
+    "questionSet": "SET_A",
+    "setOrder": 1,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Which word is spelled correctly?",
+    "options": [
+      "Recieve",
+      "Receive",
+      "Receeve",
+      "Receve"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 2,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct article: \"She is ___ honest woman.\"",
+    "options": [
+      "a",
+      "an",
+      "the",
+      "no article"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 3,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Identify the noun in the sentence: \"Happiness depends on attitude.\"",
+    "options": [
+      "depends",
+      "Happiness",
+      "on",
+      "quickly"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 4,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct pronoun: \"___ is my best friend.\"",
+    "options": [
+      "Him",
+      "She",
+      "Her",
+      "Them"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 5,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct verb form: \"He ___ to school every day.\"",
+    "options": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 6,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct adjective form: \"This is the ___ book I have ever read.\"",
+    "options": [
+      "good",
+      "better",
+      "best",
+      "well"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 7,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct adverb: \"She sings ___.\"",
+    "options": [
+      "beautiful",
+      "beautifully",
+      "beauty",
+      "beautify"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 8,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct preposition: \"The cat is ___ the table.\"",
+    "options": [
+      "under",
+      "into",
+      "with",
+      "from"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 9,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct conjunction: \"I was tired, ___ I kept working.\"",
+    "options": [
+      "so",
+      "but",
+      "or",
+      "nor"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 10,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Simple Present sentence:",
+    "options": [
+      "She go to market.",
+      "She goes to market.",
+      "She going to market.",
+      "She gone to market."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 11,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Present Continuous sentence:",
+    "options": [
+      "They are play football.",
+      "They playing football.",
+      "They are playing football.",
+      "They plays football."
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 12,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Simple Past sentence:",
+    "options": [
+      "I seen the movie.",
+      "I saw the movie.",
+      "I see the movie.",
+      "I sees the movie."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 13,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Present Perfect sentence:",
+    "options": [
+      "She has finish her work.",
+      "She has finished her work.",
+      "She have finished her work.",
+      "She finished has her work."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 14,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correctly punctuated sentence:",
+    "options": [
+      "whats your name",
+      "What's your name?",
+      "whats your name?",
+      "What's your name"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 15,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct passive voice: \"They built the house.\"",
+    "options": [
+      "The house built they.",
+      "The house was built by them.",
+      "The house is built them.",
+      "The house being built by them."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 16,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct question tag: \"You are coming, ___?\"",
+    "options": [
+      "isn't it",
+      "aren't you",
+      "don't you",
+      "won't you"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 17,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct modal verb: \"___ I come in, please?\"",
+    "options": [
+      "Must",
+      "May",
+      "Will",
+      "Shall"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 18,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the synonym of \"Happy\":",
+    "options": [
+      "Sad",
+      "Joyful",
+      "Angry",
+      "Tired"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 19,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the antonym of \"Difficult\":",
+    "options": [
+      "Hard",
+      "Tough",
+      "Easy",
+      "Complex"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 20,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correctly capitalized sentence:",
+    "options": [
+      "i live in chennai.",
+      "I live in Chennai.",
+      "I Live in chennai.",
+      "i Live in Chennai."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 21,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "My father ___ (work) in a bank. (Simple Present)",
+    "correctAnswer": "works"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 22,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Right now, she ___ (write) a letter. (Present Continuous)",
+    "correctAnswer": "is writing"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 23,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "We ___ (visit) our grandparents last Sunday. (Simple Past)",
+    "correctAnswer": "visited"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 24,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "They ___ (play) cricket when it started raining. (Past Continuous)",
+    "correctAnswer": "were playing"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 25,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "I ___ (finish) my homework already. (Present Perfect)",
+    "correctAnswer": "have finished"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 26,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "She will ___ (call) you tomorrow. (Future Tense)",
+    "correctAnswer": "call"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 27,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "There ___ (is/are) fifteen students in the class.",
+    "correctAnswer": "are"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 28,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "He ___ (has/have) a red car.",
+    "correctAnswer": "has"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 29,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Neither Raj nor his friends ___ (was/were) present.",
+    "correctAnswer": "were"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 30,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "The sun ___ (rise/rises) in the east.",
+    "correctAnswer": "rises"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 31,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Today is ___ (Monday/monday).",
+    "correctAnswer": "Monday"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 32,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "My birthday is in the month of ___ (December/december).",
+    "correctAnswer": "December"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 33,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "It is a quarter ___ (to/past) five.",
+    "correctAnswer": "to"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 34,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Please close ___ (a/the) door.",
+    "correctAnswer": "the"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 35,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "She bought ___ (a/an) umbrella yesterday.",
+    "correctAnswer": "an"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 36,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Begin\"",
+    "correctAnswer": "Start"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 37,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Big\"",
+    "correctAnswer": "Huge"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 38,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Small\"",
+    "correctAnswer": "Tiny"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 39,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Fast\"",
+    "correctAnswer": "Quick"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 40,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Angry\"",
+    "correctAnswer": "Furious"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 41,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Ancient",
+    "options": [
+      "Old",
+      "Modern",
+      "Ruined",
+      "Historic"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 42,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Generous",
+    "options": [
+      "Kind",
+      "Stingy",
+      "Helpful",
+      "Rich"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 43,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Brave",
+    "options": [
+      "Cowardly",
+      "Bold",
+      "Strong",
+      "Fearless"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 44,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Increase",
+    "options": [
+      "Grow",
+      "Rise",
+      "Decrease",
+      "Expand"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 45,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Permit",
+    "options": [
+      "Allow",
+      "Forbid",
+      "Grant",
+      "Approve"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 46,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Happy + ___ = (add suffix)",
+    "correctAnswer": "Happiness"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 47,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "___ + Agree = (add prefix)",
+    "correctAnswer": "Disagree"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 48,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Care + ___ = (add suffix)",
+    "correctAnswer": "Careful"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 49,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "___ + Possible = (add prefix)",
+    "correctAnswer": "Impossible"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 50,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Kind + ___ = (add suffix)",
+    "correctAnswer": "Kindness"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 51,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"She don't like coffee.\"",
+    "correctAnswer": "She doesn't like coffee."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 52,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"He is going to market yesterday.\"",
+    "correctAnswer": "He went to market yesterday."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 53,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"Each of the students have submitted their assignment.\"",
+    "correctAnswer": "Each of the students has submitted his/her assignment."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 54,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"I have saw that movie twice.\"",
+    "correctAnswer": "I have seen that movie twice."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 55,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"My sister and me went to the park.\"",
+    "correctAnswer": "My sister and I went to the park."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 56,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: school / every day / walks / to / she",
+    "correctAnswer": "She walks to school every day."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 57,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: books / love / reading / I",
+    "correctAnswer": "I love reading books."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 58,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: weather / today / is / beautiful / the",
+    "correctAnswer": "The weather today is beautiful."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 59,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: late / always / he / office / to / comes",
+    "correctAnswer": "He always comes late to office."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 60,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: mother / cooks / delicious / food / my",
+    "correctAnswer": "My mother cooks delicious food."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 61,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a noun from \"Educate\"",
+    "correctAnswer": "Education"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 62,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form an adjective from \"Danger\"",
+    "correctAnswer": "Dangerous"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 63,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a verb from \"Simple\"",
+    "correctAnswer": "Simplify"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 64,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a noun from \"Decide\"",
+    "correctAnswer": "Decision"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 65,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form an adjective from \"Nature\"",
+    "correctAnswer": "Natural"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 66,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What time does Ravi wake up on weekdays?",
+    "passage": "Ravi wakes up early every morning at six o'clock. After brushing his teeth, he goes for a short walk in the park near his house. He believes that morning walks keep him healthy and fresh throughout the day. After his walk, he returns home, takes a bath, and has breakfast with his family. Ravi then leaves for college at eight o'clock. He enjoys his daily routine because it gives him energy and a sense of discipline. On weekends, however, Ravi likes to wake up a little later and spend time reading books instead of going for a walk.",
+    "modelAnswer": "Ravi wakes up at six o'clock.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 67,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "Why does Ravi go for a walk every morning?",
+    "passage": "Ravi wakes up early every morning at six o'clock. After brushing his teeth, he goes for a short walk in the park near his house. He believes that morning walks keep him healthy and fresh throughout the day. After his walk, he returns home, takes a bath, and has breakfast with his family. Ravi then leaves for college at eight o'clock. He enjoys his daily routine because it gives him energy and a sense of discipline. On weekends, however, Ravi likes to wake up a little later and spend time reading books instead of going for a walk.",
+    "modelAnswer": "He believes morning walks keep him healthy and fresh throughout the day.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 68,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What does Ravi do after his walk?",
+    "passage": "Ravi wakes up early every morning at six o'clock. After brushing his teeth, he goes for a short walk in the park near his house. He believes that morning walks keep him healthy and fresh throughout the day. After his walk, he returns home, takes a bath, and has breakfast with his family. Ravi then leaves for college at eight o'clock. He enjoys his daily routine because it gives him energy and a sense of discipline. On weekends, however, Ravi likes to wake up a little later and spend time reading books instead of going for a walk.",
+    "modelAnswer": "He returns home, takes a bath, and has breakfast with his family.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 69,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What time does Ravi leave for college?",
+    "passage": "Ravi wakes up early every morning at six o'clock. After brushing his teeth, he goes for a short walk in the park near his house. He believes that morning walks keep him healthy and fresh throughout the day. After his walk, he returns home, takes a bath, and has breakfast with his family. Ravi then leaves for college at eight o'clock. He enjoys his daily routine because it gives him energy and a sense of discipline. On weekends, however, Ravi likes to wake up a little later and spend time reading books instead of going for a walk.",
+    "modelAnswer": "He leaves for college at eight o'clock.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 70,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What does Ravi do differently on weekends?",
+    "passage": "Ravi wakes up early every morning at six o'clock. After brushing his teeth, he goes for a short walk in the park near his house. He believes that morning walks keep him healthy and fresh throughout the day. After his walk, he returns home, takes a bath, and has breakfast with his family. Ravi then leaves for college at eight o'clock. He enjoys his daily routine because it gives him energy and a sense of discipline. On weekends, however, Ravi likes to wake up a little later and spend time reading books instead of going for a walk.",
+    "modelAnswer": "He wakes up a little later and spends time reading books instead of walking.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 71,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Good morning! How are you today?",
+    "modelAnswer": "I'm doing well, thank you! How about you?",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 72,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Excuse me, could you tell me the way to the railway station?",
+    "modelAnswer": "Sure, go straight ahead and turn left at the next signal; the station is on your right.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 73,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Would you like to join us for lunch?",
+    "modelAnswer": "Yes, I'd love to, thank you for asking.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 74,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: I'm sorry, I'm late for the meeting.",
+    "modelAnswer": "That's alright, please take a seat; we just started.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 75,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Thank you so much for your help.",
+    "modelAnswer": "You're welcome, I'm happy to help.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 76,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Write two sentences introducing yourself to a new classmate.",
+    "modelAnswer": "Hello, my name is [Name]. I am a new student in this class, and I enjoy reading and playing badminton."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 77,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "What is the difference between \"a\" and \"an\"? Give one example each.",
+    "modelAnswer": "\"A\" is used before words starting with a consonant sound (e.g., a book); \"an\" is used before words starting with a vowel sound (e.g., an apple)."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 78,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Convert into indirect speech: He said, \"I am going to Delhi tomorrow.\"",
+    "modelAnswer": "He said that he was going to Delhi the next day."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 79,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Write one example each of a formal and an informal greeting.",
+    "modelAnswer": "Formal greeting: \"Good morning, how do you do?\" Informal greeting: \"Hey, what's up?\""
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 80,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "State the difference between Simple Past and Present Perfect tense with one example each.",
+    "modelAnswer": "Simple Past describes a completed action at a specific past time (e.g., \"I visited Paris last year\"). Present Perfect describes an action completed at an unspecified time with relevance to the present (e.g., \"I have visited Paris\")."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 81,
+    "section": "I",
+    "sectionTitle": "Email / Conversation Writing",
+    "marks": 5,
+    "questionType": "long_form_writing",
+    "questionText": "Write a short informal email (60-80 words) to your friend inviting them to your birthday party. Include the date, time, and venue.",
+    "modelAnswer": "Subject: Birthday Party Invitation\n\nHi Aarav,\n\nI'm turning 20 this year and I'd love for you to join my birthday celebration on Saturday, 25th July, at 6 PM at my home. There will be food, music, and games. Please let me know if you can make it!\n\nLooking forward to seeing you,\n[Your Name]"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 82,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Change into passive voice: \"The teacher checks the notebooks.\"",
+    "correctAnswer": "The notebooks are checked by the teacher."
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 83,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Change into direct speech: She said that she was feeling happy.",
+    "correctAnswer": "She said, \"I am feeling happy.\""
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 84,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Fill in the correct conditional form: If it ___ (rain) tomorrow, we will cancel the picnic.",
+    "correctAnswer": "rains"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 85,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Rewrite using the correct phrasal verb meaning \"to postpone\": We had to ___ the meeting due to bad weather. (put off)",
+    "correctAnswer": "put off"
+  },
+  {
+    "questionSet": "SET_A",
+    "setOrder": 86,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Identify the sentence type: \"What a wonderful day it is!\" (Declarative / Interrogative / Imperative / Exclamatory)",
+    "correctAnswer": "Exclamatory"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 1,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Which word is spelled correctly?",
+    "options": [
+      "Definately",
+      "Definitely",
+      "Definitly",
+      "Deffinitely"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 2,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct article: \"He is ___ university student.\" (Note: \"university\" begins with a consonant sound)",
+    "options": [
+      "a",
+      "an",
+      "the",
+      "no article"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 3,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Identify the pronoun in the sentence: \"They invited us to their house.\"",
+    "options": [
+      "invited",
+      "house",
+      "us",
+      "quickly"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 4,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct verb form: \"The children ___ in the garden now.\"",
+    "options": [
+      "plays",
+      "play",
+      "are playing",
+      "played"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 5,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct adjective form: \"Delhi is ___ than Shimla in terms of population.\"",
+    "options": [
+      "big",
+      "bigger",
+      "biggest",
+      "more big"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 6,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct adverb: \"He drives ___.\"",
+    "options": [
+      "careful",
+      "carefully",
+      "care",
+      "careless"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 7,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct preposition: \"We will meet ___ 5 o'clock.\"",
+    "options": [
+      "in",
+      "on",
+      "at",
+      "since"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 8,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct conjunction: \"___ it was raining, we went out.\"",
+    "options": [
+      "Although",
+      "So",
+      "And",
+      "Because"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 9,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct noun form of \"act\":",
+    "options": [
+      "action",
+      "acting only",
+      "actful",
+      "acture"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 10,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Simple Past sentence:",
+    "options": [
+      "She buyed a new phone.",
+      "She bought a new phone.",
+      "She buys a new phone.",
+      "She has buy a new phone."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 11,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Past Continuous sentence:",
+    "options": [
+      "I was reading a book when you called.",
+      "I reading a book when you called.",
+      "I am reading a book when you called.",
+      "I read book when you called."
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 12,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Future Tense sentence:",
+    "options": [
+      "She will goes to Paris next year.",
+      "She will go to Paris next year.",
+      "She going to Paris next year.",
+      "She go to Paris next year."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 13,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Subject-Verb Agreement:",
+    "options": [
+      "The team are playing well.",
+      "The team is playing well.",
+      "The team were playing well.",
+      "The team plays well."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 14,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correctly punctuated sentence:",
+    "options": [
+      "I bought apples oranges and bananas.",
+      "I bought apples, oranges, and bananas.",
+      "I bought, apples oranges and bananas.",
+      "I bought apples oranges, and bananas"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 15,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct indirect speech: Ram said, \"I am busy now.\"",
+    "options": [
+      "Ram said that he is busy now.",
+      "Ram said that he was busy then.",
+      "Ram said that he was busy now.",
+      "Ram told that he was busy then."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 16,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct question tag: \"She doesn't like tea, ___?\"",
+    "options": [
+      "does she",
+      "doesn't she",
+      "is she",
+      "isn't she"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 17,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct modal verb: \"You ___ wear a seatbelt while driving.\" (obligation)",
+    "options": [
+      "may",
+      "must",
+      "can",
+      "could"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 18,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the synonym of \"Enormous\":",
+    "options": [
+      "Tiny",
+      "Huge",
+      "Narrow",
+      "Weak"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 19,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the antonym of \"Genuine\":",
+    "options": [
+      "Real",
+      "Authentic",
+      "Fake",
+      "True"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 20,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correctly capitalized sentence:",
+    "options": [
+      "we celebrate diwali in october or november.",
+      "We celebrate Diwali in October or November.",
+      "We Celebrate diwali in October or november.",
+      "we Celebrate Diwali in october or November."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 21,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "My mother ___ (cook) dinner every evening. (Simple Present)",
+    "correctAnswer": "cooks"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 22,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Look! The baby ___ (sleep) peacefully. (Present Continuous)",
+    "correctAnswer": "is sleeping"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 23,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "He ___ (lose) his wallet last week. (Simple Past)",
+    "correctAnswer": "lost"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 24,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "She ___ (read) a novel when the power went off. (Past Continuous)",
+    "correctAnswer": "was reading"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 25,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "We ___ (complete) the project already. (Present Perfect)",
+    "correctAnswer": "have completed"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 26,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "They ___ (travel) to Goa next month. (Future Tense)",
+    "correctAnswer": "will travel"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 27,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Each of the boxes ___ (contain/contains) ten items.",
+    "correctAnswer": "contains"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 28,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "The news ___ (is/are) surprising.",
+    "correctAnswer": "is"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 29,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Either the manager or the staff ___ (is/are) responsible.",
+    "correctAnswer": "is"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 30,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Water ___ (boil/boils) at 100 degrees Celsius.",
+    "correctAnswer": "boils"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 31,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Yesterday was ___ (Sunday/sunday).",
+    "correctAnswer": "Sunday"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 32,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Republic Day is celebrated in the month of ___ (January/january).",
+    "correctAnswer": "January"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 33,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "It is half ___ (past/to) nine.",
+    "correctAnswer": "past"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 34,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "She is ___ (a/an) engineer.",
+    "correctAnswer": "an"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 35,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "I saw ___ (a/the) elephant at the zoo.",
+    "correctAnswer": "the"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 36,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Assist\"",
+    "correctAnswer": "Help"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 37,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Correct\"",
+    "correctAnswer": "Accurate"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 38,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Rich\"",
+    "correctAnswer": "Wealthy"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 39,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Silent\"",
+    "correctAnswer": "Quiet"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 40,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Brave\"",
+    "correctAnswer": "Courageous"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 41,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Victory",
+    "options": [
+      "Success",
+      "Defeat",
+      "Win",
+      "Triumph"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 42,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Include",
+    "options": [
+      "Add",
+      "Contain",
+      "Exclude",
+      "Combine"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 43,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Expand",
+    "options": [
+      "Grow",
+      "Extend",
+      "Shrink",
+      "Enlarge"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 44,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Punctual",
+    "options": [
+      "Timely",
+      "Late",
+      "Prompt",
+      "Exact"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 45,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Praise",
+    "options": [
+      "Admire",
+      "Criticize",
+      "Honour",
+      "Appreciate"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 46,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Use + ___ = (add suffix)",
+    "correctAnswer": "Useful"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 47,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "___ + Legal = (add prefix)",
+    "correctAnswer": "Illegal"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 48,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Act + ___ = (add suffix)",
+    "correctAnswer": "Actor"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 49,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "___ + Regular = (add prefix)",
+    "correctAnswer": "Irregular"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 50,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Free + ___ = (add suffix)",
+    "correctAnswer": "Freedom"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 51,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"He don't know the answer.\"",
+    "correctAnswer": "He doesn't know the answer."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 52,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"She is knowing the truth.\"",
+    "correctAnswer": "She knows the truth."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 53,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"The information were useful for us.\"",
+    "correctAnswer": "The information was useful for us."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 54,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"I have ate my lunch already.\"",
+    "correctAnswer": "I have eaten my lunch already."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 55,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"Him and his brother are twins.\"",
+    "correctAnswer": "He and his brother are twins."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 56,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: market / the / to / went / she / yesterday",
+    "correctAnswer": "She went to the market yesterday."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 57,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: dog / barks / loudly / neighbor's / my",
+    "correctAnswer": "My neighbor's dog barks loudly."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 58,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: plays / often / guitar / brother / my",
+    "correctAnswer": "My brother often plays guitar."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 59,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: exam / hard / for / the / studied / we",
+    "correctAnswer": "We studied hard for the exam."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 60,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: garden / flowers / beautiful / has / many / the",
+    "correctAnswer": "The garden has many beautiful flowers."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 61,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a noun from \"Create\"",
+    "correctAnswer": "Creation"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 62,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form an adjective from \"Comfort\"",
+    "correctAnswer": "Comfortable"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 63,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a verb from \"Strong\"",
+    "correctAnswer": "Strengthen"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 64,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a noun from \"Explain\"",
+    "correctAnswer": "Explanation"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 65,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form an adjective from \"Wonder\"",
+    "correctAnswer": "Wonderful"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 66,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What is Priya's profession?",
+    "passage": "Priya works as a schoolteacher in a small town. Every day, she prepares lesson plans in the evening so that her classes run smoothly the next morning. She strongly believes that patience and clear communication are the most important qualities a teacher can have. On most afternoons, after school ends, Priya spends an hour helping weaker students with their studies free of charge. Her colleagues often say that her dedication inspires the entire staff. During weekends, Priya likes to relax by gardening and listening to music, which helps her recharge for the busy week ahead.",
+    "modelAnswer": "Priya is a schoolteacher.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 67,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "When does Priya prepare her lesson plans?",
+    "passage": "Priya works as a schoolteacher in a small town. Every day, she prepares lesson plans in the evening so that her classes run smoothly the next morning. She strongly believes that patience and clear communication are the most important qualities a teacher can have. On most afternoons, after school ends, Priya spends an hour helping weaker students with their studies free of charge. Her colleagues often say that her dedication inspires the entire staff. During weekends, Priya likes to relax by gardening and listening to music, which helps her recharge for the busy week ahead.",
+    "modelAnswer": "She prepares her lesson plans in the evening.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 68,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What does Priya believe are the most important qualities of a teacher?",
+    "passage": "Priya works as a schoolteacher in a small town. Every day, she prepares lesson plans in the evening so that her classes run smoothly the next morning. She strongly believes that patience and clear communication are the most important qualities a teacher can have. On most afternoons, after school ends, Priya spends an hour helping weaker students with their studies free of charge. Her colleagues often say that her dedication inspires the entire staff. During weekends, Priya likes to relax by gardening and listening to music, which helps her recharge for the busy week ahead.",
+    "modelAnswer": "She believes patience and clear communication are the most important qualities a teacher can have.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 69,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What does Priya do after school on most afternoons?",
+    "passage": "Priya works as a schoolteacher in a small town. Every day, she prepares lesson plans in the evening so that her classes run smoothly the next morning. She strongly believes that patience and clear communication are the most important qualities a teacher can have. On most afternoons, after school ends, Priya spends an hour helping weaker students with their studies free of charge. Her colleagues often say that her dedication inspires the entire staff. During weekends, Priya likes to relax by gardening and listening to music, which helps her recharge for the busy week ahead.",
+    "modelAnswer": "She spends an hour helping weaker students with their studies free of charge.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 70,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "How does Priya relax on weekends?",
+    "passage": "Priya works as a schoolteacher in a small town. Every day, she prepares lesson plans in the evening so that her classes run smoothly the next morning. She strongly believes that patience and clear communication are the most important qualities a teacher can have. On most afternoons, after school ends, Priya spends an hour helping weaker students with their studies free of charge. Her colleagues often say that her dedication inspires the entire staff. During weekends, Priya likes to relax by gardening and listening to music, which helps her recharge for the busy week ahead.",
+    "modelAnswer": "She relaxes by gardening and listening to music.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 71,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Hello, is this the customer support number?",
+    "modelAnswer": "Yes, this is customer support. How may I help you today?",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 72,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Can I get your name and contact number, please?",
+    "modelAnswer": "Sure, my name is [Name] and my contact number is [Number].",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 73,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Would you mind lowering your voice a bit?",
+    "modelAnswer": "I'm sorry, I didn't realize I was being loud. I'll speak more softly.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 74,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: How was your weekend trip?",
+    "modelAnswer": "It was wonderful! I visited the hills and relaxed a lot.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 75,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: I don't think I can attend the class tomorrow.",
+    "modelAnswer": "I understand. Please let me know if you need the notes from today's class.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 76,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Write two sentences describing your favorite hobby.",
+    "modelAnswer": "My favorite hobby is painting. I enjoy spending my weekends creating colorful artwork."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 77,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "What is the difference between Active Voice and Passive Voice? Give one example each.",
+    "modelAnswer": "Active Voice: the subject performs the action (e.g., \"She writes a letter\"). Passive Voice: the subject receives the action (e.g., \"A letter is written by her\")."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 78,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Convert into direct speech: She said that she would visit her uncle the following week.",
+    "modelAnswer": "She said, \"I will visit my uncle next week.\""
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 79,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Write one example each of a formal and an informal way of saying goodbye.",
+    "modelAnswer": "Formal: \"Goodbye, have a pleasant day.\" Informal: \"Bye, catch you later!\""
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 80,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "State the difference between Present Continuous and Present Perfect tense with one example each.",
+    "modelAnswer": "Present Continuous describes an action happening right now (e.g., \"I am eating lunch\"). Present Perfect describes an action completed at an unspecified past time with present relevance (e.g., \"I have eaten lunch\")."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 81,
+    "section": "I",
+    "sectionTitle": "Email / Conversation Writing",
+    "marks": 5,
+    "questionType": "long_form_writing",
+    "questionText": "Write a short formal email (60-80 words) to your college principal requesting three days of leave due to illness.",
+    "modelAnswer": "Subject: Request for Leave Due to Illness\n\nRespected Sir/Madam,\n\nI am writing to inform you that I am unwell and unable to attend college for the next three days. I kindly request you to grant me leave from [date] to [date]. I will make sure to catch up on any missed coursework. Thank you for your understanding.\n\nYours sincerely,\n[Your Name]"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 82,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Change into active voice: \"The letter was written by Meena.\"",
+    "correctAnswer": "Meena wrote the letter."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 83,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Change into indirect speech: The teacher said, \"Submit your assignments by Friday.\"",
+    "correctAnswer": "The teacher told them to submit their assignments by Friday."
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 84,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Fill in the correct conditional form: If she ___ (study) harder, she would pass the exam.",
+    "correctAnswer": "studied"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 85,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Rewrite using the correct phrasal verb meaning \"to investigate\": The police decided to ___ the matter. (look into)",
+    "correctAnswer": "look into"
+  },
+  {
+    "questionSet": "SET_B",
+    "setOrder": 86,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Identify the sentence type: \"Please switch off the lights before leaving.\" (Declarative / Interrogative / Imperative / Exclamatory)",
+    "correctAnswer": "Imperative"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 1,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Which word is spelled correctly?",
+    "options": [
+      "Neccessary",
+      "Necessary",
+      "Neccesary",
+      "Necesary"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 2,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct article: \"It took ___ hour to reach the airport.\"",
+    "options": [
+      "a",
+      "an",
+      "the",
+      "no article"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 3,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Identify the adjective in the sentence: \"The tall building collapsed suddenly.\"",
+    "options": [
+      "building",
+      "collapsed",
+      "tall",
+      "suddenly"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 4,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct verb form: \"My parents ___ in Mumbai.\"",
+    "options": [
+      "live",
+      "lives",
+      "living",
+      "lived"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 5,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct adjective form: \"This is ___ question in the entire test.\"",
+    "options": [
+      "easy",
+      "easier",
+      "easiest",
+      "more easy"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 6,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct adverb: \"He completed the task ___.\"",
+    "options": [
+      "quick",
+      "quickly",
+      "quickness",
+      "quicken"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 7,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct preposition: \"The book is ___ the shelf and the lamp.\"",
+    "options": [
+      "between",
+      "among",
+      "inside",
+      "over"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 8,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct conjunction: \"You can have tea ___ coffee.\"",
+    "options": [
+      "or",
+      "nor",
+      "yet",
+      "although"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 9,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct noun form of \"decide\":",
+    "options": [
+      "decisive",
+      "decision",
+      "decider only",
+      "decideness"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 10,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Simple Present sentence:",
+    "options": [
+      "The birds sings early.",
+      "The birds sing early.",
+      "The birds singing early.",
+      "The birds sang early."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 11,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Present Continuous sentence:",
+    "options": [
+      "I am study for my exams.",
+      "I studying for my exams.",
+      "I am studying for my exams.",
+      "I study for my exams currently only."
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 12,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Simple Past sentence:",
+    "options": [
+      "We goed to the beach.",
+      "We went to the beach.",
+      "We go to the beach.",
+      "We gone to the beach."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 13,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct Past Continuous sentence:",
+    "options": [
+      "She was cooking dinner when the phone rang.",
+      "She cooking dinner when the phone rang.",
+      "She is cooking dinner when the phone rang.",
+      "She cook dinner when the phone rang."
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 14,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correctly punctuated sentence:",
+    "options": [
+      "Its a beautiful day, isn't it",
+      "It's a beautiful day, isn't it?",
+      "Its a beautiful day isn't it?",
+      "It's a beautiful day isnt it?"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 15,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct passive voice: \"The chef is preparing the meal.\"",
+    "options": [
+      "The meal is prepared by the chef.",
+      "The meal is being prepared by the chef.",
+      "The meal was prepared by the chef.",
+      "The meal being prepared chef."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 16,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct question tag: \"He can swim well, ___?\"",
+    "options": [
+      "can't he",
+      "can he",
+      "doesn't he",
+      "isn't he"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 17,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct modal verb: \"It ___ rain later; the sky is cloudy.\" (possibility)",
+    "options": [
+      "must",
+      "might",
+      "shall",
+      "need"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 18,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the synonym of \"Assist\":",
+    "options": [
+      "Hinder",
+      "Help",
+      "Ignore",
+      "Delay"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 19,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the antonym of \"Ancient\":",
+    "options": [
+      "Old",
+      "Aged",
+      "Modern",
+      "Antique"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 20,
+    "section": "A",
+    "sectionTitle": "Multiple Choice Questions",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correctly capitalized sentence:",
+    "options": [
+      "my favourite subject is english.",
+      "My favourite subject is English.",
+      "My Favourite subject is english.",
+      "my Favourite Subject is English."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 21,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "My sister ___ (teach) at a local school. (Simple Present)",
+    "correctAnswer": "teaches"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 22,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "At the moment, they ___ (discuss) the new plan. (Present Continuous)",
+    "correctAnswer": "are discussing"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 23,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "He ___ (miss) the train yesterday morning. (Simple Past)",
+    "correctAnswer": "missed"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 24,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "I ___ (walk) home when it began to snow. (Past Continuous)",
+    "correctAnswer": "was walking"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 25,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "She ___ (never/visit) Japan before. (Present Perfect)",
+    "correctAnswer": "has never visited"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 26,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "We ___ (start) a new course next semester. (Future Tense)",
+    "correctAnswer": "will start"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 27,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "A number of students ___ (was/were) absent today.",
+    "correctAnswer": "were"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 28,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "The scissors ___ (is/are) on the table.",
+    "correctAnswer": "are"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 29,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Everyone in the class ___ (has/have) submitted the form.",
+    "correctAnswer": "has"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 30,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "The moon ___ (revolve/revolves) around the earth.",
+    "correctAnswer": "revolves"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 31,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Christmas falls on the 25th of ___ (December/december).",
+    "correctAnswer": "December"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 32,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Independence Day in India is celebrated in the month of ___ (August/august).",
+    "correctAnswer": "August"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 33,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "It is ten minutes ___ (past/to) eight.",
+    "correctAnswer": "past"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 34,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "He is ___ (a/an) honest man.",
+    "correctAnswer": "an"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 35,
+    "section": "B",
+    "sectionTitle": "Fill in the Blanks",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "We watched ___ (a/the) film that won an award last year.",
+    "correctAnswer": "the"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 36,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Gather\"",
+    "correctAnswer": "Collect"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 37,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Odd\"",
+    "correctAnswer": "Strange"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 38,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Fix\"",
+    "correctAnswer": "Repair"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 39,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Polite\"",
+    "correctAnswer": "Courteous"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 40,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Synonym Matching",
+    "marks": 1,
+    "questionType": "matching",
+    "questionText": "Match the synonym for \"Sad\"",
+    "correctAnswer": "Unhappy"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 41,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Accept",
+    "options": [
+      "Receive",
+      "Reject",
+      "Agree",
+      "Welcome"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 42,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Cheerful",
+    "options": [
+      "Joyful",
+      "Lively",
+      "Gloomy",
+      "Bright"
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 43,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Arrive",
+    "options": [
+      "Reach",
+      "Depart",
+      "Land",
+      "Come"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 44,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Complex",
+    "options": [
+      "Simple",
+      "Difficult",
+      "Complicated",
+      "Intricate"
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 45,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Antonyms",
+    "marks": 1,
+    "questionType": "mcq",
+    "questionText": "Choose the correct antonym: Support",
+    "options": [
+      "Help",
+      "Oppose",
+      "Assist",
+      "Encourage"
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 46,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Danger + ___ = (add suffix)",
+    "correctAnswer": "Dangerous"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 47,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "___ + Honest = (add prefix)",
+    "correctAnswer": "Dishonest"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 48,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Teach + ___ = (add suffix)",
+    "correctAnswer": "Teacher"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 49,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "___ + Correct = (add prefix)",
+    "correctAnswer": "Incorrect"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 50,
+    "section": "C",
+    "sectionTitle": "Vocabulary & Grammar - Word Formation",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Move + ___ = (add suffix)",
+    "correctAnswer": "Movement"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 51,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"They doesn't agree with the plan.\"",
+    "correctAnswer": "They don't agree with the plan."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 52,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"She is having a car since 2015.\"",
+    "correctAnswer": "She has had a car since 2015."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 53,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"Neither of the answers were correct.\"",
+    "correctAnswer": "Neither of the answers was correct."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 54,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"I have went to that restaurant before.\"",
+    "correctAnswer": "I have gone to that restaurant before."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 55,
+    "section": "D",
+    "sectionTitle": "Error Detection & Sentence Correction",
+    "marks": 2,
+    "questionType": "error_correction",
+    "questionText": "Identify and correct the error: \"Me and her are best friends.\"",
+    "correctAnswer": "She and I are best friends."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 56,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: holidays / during / we / relatives / visit / our",
+    "correctAnswer": "We visit our relatives during holidays."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 57,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: quickly / finished / homework / her / she",
+    "correctAnswer": "She finished her homework quickly."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 58,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: river / flows / through / the / village / the",
+    "correctAnswer": "The river flows through the village."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 59,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: carefully / listens / teacher / to / the / everyone",
+    "correctAnswer": "Everyone listens carefully to the teacher."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 60,
+    "section": "E",
+    "sectionTitle": "Sentence Rearrangement",
+    "marks": 1,
+    "questionType": "rearrangement",
+    "questionText": "Rearrange into a meaningful sentence: bright / stars / night / shone / the / sky / in",
+    "correctAnswer": "The bright stars shone in the night sky."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 61,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a noun from \"Perform\"",
+    "correctAnswer": "Performance"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 62,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form an adjective from \"Success\"",
+    "correctAnswer": "Successful"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 63,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a verb from \"Beauty\"",
+    "correctAnswer": "Beautify"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 64,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form a noun from \"Arrive\"",
+    "correctAnswer": "Arrival"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 65,
+    "section": "E",
+    "sectionTitle": "Word Formation from Root Words",
+    "marks": 1,
+    "questionType": "fill_blank",
+    "questionText": "Form an adjective from \"Fame\"",
+    "correctAnswer": "Famous"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 66,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What does Arjun do for a living?",
+    "passage": "Arjun runs a small bakery in his neighborhood. He wakes up before sunrise to bake fresh bread and pastries for his early customers. Arjun takes great pride in using only fresh, natural ingredients, and he often says that good food comes from patience, not shortcuts. Many customers visit his shop not only for the taste but also for his warm and friendly conversation. In the afternoons, when the shop is quiet, Arjun experiments with new recipes to surprise his regular customers. He hopes to one day open a second bakery in the city center, but for now, he is happy serving his loyal neighborhood community.",
+    "modelAnswer": "Arjun runs a small bakery.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 67,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "Why does Arjun wake up before sunrise?",
+    "passage": "Arjun runs a small bakery in his neighborhood. He wakes up before sunrise to bake fresh bread and pastries for his early customers. Arjun takes great pride in using only fresh, natural ingredients, and he often says that good food comes from patience, not shortcuts. Many customers visit his shop not only for the taste but also for his warm and friendly conversation. In the afternoons, when the shop is quiet, Arjun experiments with new recipes to surprise his regular customers. He hopes to one day open a second bakery in the city center, but for now, he is happy serving his loyal neighborhood community.",
+    "modelAnswer": "He wakes up before sunrise to bake fresh bread and pastries for his early customers.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 68,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What does Arjun believe leads to good food?",
+    "passage": "Arjun runs a small bakery in his neighborhood. He wakes up before sunrise to bake fresh bread and pastries for his early customers. Arjun takes great pride in using only fresh, natural ingredients, and he often says that good food comes from patience, not shortcuts. Many customers visit his shop not only for the taste but also for his warm and friendly conversation. In the afternoons, when the shop is quiet, Arjun experiments with new recipes to surprise his regular customers. He hopes to one day open a second bakery in the city center, but for now, he is happy serving his loyal neighborhood community.",
+    "modelAnswer": "He believes good food comes from patience, not shortcuts.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 69,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What does Arjun do in the afternoons when the shop is quiet?",
+    "passage": "Arjun runs a small bakery in his neighborhood. He wakes up before sunrise to bake fresh bread and pastries for his early customers. Arjun takes great pride in using only fresh, natural ingredients, and he often says that good food comes from patience, not shortcuts. Many customers visit his shop not only for the taste but also for his warm and friendly conversation. In the afternoons, when the shop is quiet, Arjun experiments with new recipes to surprise his regular customers. He hopes to one day open a second bakery in the city center, but for now, he is happy serving his loyal neighborhood community.",
+    "modelAnswer": "He experiments with new recipes to surprise his regular customers.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 70,
+    "section": "F",
+    "sectionTitle": "Reading Comprehension",
+    "marks": 1,
+    "questionType": "spoken_short_answer",
+    "questionText": "What is Arjun's future hope for his business?",
+    "passage": "Arjun runs a small bakery in his neighborhood. He wakes up before sunrise to bake fresh bread and pastries for his early customers. Arjun takes great pride in using only fresh, natural ingredients, and he often says that good food comes from patience, not shortcuts. Many customers visit his shop not only for the taste but also for his warm and friendly conversation. In the afternoons, when the shop is quiet, Arjun experiments with new recipes to surprise his regular customers. He hopes to one day open a second bakery in the city center, but for now, he is happy serving his loyal neighborhood community.",
+    "modelAnswer": "He hopes to one day open a second bakery in the city center.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 71,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Hi, I'd like to book a table for two this evening.",
+    "modelAnswer": "Certainly, may I have your name and preferred time, please?",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 72,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Could you please repeat that? I didn't catch it clearly.",
+    "modelAnswer": "Of course, I said the meeting has been moved to 3 PM.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 73,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Do you know what time the movie starts?",
+    "modelAnswer": "I believe it starts at 7:30 PM, but let me double-check for you.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 74,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: I really appreciate you covering my shift yesterday.",
+    "modelAnswer": "It was no trouble at all — happy to help whenever you need it.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 75,
+    "section": "G",
+    "sectionTitle": "Dialogue Completion",
+    "marks": 1,
+    "questionType": "spoken_dialogue",
+    "questionText": "A: Is it okay if I call you back in ten minutes?",
+    "modelAnswer": "Sure, that's absolutely fine. I'll wait for your call.",
+    "responseMode": "audio"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 76,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Write two sentences describing your daily morning routine.",
+    "modelAnswer": "Every morning, I wake up at six, exercise for thirty minutes, and then get ready for college."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 77,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "What is the difference between Direct Speech and Indirect Speech? Give one example each.",
+    "modelAnswer": "Direct Speech reports the exact words spoken (e.g., She said, \"I am tired\"). Indirect Speech reports the meaning without exact words, often changing tense and pronouns (e.g., She said that she was tired)."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 78,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Convert into passive voice: \"The gardener waters the plants every morning.\"",
+    "modelAnswer": "The plants are watered by the gardener every morning."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 79,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "Write one example each of a formal and an informal way of making a request.",
+    "modelAnswer": "Formal: \"Would it be possible for you to assist me with this?\" Informal: \"Can you help me with this?\""
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 80,
+    "section": "H",
+    "sectionTitle": "Short Answer Questions",
+    "marks": 1,
+    "questionType": "free_text",
+    "questionText": "State the difference between Simple Future and Present Continuous (used for future plans) with one example each.",
+    "modelAnswer": "Simple Future is used for spontaneous decisions or predictions (e.g., \"I will call you later\"). Present Continuous for future plans is used for fixed arrangements (e.g., \"I am meeting her tomorrow\")."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 81,
+    "section": "I",
+    "sectionTitle": "Email / Conversation Writing",
+    "marks": 5,
+    "questionType": "long_form_writing",
+    "questionText": "Write a short informal email (60-80 words) to a friend describing a recent trip you enjoyed.",
+    "modelAnswer": "Subject: My Recent Trip to Munnar\n\nHi Kavya,\n\nI just got back from an amazing trip to Munnar with my family! The tea gardens and misty hills were absolutely breathtaking, and we even went on a short trek. I wish you could have joined us. Let's plan a trip together soon!\n\nTalk soon,\n[Your Name]"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 82,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Change into passive voice: \"Someone has stolen my bicycle.\"",
+    "correctAnswer": "My bicycle has been stolen."
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 83,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Change into direct speech: He told me that he had finished his project.",
+    "correctAnswer": "He said, \"I have finished my project.\""
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 84,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Fill in the correct conditional form: If I ___ (have) more time, I would learn a new language.",
+    "correctAnswer": "had"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 85,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Rewrite using the correct phrasal verb meaning \"to reduce or lower\": Prices tend to ___ during the off-season. (go down)",
+    "correctAnswer": "go down"
+  },
+  {
+    "questionSet": "SET_C",
+    "setOrder": 86,
+    "section": "J",
+    "sectionTitle": "Mixed Grammar Exercises",
+    "marks": 2,
+    "questionType": "fill_blank",
+    "questionText": "Identify the sentence type: \"Could you please pass me the salt?\" (Declarative / Interrogative / Imperative / Exclamatory)",
+    "correctAnswer": "Interrogative"
+  }
+]

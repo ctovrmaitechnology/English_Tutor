@@ -1,0 +1,14 @@
+# 1. install
+npm install
+
+# 2. build
+npm run build
+
+# 3. generate migration
+npm run migration:generate
+
+# 4. run migration
+npm run migration:run
+
+# 5. start
+npm run start:dev

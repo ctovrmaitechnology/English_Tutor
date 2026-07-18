@@ -1,0 +1,331 @@
+/* ── PRACTICE PAGE STYLING ───────────────────────────────────────── */
+.practice-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4px 0;
+}
+
+/* Page Header */
+.practice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--gray-200, #e2e8f0);
+  border-radius: 20px;
+  padding: 24px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.practice-title {
+  font-size: 1.8rem;
+  font-weight: 850;
+  color: var(--gray-800, #1e293b);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.practice-subtitle {
+  font-size: 0.95rem;
+  color: var(--gray-400, #94a3b8);
+  margin: 4px 0 0;
+  font-weight: 500;
+}
+
+.clipboard-icon-box {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  background: var(--blue-50, #eff6ff);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clipboard-icon-box svg {
+  color: var(--blue-600, #2563eb);
+}
+
+.badge-pencil {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  font-size: 1.1rem;
+}
+
+/* Priority Cards Stack */
+.priority-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.priority-card {
+  background: #ffffff;
+  border: 1px solid var(--gray-200, #e2e8f0);
+  border-radius: 20px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.priority-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* Left borders for priorities */
+.priority-card.border-red {
+  border-left: 6px solid #ef4444;
+}
+
+.priority-card.border-orange {
+  border-left: 6px solid #f97316;
+}
+
+/* Card Header */
+.priority-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--gray-100, #f1f5f9);
+  padding-bottom: 12px;
+}
+
+.priority-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.bg-red-light {
+  background: #fef2f2;
+}
+
+.text-red-dark {
+  color: #ef4444;
+}
+
+.bg-orange-light {
+  background: #fff7ed;
+}
+
+.text-orange-dark {
+  color: #f97316;
+}
+
+.priority-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.priority-title-row h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gray-800, #1e293b);
+}
+
+.priority-level-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.bg-red {
+  background: #ef4444;
+}
+
+.bg-orange {
+  background: #f97316;
+}
+
+/* Card Body - Grid Layout on Desktop */
+.priority-card-body {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.2fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .priority-card-body {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.section-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gray-400, #94a3b8);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+/* Issue list */
+.issue-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.issue-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-700, #334155);
+}
+
+.icon-x {
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.icon-check-green {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.arrow-sym {
+  color: var(--gray-400, #94a3b8);
+  margin: 0 4px;
+}
+
+.crossed-out {
+  text-decoration: line-through;
+  color: var(--gray-400, #94a3b8);
+}
+
+.corrected {
+  font-weight: 700;
+  color: #10b981;
+}
+
+.issue-paragraph {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-700, #334155);
+  line-height: 1.4;
+}
+
+/* Impact */
+.impact-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-700, #334155);
+  line-height: 1.4;
+}
+
+/* Practice Assigned */
+.assigned-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--gray-700, #334155);
+}
+
+.icon-clock-gray {
+  color: var(--gray-400, #94a3b8);
+}
+
+/* Card Footer / Buttons */
+.priority-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--gray-100, #f1f5f9);
+  padding-top: 14px;
+}
+
+.drill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: none;
+  font-size: 0.88rem;
+  font-weight: 750;
+  cursor: pointer;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drill-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.drill-btn.btn-red {
+  background: #ef4444;
+}
+
+.drill-btn.btn-red:hover {
+  background: #dc2626;
+}
+
+.drill-btn.btn-orange {
+  background: #f97316;
+}
+
+.drill-btn.btn-orange:hover {
+  background: #ea580c;
+}
+
+/* Completed drill state */
+.drill-btn.completed {
+  background: #10b981 !important;
+  cursor: default;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Practice Footer */
+.practice-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: var(--blue-600, #2563eb);
+  font-size: 0.95rem;
+  font-weight: 750;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.15s;
+}
+
+.view-all-btn:hover {
+  color: var(--blue-700, #1d4ed8);
+  text-decoration: underline;
+}

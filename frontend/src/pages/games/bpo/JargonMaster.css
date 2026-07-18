@@ -1,0 +1,25 @@
+.jargon-master { min-height: 100vh; background: var(--gray-50); }
+.jm-game { max-width: 560px; margin: 0 auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; }
+.jm-progress { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; color: var(--gray-500); }
+.jm-progress-track { flex: 1; height: 6px; background: var(--gray-200); border-radius: 999px; overflow: hidden; }
+.jm-progress-fill { height: 100%; background: #6366f1; border-radius: 999px; transition: width 0.4s; }
+.jm-type-badge { display: inline-block; background: #ede9fe; color: #6d28d9; padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; }
+.jm-question-box { background: white; border-radius: 20px; padding: 28px; box-shadow: 0 2px 12px rgba(99,102,241,.08); border: 2px solid #ede9fe; }
+.jm-question { font-size: 18px; font-weight: 600; color: var(--gray-800); line-height: 1.5; }
+.jm-feedback { border-radius: 14px; padding: 14px 18px; }
+.jm-feedback--correct { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.jm-feedback--wrong { background: #fef2f2; border: 1px solid #fecaca; }
+.jm-feedback-title { font-size: 15px; font-weight: 700; color: var(--gray-800); margin-bottom: 6px; }
+.jm-feedback-answer { font-size: 13px; color: var(--gray-600); margin-bottom: 4px; }
+.jm-explanation { font-size: 12px; color: var(--gray-500); }
+.jm-options { display: flex; flex-direction: column; gap: 10px; }
+.jm-option { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: white; border: 2px solid var(--gray-200); border-radius: 14px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--gray-800); text-align: left; transition: all 0.15s; }
+.jm-option:hover:not(:disabled) { border-color: #6366f1; background: #ede9fe; }
+.jm-option--selected { border-color: #6366f1; background: #ede9fe; }
+.jm-option-letter { width: 28px; height: 28px; background: var(--gray-100); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+.jm-option:disabled { opacity: 0.5; cursor: not-allowed; }
+.jm-input-row { display: flex; gap: 12px; }
+.jm-input { flex: 1; padding: 14px 18px; border: 2px solid var(--gray-200); border-radius: 14px; font-size: 15px; outline: none; }
+.jm-input:focus { border-color: #6366f1; }
+.jm-submit-btn { width: 52px; height: 52px; background: #6366f1; color: white; border: none; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.jm-submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }

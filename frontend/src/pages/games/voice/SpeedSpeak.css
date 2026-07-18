@@ -1,0 +1,31 @@
+.speed-speak { min-height: 100vh; background: var(--gray-50); }
+.ss-game { max-width: 560px; margin: 0 auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; }
+.ss-category-box { background: white; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 2px 16px rgba(245,158,11,.1); border: 2px solid #fef3c7; }
+.ss-category-label { font-size: 13px; color: var(--gray-500); font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+.ss-category { font-size: 28px; font-weight: 900; color: #d97706; margin-bottom: 8px; }
+.ss-instruction { font-size: 15px; color: var(--gray-600); margin-bottom: 12px; }
+.ss-examples { font-size: 13px; color: var(--gray-400); }
+.ss-examples-label { font-weight: 600; }
+.ss-example-word { color: var(--gray-500); }
+.ss-timer { display: flex; align-items: center; gap: 12px; }
+.ss-timer-track { flex: 1; height: 10px; background: var(--gray-200); border-radius: 999px; overflow: hidden; }
+.ss-timer-bar { height: 100%; background: #f59e0b; border-radius: 999px; transition: width 1s linear; }
+.ss-timer-bar--urgent { background: #ef4444; }
+.ss-timer-num { font-size: 20px; font-weight: 800; color: var(--gray-700); min-width: 32px; }
+.ss-timer-num--urgent { color: #ef4444; animation: pulse .5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+.ss-record-btn { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 20px; background: #f59e0b; color: white; border: none; border-radius: 18px; font-size: 18px; font-weight: 800; cursor: pointer; transition: all .2s; }
+.ss-record-btn:hover:not(:disabled) { background: #d97706; transform: scale(1.02); }
+.ss-record-btn:disabled { opacity: .5; cursor: not-allowed; }
+.ss-recording-state { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.ss-rec-indicator { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: #ef4444; }
+.ss-stop-btn { display: flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--gray-800); color: white; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.ss-result { display: flex; justify-content: center; margin-bottom: 16px; }
+.ss-stat { text-align: center; }
+.ss-stat-num { display: block; font-size: 48px; font-weight: 900; color: #f59e0b; }
+.ss-stat-label { font-size: 14px; color: var(--gray-500); }
+.ss-words-section, .ss-missed-section { text-align: left; width: 100%; margin-bottom: 12px; }
+.ss-words-label, .ss-missed-label { font-size: 13px; font-weight: 700; color: var(--gray-600); margin-bottom: 8px; }
+.ss-word-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ss-word-chip { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.ss-word-chip--missed { background: #fffbeb; color: #92400e; border-color: #fde68a; }
