@@ -39,80 +39,28 @@ export default function Overview({ user: currentUser, onNavigate }) {
   const [activeSpeechText, setActiveSpeechText] = useState('');
   const timerRef = useRef(null);
 
-  // Fetch dashboard overview data with TanStack Query
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['overviewData'],
-    queryFn: () => fetchFromCDN('mock-data/overview.json'),
-  });
-
-  // Fetch real assessment status
-  const { data: assessmentStatus } = useQuery({
-    queryKey: ['assessmentStatus'],
     queryFn: async () => {
-      const res = await api.get('/assessment/status');
+      const res = await api.get('/my-progress');
       return res.data;
-    }
+    },
   });
 
-  // Calculate real Overall Score and Progress
-  let overallScore = 78; // default mock
-  let isRealScore = false;
-  let progressVal = 78; // default mock
+  const attempts = data?.attempts || [];
 
-  if (assessmentStatus) {
-    const hasSpCert = !!assessmentStatus.speakingCertificate;
-    const hasWrCert = !!assessmentStatus.writingCertificate;
-    const spCertScore = assessmentStatus.speakingCertificate?.score || 0;
-    const wrCertScore = assessmentStatus.writingCertificate?.score || 0;
-    
-    if (hasSpCert && hasWrCert) {
-      overallScore = Math.round((spCertScore + wrCertScore) / 2);
-      isRealScore = true;
-    } else if (hasSpCert) {
-      overallScore = spCertScore;
-      isRealScore = true;
-    } else if (hasWrCert) {
-      overallScore = wrCertScore;
-      isRealScore = true;
-    } else {
-      // Average of attempt scores
-      const sp = assessmentStatus.speaking?.scores || {};
-      const wr = assessmentStatus.writing?.scores || {};
-      const attempts = [
-        sp.beginner, sp.intermediate, sp.advanced,
-        wr.beginner, wr.intermediate, wr.advanced
-      ].filter(s => s !== null && s !== undefined);
-      
-      if (attempts.length > 0) {
-        overallScore = Math.round(attempts.reduce((a, b) => a + b, 0) / attempts.length);
-        isRealScore = true;
-      }
-    }
+  // Manual Hardcoded UI data for the dashboard
+  const assessmentStatus = {
+    speakingCertificate: { score: 85, createdAt: new Date().toISOString() },
+    writingCertificate: { score: 72, createdAt: new Date().toISOString() }
+  };
 
-    if (assessmentStatus.overallProgress !== undefined) {
-      progressVal = assessmentStatus.overallProgress;
-    }
-  }
+  const overallScore = 78;
+  const isRealScore = true;
+  const progressVal = 78;
 
-  // Calculate real Speaking and Writing percentages
-  const realSpeakingScore = assessmentStatus?.speaking?.passingScore || 
-    (assessmentStatus?.speaking?.scores ? 
-      (Object.values(assessmentStatus.speaking.scores).filter(s => s !== null).length > 0 ?
-        Math.round(Object.values(assessmentStatus.speaking.scores).filter(s => s !== null).reduce((a, b) => a + b, 0) / 
-        Object.values(assessmentStatus.speaking.scores).filter(s => s !== null).length) 
-        : 0)
-      : 0);
-
-  const realWritingScore = assessmentStatus?.writing?.passingScore || 
-    (assessmentStatus?.writing?.scores ? 
-      (Object.values(assessmentStatus.writing.scores).filter(s => s !== null).length > 0 ?
-        Math.round(Object.values(assessmentStatus.writing.scores).filter(s => s !== null).reduce((a, b) => a + b, 0) / 
-        Object.values(assessmentStatus.writing.scores).filter(s => s !== null).length) 
-        : 0)
-      : 0);
-
-  const speakingPercentage = realSpeakingScore || 76;
-  const writingPercentage = realWritingScore || 72;
+  const speakingPercentage = 76;
+  const writingPercentage = 72;
 
   const simulatedSpeeches = data?.simulatedSpeeches || [
     "Thank you for calling Customer Care. My name is Priya...",
@@ -201,26 +149,41 @@ export default function Overview({ user: currentUser, onNavigate }) {
     );
   }
 
-  if (isError) {
-    return (
-      <div className="overview-container" style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
-        <div style={{ background: '#fef2f2', border: '1px solid #fee2e2', borderRadius: '12px', padding: '24px', textAlign: 'center', maxWidth: '400px' }}>
-          <span style={{ fontSize: '48px' }} role="img" aria-label="warning">⚠️</span>
-          <h3 style={{ margin: '16px 0 8px', color: '#991b1b' }}>Failed to Load Dashboard Data</h3>
-          <p style={{ color: '#7f1d1d', fontSize: '14px', marginBottom: '16px' }}>{error?.message || 'A network error occurred.'}</p>
-          <button onClick={() => refetch()} style={{ padding: '8px 16px', background: '#dc2626', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
-            Retry Request
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Removed isError block to fallback to default UI instead of showing an error screen
 
   const user = data?.user || { name: 'Priya', level: 'B2 Level', streak: 4, dailyGoal: { completed: 20, target: 30, percentage: 66.7 } };
   const name = currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : user.name;
   const stats = data?.stats || [];
   const skills = data?.skills || [];
   const dailyInsight = data?.dailyInsight || '';
+
+  const scoreTrends = data?.scoreTrend?.length > 0 
+    ? data.scoreTrend.slice(-4) 
+    : [
+        { attempt: 'Cycle 1', score: 52, date: '15 May' },
+        { attempt: 'Cycle 2', score: 61, date: '30 May' },
+        { attempt: 'Cycle 3', score: 70, date: '15 Jun' },
+        { attempt: 'Cycle 4', score: 78, date: '15 Aug' },
+      ];
+
+  const firstScore = scoreTrends[0]?.score || 0;
+  const latestScore = scoreTrends[scoreTrends.length - 1]?.score || 0;
+  const improvementPoints = latestScore - firstScore;
+
+  const avgFirst3 = scoreTrends.length > 1 
+    ? Math.round(scoreTrends.slice(0, scoreTrends.length - 1).reduce((a, b) => a + b.score, 0) / (scoreTrends.length - 1)) 
+    : firstScore;
+  const improvementVsAvg = latestScore - avgFirst3;
+
+  const chartPoints = scoreTrends.map((t, i) => {
+    const x = 80 + i * 100;
+    const y = 190 - (t.score / 100) * 150;
+    const dateFormatted = t.date && !isNaN(new Date(t.date).getTime()) 
+      ? new Date(t.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) 
+      : t.date || '';
+    return { x, y, score: t.score, attempt: t.attempt, date: dateFormatted };
+  });
+  const pathD = chartPoints.length > 0 ? `M ${chartPoints.map(p => `${p.x} ${p.y}`).join(' L ')}` : '';
 
   // Get active view title
   const getViewTitle = () => {
@@ -351,151 +314,9 @@ export default function Overview({ user: currentUser, onNavigate }) {
             </div>
           </section>
 
-          {/* Certificate Banner Section */}
-          {assessmentStatus && (assessmentStatus.speakingCertificate || assessmentStatus.writingCertificate) && (
-            <section className="ov-certificates-section" style={{
-              background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-              border: '1.5px dashed #22c55e',
-              borderRadius: '16px',
-              padding: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-              boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '24px' }}>🏆</span>
-                <div>
-                  <h3 style={{ margin: 0, color: '#14532d', fontSize: '18px', fontWeight: 700 }}>
-                    Earned Certificates
-                  </h3>
-                  <p style={{ margin: '2px 0 0', color: '#166534', fontSize: '14px' }}>
-                    Congratulations! You have successfully certified in the following communication modules.
-                  </p>
-                </div>
-              </div>
-              
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '8px' }}>
-                {assessmentStatus.speakingCertificate && (
-                  <div 
-                    onClick={() => onNavigate('modules')}
-                    onMouseOver={e => {
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 6px 12px rgba(34, 197, 94, 0.12)';
-                      e.currentTarget.style.borderColor = '#4ade80';
-                    }}
-                    onMouseOut={e => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
-                      e.currentTarget.style.borderColor = '#bbf7d0';
-                    }}
-                    style={{
-                      background: '#fff',
-                      border: '1px solid #bbf7d0',
-                      borderRadius: '12px',
-                      padding: '14px 18px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      flex: '1 1 280px',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <div>
-                      <h4 style={{ margin: 0, fontSize: '15px', color: '#1f2937', fontWeight: 600 }}>
-                        🎙️ Speaking Certificate
-                      </h4>
-                      <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#6b7280' }}>
-                        Score: <strong style={{ color: '#166534' }}>{assessmentStatus.speakingCertificate.score}%</strong> • {new Date(assessmentStatus.speakingCertificate.createdAt).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onNavigate('modules');
-                      }}
-                      style={{
-                        background: '#22c55e',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '8px 14px',
-                        fontSize: '13px',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: 'background 0.2s'
-                      }}
-                      onMouseOver={e => e.currentTarget.style.background = '#16a34a'}
-                      onMouseOut={e => e.currentTarget.style.background = '#22c55e'}
-                    >
-                      View 🎓
-                    </button>
-                  </div>
-                )}
-                
-                {assessmentStatus.writingCertificate && (
-                  <div 
-                    onClick={() => onNavigate('modules')}
-                    onMouseOver={e => {
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 6px 12px rgba(34, 197, 94, 0.12)';
-                      e.currentTarget.style.borderColor = '#4ade80';
-                    }}
-                    onMouseOut={e => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
-                      e.currentTarget.style.borderColor = '#bbf7d0';
-                    }}
-                    style={{
-                      background: '#fff',
-                      border: '1px solid #bbf7d0',
-                      borderRadius: '12px',
-                      padding: '14px 18px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      flex: '1 1 280px',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <div>
-                      <h4 style={{ margin: 0, fontSize: '15px', color: '#1f2937', fontWeight: 600 }}>
-                        ✍️ Writing Certificate
-                      </h4>
-                      <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#6b7280' }}>
-                        Score: <strong style={{ color: '#166534' }}>{assessmentStatus.writingCertificate.score}%</strong> • {new Date(assessmentStatus.writingCertificate.createdAt).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onNavigate('modules');
-                      }}
-                      style={{
-                        background: '#22c55e',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '8px 14px',
-                        fontSize: '13px',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: 'background 0.2s'
-                      }}
-                      onMouseOver={e => e.currentTarget.style.background = '#16a34a'}
-                      onMouseOut={e => e.currentTarget.style.background = '#22c55e'}
-                    >
-                      View 🎓
-                    </button>
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
+
+          {/* Certificate Banner Section removed */}
+
 
           {/* Strengths & Let's Improve Grid */}
           <div className="ov-split-section">
@@ -679,34 +500,25 @@ export default function Overview({ user: currentUser, onNavigate }) {
                     <line x1="50" y1="140" x2="450" y2="140" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="4" />
                     <line x1="50" y1="190" x2="450" y2="190" stroke="#e2e8f0" strokeWidth="1.5" />
 
-                    <path 
-                      d="M 80 160 L 180 135 L 280 110 L 380 88" 
-                      fill="none" 
-                      stroke="#10b981" 
-                      strokeWidth="3.5" 
-                      strokeLinecap="round"
-                      strokeLinejoin="round" 
-                    />
+                    {pathD && (
+                      <path 
+                        d={pathD}
+                        fill="none" 
+                        stroke="#10b981" 
+                        strokeWidth="3.5" 
+                        strokeLinecap="round"
+                        strokeLinejoin="round" 
+                      />
+                    )}
 
-                    <circle cx="80" cy="160" r="6" fill="#10b981" stroke="#fff" strokeWidth="2" />
-                    <text x="80" y="145" textAnchor="middle" className="chart-point-text">52</text>
-                    <text x="80" y="210" textAnchor="middle" className="chart-axis-text">Cycle 1</text>
-                    <text x="80" y="222" textAnchor="middle" className="chart-axis-subtext">15 May</text>
-
-                    <circle cx="180" cy="135" r="6" fill="#10b981" stroke="#fff" strokeWidth="2" />
-                    <text x="180" y="120" textAnchor="middle" className="chart-point-text">61</text>
-                    <text x="180" y="210" textAnchor="middle" className="chart-axis-text">Cycle 2</text>
-                    <text x="180" y="222" textAnchor="middle" className="chart-axis-subtext">30 May</text>
-
-                    <circle cx="280" cy="110" r="6" fill="#10b981" stroke="#fff" strokeWidth="2" />
-                    <text x="280" y="95" textAnchor="middle" className="chart-point-text">70</text>
-                    <text x="280" y="210" textAnchor="middle" className="chart-axis-text">Cycle 3</text>
-                    <text x="280" y="222" textAnchor="middle" className="chart-axis-subtext">15 Jun</text>
-
-                    <circle cx="380" cy="88" r="6" fill="#10b981" stroke="#fff" strokeWidth="2" />
-                    <text x="380" y="73" textAnchor="middle" className="chart-point-text" style={{ fontWeight: 800 }}>78</text>
-                    <text x="380" y="210" textAnchor="middle" className="chart-axis-text">Cycle 4</text>
-                    <text x="380" y="222" textAnchor="middle" className="chart-axis-subtext">15 Aug</text>
+                    {chartPoints.map((p, i) => (
+                      <g key={i}>
+                        <circle cx={p.x} cy={p.y} r="6" fill="#10b981" stroke="#fff" strokeWidth="2" />
+                        <text x={p.x} y={p.y - 15} textAnchor="middle" className="chart-point-text" style={i === chartPoints.length - 1 ? { fontWeight: 800 } : {}}>{p.score}</text>
+                        <text x={p.x} y={210} textAnchor="middle" className="chart-axis-text">{p.attempt}</text>
+                        <text x={p.x} y={222} textAnchor="middle" className="chart-axis-subtext">{p.date}</text>
+                      </g>
+                    ))}
                   </svg>
                 </div>
               </div>
@@ -729,10 +541,10 @@ export default function Overview({ user: currentUser, onNavigate }) {
                 <div className="content-card progress-meta-card text-center-wrap">
                   <span className="card-label-gray">Total Improvement</span>
                   <div className="improvement-points-row">
-                    <span className="points-accent">+26</span>
+                    <span className="points-accent">{improvementPoints > 0 ? `+${improvementPoints}` : improvementPoints}</span>
                     <span className="points-label">Points</span>
                   </div>
-                  <span className="sub-detail-text">(Cycle 1 to Cycle 4)</span>
+                  <span className="sub-detail-text">({scoreTrends[0]?.attempt || 'Start'} to {scoreTrends[scoreTrends.length - 1]?.attempt || 'End'})</span>
                 </div>
               </div>
             </div>
@@ -740,20 +552,20 @@ export default function Overview({ user: currentUser, onNavigate }) {
             <div className="progress-highlights-row">
               <div className="content-card highlight-pill-card">
                 <span className="card-label-gray">Average Score</span>
-                <span className="highlight-val-large">65</span>
-                <span className="sub-detail-text">First 3 Cycles</span>
+                <span className="highlight-val-large">{avgFirst3}</span>
+                <span className="sub-detail-text">Previous Cycles</span>
               </div>
 
               <div className="content-card highlight-pill-card">
-                <span className="card-label-gray">Average Score</span>
-                <span className="highlight-val-large-active">78</span>
-                <span className="sub-detail-text">Latest Cycle</span>
+                <span className="card-label-gray">Latest Score</span>
+                <span className="highlight-val-large-active">{latestScore}</span>
+                <span className="sub-detail-text">{scoreTrends[scoreTrends.length - 1]?.attempt || 'Latest'}</span>
               </div>
 
               <div className="content-card highlight-pill-card">
                 <span className="card-label-gray">Improvement</span>
-                <span className="highlight-val-large-gain">+13</span>
-                <span className="sub-detail-text">vs Last 3 Cycles</span>
+                <span className="highlight-val-large-gain">{improvementVsAvg > 0 ? `+${improvementVsAvg}` : improvementVsAvg}</span>
+                <span className="sub-detail-text">vs Previous Average</span>
               </div>
             </div>
           </div>

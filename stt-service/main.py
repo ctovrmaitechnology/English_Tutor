@@ -19,7 +19,7 @@ app.add_middleware(
 
 # Load model once at startup
 print("Loading Whisper model...")
-model = WhisperModel("tiny.en", device="cpu", compute_type="int8", cpu_threads=2)
+model = WhisperModel("tiny.en", device="cpu", compute_type="float32", cpu_threads=2)
 print("Whisper model ready")
 
 

@@ -247,6 +247,9 @@
   cursor: pointer;
   margin-bottom: 20px;
   transition: all 0.15s;
+  align-self: flex-start;
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .modules-back-btn:hover { background: #f8fafc; color: #1e293b; }
@@ -1092,6 +1095,9 @@
   cursor: pointer;
   width: fit-content;
   transition: all 0.15s;
+  align-self: flex-start;
+  margin-right: auto;
+  margin-left: 0;
 }
 .lf-back-btn:hover { background: #f8fafc; border-color: #94a3b8; }
 
@@ -1488,3 +1494,287 @@
   transition: all 0.15s;
 }
 .lf-uncomplete-btn:hover { border-color: #94a3b8; background: #f8fafc; }
+
+/* ── Compact Single-Screen Layout (Fits without scrolling) ── */
+.modules-submodule-card {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.modules-submodule-header {
+  padding: 8px 16px !important;
+  min-height: auto !important;
+}
+
+.modules-submodule-header .modules-submodule-emoji {
+  font-size: 22px !important;
+}
+
+.modules-submodule-header .modules-submodule-module-name {
+  font-size: 11px !important;
+  margin-bottom: 1px !important;
+}
+
+.modules-submodule-header .modules-submodule-title {
+  font-size: 15px !important;
+  margin: 0 !important;
+}
+
+.modules-submodule-body {
+  padding: 10px 14px !important;
+}
+
+.lf-step-bar {
+  margin-bottom: 8px !important;
+  gap: 6px !important;
+}
+
+.lf-step-pill {
+  padding: 4px 10px !important;
+  font-size: 11.5px !important;
+}
+
+.lf-card {
+  padding: 12px 16px !important;
+  gap: 8px !important;
+}
+
+.prompt-card {
+  padding: 10px 14px !important;
+  margin-bottom: 8px !important;
+  border-radius: 12px !important;
+}
+
+.prompt-card-header h4 {
+  font-size: 13px !important;
+}
+
+.prompt-card-text {
+  font-size: 15px !important;
+  padding: 6px 10px !important;
+  margin-bottom: 6px !important;
+  border-radius: 8px !important;
+}
+
+.prompt-card-tip {
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+  border-radius: 6px !important;
+}
+
+.score-header-box {
+  padding: 12px 16px !important;
+  gap: 16px !important;
+  border-radius: 12px !important;
+}
+
+.score-circle {
+  width: 68px !important;
+  height: 68px !important;
+  border-width: 4px !important;
+}
+
+.score-num {
+  font-size: 17px !important;
+}
+
+.score-metrics {
+  gap: 6px !important;
+}
+
+.metric-row {
+  font-size: 12px !important;
+  gap: 8px !important;
+}
+
+.feedback-card {
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  gap: 10px !important;
+}
+
+.feedback-text h5 {
+  font-size: 13px !important;
+  margin-bottom: 2px !important;
+}
+
+.feedback-text p {
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+}
+
+.record-btn {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+/* ── Full Width Expansion & Spacious Premium Layout ── */
+.modules-page {
+  padding: 20px 28px !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.lf-container {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 16px !important;
+}
+
+.modules-submodule-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 540px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.modules-submodule-header {
+  padding: 16px 24px !important;
+  min-height: auto !important;
+}
+
+.modules-submodule-header .modules-submodule-emoji {
+  font-size: 28px !important;
+}
+
+.modules-submodule-header .modules-submodule-module-name {
+  font-size: 12px !important;
+  margin-bottom: 2px !important;
+}
+
+.modules-submodule-header .modules-submodule-title {
+  font-size: 18px !important;
+  margin: 0 !important;
+}
+
+.modules-submodule-body {
+  padding: 20px 24px !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.modules-back-btn, .lf-back-btn {
+  margin-bottom: 12px !important;
+  padding: 8px 16px !important;
+  font-size: 13px !important;
+}
+
+.lf-step-bar {
+  margin-bottom: 16px !important;
+  gap: 8px !important;
+}
+
+.lf-step-pill {
+  padding: 6px 14px !important;
+  font-size: 12.5px !important;
+}
+
+.lf-card {
+  padding: 24px 28px !important;
+  gap: 16px !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.prompt-card {
+  padding: 20px 24px !important;
+  margin-bottom: 16px !important;
+  border-radius: 16px !important;
+}
+
+.prompt-card-header h4 {
+  font-size: 14px !important;
+}
+
+.prompt-card-text {
+  font-size: 17px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 10px !important;
+  border-radius: 12px !important;
+  line-height: 1.5 !important;
+}
+
+.prompt-card-tip {
+  padding: 8px 12px !important;
+  font-size: 12.5px !important;
+  border-radius: 8px !important;
+}
+
+.speaking-action-zone {
+  padding: 28px 20px !important;
+  min-height: 160px !important;
+  border-radius: 16px !important;
+}
+
+.speaking-action-hint {
+  margin-bottom: 14px !important;
+  font-size: 14px !important;
+}
+
+.record-btn {
+  width: 72px !important;
+  height: 72px !important;
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.3) !important;
+}
+
+.record-btn svg {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+/* ── Compact Speaking Results Viewport Fit ── */
+.speaking-results-zone {
+  gap: 10px !important;
+}
+
+.speaking-results-zone .score-header-box {
+  padding: 10px 16px !important;
+  gap: 14px !important;
+  border-radius: 12px !important;
+}
+
+.speaking-results-zone .score-circle {
+  width: 58px !important;
+  height: 58px !important;
+  border-width: 4px !important;
+}
+
+.speaking-results-zone .score-num {
+  font-size: 16px !important;
+}
+
+.speaking-results-zone .metric-row {
+  font-size: 12px !important;
+  gap: 8px !important;
+}
+
+.speaking-results-zone .metric-bar-track {
+  height: 5px !important;
+}
+
+.speaking-results-zone .feedback-card {
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  gap: 10px !important;
+}
+
+.speaking-results-zone .feedback-text h5 {
+  font-size: 13px !important;
+  margin-bottom: 2px !important;
+}
+
+.speaking-results-zone .feedback-text p {
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+}
+
+.speaking-results-zone .result-buttons {
+  margin-top: 8px !important;
+}

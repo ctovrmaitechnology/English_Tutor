@@ -362,3 +362,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transform: translateY(0);
 }
 
+/* ===== ANIMATED SPINNER ===== */
+.animate-spin {
+  animation: spin 1s linear infinite !important;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+

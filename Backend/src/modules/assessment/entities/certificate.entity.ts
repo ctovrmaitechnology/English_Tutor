@@ -1,30 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { User } from '../../users/user.entity';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
-@Entity('tutor_certificates')
+@Entity('certificates')
 export class Certificate {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'user_id', type: 'varchar' })
   userId: string;
 
-  @Column()
-  category: 'speaking' | 'writing';
+  @Column({ type: 'varchar', nullable: true })
+  title: string;
 
-  @Column()
-  moduleName: string; // e.g., 'Module 1 Speaking' or 'Module 1 Writing'
+  @Column({ type: 'varchar', nullable: true })
+  category: string;
 
-  @Column()
-  score: number; // overall average percentage
+  @Column({ name: 'module_name', type: 'varchar', nullable: true })
+  moduleName: string;
 
-  @Column()
+  @Column({ type: 'float', nullable: true })
+  score: number;
+
+  @Column({ name: 'recipient_name', type: 'varchar', nullable: true })
   recipientName: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
-
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'userId' })
-  user: User;
 }

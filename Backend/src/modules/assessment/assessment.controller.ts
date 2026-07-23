@@ -1,199 +1,159 @@
 import {
-  Controller, Get, Post, Body, Param,
-  UseGuards, Request, HttpStatus, HttpCode,
-  UseInterceptors, UploadedFile,
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Body,
+  Param,
+  Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { AssessmentService } from './assessment.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import {
-  ApiBearerAuth, ApiOperation, ApiResponse,
-  ApiTags, ApiConsumes, ApiBody,
-} from '@nestjs/swagger';
+import { ModuleQuestion } from './entities/module-question.entity';
 
-@ApiTags('Assessment & Progress')
 @Controller('assessment')
 export class AssessmentController {
   constructor(private readonly assessmentService: AssessmentService) {}
 
-  // ── Seeding ──────────────────────────────────────────────────────────────
-  @Post('seed')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Seed 300 MCQ + speaking passages into the database' })
-  async seedQuestions() {
-    return this.assessmentService.seedQuestions(true);
+  // ─────────────────────────────────────────────────────────────────
+  // QUESTION MANAGEMENT (Admin)
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * POST /assessment/admin/questions/upload
+   * Body: array of question objects
+   *
+   * Example payload:
+   * [
+   *   {
+   *     "moduleId": "sp-1",
+   *     "lessonId": "sp-1-1",
+   *     "level": "BEGINNER",
+   *     "set": "SET_1",
+   *     "part": "PART_A",
+   *     "questionNumber": 1,
+   *     "marks": 1,
+   *     "question": "Which is the correct greeting?",
+   *     "optionA": "Good morning",
+   *     "optionB": "Good cheese",
+   *     "optionC": "Good road",
+   *     "optionD": "Good sleep",
+   *     "correctOption": "A",
+   *     "answer": "Good morning"
+   *   },
+   *   {
+   *     "moduleId": "sp-1",
+   *     "lessonId": "sp-1-1",
+   *     "level": "BEGINNER",
+   *     "set": "SET_1",
+   *     "part": "PART_B",
+   *     "questionNumber": 1,
+   *     "marks": 5,
+   *     "question": "Describe how you would greet a customer.",
+   *     "explanation": "Speak naturally for 30 seconds"
+   *   }
+   * ]
+   */
+  @UseGuards(JwtAuthGuard)
+  @Post('admin/questions/upload')
+  async uploadQuestions(@Body() body: Partial<ModuleQuestion>[]) {
+    return this.assessmentService.uploadQuestions(body);
   }
 
-  // ── Progress ─────────────────────────────────────────────────────────────
+  /**
+   * DELETE /assessment/admin/questions/:moduleId
+   * Deletes all questions for a given moduleId or lessonId
+   */
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Get('progress')
-  @ApiOperation({ summary: 'Get completed lesson submodule IDs for the current user' })
-  async getProgress(@Request() req) {
-    return this.assessmentService.getProgress(req.user.id);
+  @Delete('admin/questions/:moduleId')
+  async deleteQuestions(@Param('moduleId') moduleId: string) {
+    return this.assessmentService.deleteQuestionsForModule(moduleId);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Post('progress')
-  @ApiOperation({ summary: 'Mark a lesson submodule as completed or uncompleted' })
-  async completeSubModule(
-    @Request() req,
-    @Body() body: { category: string; moduleId: string; subModuleId: string; completed?: boolean },
-  ) {
-    return this.assessmentService.completeSubModule(
-      req.user.id, body.category, body.moduleId, body.subModuleId, body.completed ?? true,
-    );
-  }
+  // ─────────────────────────────────────────────────────────────────
+  // STUDENT QUESTION FETCH
+  // ─────────────────────────────────────────────────────────────────
 
-  // ── Gating Status ─────────────────────────────────────────────────────────
+  /**
+   * GET /assessment/questions/:lessonId
+   * Returns part A + part B questions for the lesson (unused set rotation)
+   * Query: ?exclude=SET_1  (optional — exclude a specific set)
+   */
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Get('status')
-  @ApiOperation({ summary: 'Get status of assessments, certifications, locks and unlocked states' })
-  async getStatus(@Request() req) {
-    return this.assessmentService.getStatus(req.user.id);
-  }
-
-  // ── Lesson Question (Speaking Prompt / Writing Quiz) ─────────────────────
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Get('lesson-question/:sectionId')
-  @ApiOperation({ summary: 'Get the lesson question or prompt for a given section/session ID' })
-  async getLessonQuestion(@Param('sectionId') sectionId: string) {
-    return this.assessmentService.getLessonQuestion(sectionId);
-  }
-
-  // ── Get Questions for Level ───────────────────────────────────────────────
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Get('questions/:category/:level')
-  @ApiOperation({
-    summary: 'Get 5 randomized, non-repeated questions for the user at given category and level',
-    description: `
-      For **speaking**: returns 5 passages (questionText) the user must read aloud.
-      Each question has: { id, questionText, explanation (tip) }
-      
-      For **writing**: returns 5 MCQ questions with options array.
-    `,
-  })
+  @Get('questions/:lessonId')
   async getQuestions(
-    @Request() req,
-    @Param('category') category: 'speaking' | 'writing',
-    @Param('level') level: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED',
+    @Param('lessonId') lessonId: string,
+    @Query('exclude') exclude: string,
+    @Req() req,
   ) {
-    return this.assessmentService.getQuestionsForUser(req.user.id, category, level);
+    return this.assessmentService.getQuestionsForLesson(lessonId, req.user.id, exclude);
   }
 
-  // ────────────────────────────────────────────────────────────────────────
-  // ── NEW: Speaking STT — Transcribe One Passage ──────────────────────────
-  // POST /assessment/speaking/transcribe/:questionId
-  //
-  // For each of the 5 speaking questions, the frontend:
-  //   1. Shows the passage (questionText) — user reads it aloud
-  //   2. Records audio → uploads it here
-  //   3. Gets back { questionId, transcript, similarityScore }
-  //   4. Repeats for all 5 passages
-  //   5. Calls POST /assessment/submit/speaking/:level with collected scores
-  // ────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────
+  // SAVE ATTEMPT
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * POST /assessment/attempt
+   * Body: {
+   *   moduleId, lessonId, level, set,
+   *   partAScore, partBScore?,
+   *   responses: { partA: {...}, partB: {...} },
+   *   status?: 'completed'|'incomplete'
+   * }
+   */
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Post('speaking/transcribe/:questionId')
-  @ApiConsumes('multipart/form-data')
-  @ApiOperation({
-    summary: 'STT: Upload audio of user reading a passage — returns transcript + similarity score',
-    description: `
-      Whisper transcribes the audio and computes a text-similarity score (0–100)
-      comparing the transcript to the expected passage text stored in the DB.
-      
-      **similarityScore** is what you pass as the answer value when calling
-      POST /assessment/submit/speaking/:level.
-      
-      A score ≥ 70 counts as a correct reading (passing threshold).
-    `,
-  })
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        audio: { type: 'string', format: 'binary', description: 'Audio file (WAV/WEBM/MP3)' },
-      },
-      required: ['audio'],
-    },
-  })
-  @UseInterceptors(FileInterceptor('audio'))
-  async transcribeSpeakingPassage(
-    @Param('questionId') questionId: string,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    if (!file) {
-      return { error: 'No audio file uploaded. Send audio as multipart/form-data field "audio".' };
-    }
-    return this.assessmentService.transcribeSpeakingPassage(
-      questionId,
-      file.buffer,
-      file.originalname,
-    );
+  @Post('attempt')
+  async saveAttempt(@Body() body: any, @Req() req) {
+    return this.assessmentService.saveAssessment({
+      userId: req.user.id,
+      username: req.user.username || req.user.name || '',
+      moduleId: body.moduleId,
+      lessonId: body.lessonId,
+      level: body.level || 'BEGINNER',
+      set: body.set,
+      partAScore: body.partAScore,
+      partBScore: body.partBScore,
+      responses: body.responses,
+      status: body.status,
+    });
   }
 
-  // ── Submit Answers ────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────
+  // STUDENT ATTEMPT HISTORY
+  // ─────────────────────────────────────────────────────────────────
+
+  /** GET /assessment/attempts  — current user's attempts */
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Post('submit/:category/:level')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({
-    summary: 'Submit answers/scores for evaluation',
-    description: `
-      **For speaking**: pass \`{ answers: { [questionId]: similarityScore } }\` 
-      where similarityScore comes from POST /assessment/speaking/transcribe/:questionId.
-      Score ≥ 70 counts as correct for each passage.
-      
-      **For writing**: pass \`{ answers: { [questionId]: selectedOptionIndex } }\`.
-    `,
-  })
-  async submitAnswers(
-    @Request() req,
-    @Param('category') category: 'speaking' | 'writing',
-    @Param('level') level: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED',
-    @Body() body: {
-      answers: Record<string, number>;
-      feedbacks?: Record<string, string>;
-      transcripts?: Record<string, string>;
-    },
-  ) {
-    return this.assessmentService.submitAnswers(
-      req.user.id,
-      category,
-      level,
-      body.answers,
-      body.feedbacks,
-      body.transcripts,
-    );
+  @Get('attempts')
+  async getMyAttempts(@Req() req) {
+    return this.assessmentService.getAssessmentsByUser(req.user.id);
   }
 
-  // ── Retake Assessment ──────────────────────────────────────────────────────
+  /** GET /assessment/attempts/:lessonId  — filter by lesson */
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Post('retake/:category')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Reset assessment attempts for a category to allow retaking' })
-  async retakeAssessment(
-    @Request() req,
-    @Param('category') category: 'speaking' | 'writing',
-  ) {
-    return this.assessmentService.retakeAssessment(req.user.id, category);
+  @Get('attempts/:lessonId')
+  async getAttemptsByLesson(@Param('lessonId') lessonId: string, @Req() req) {
+    return this.assessmentService.getAssessmentsByLesson(req.user.id, lessonId);
   }
 
-  // ── Reset Module Progress ──────────────────────────────────────────────────
+  /** GET /assessment/completed-lessons  — list of completed lesson IDs */
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Post('reset-module/:moduleId')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Reset progress for a specific module' })
-  async resetModuleProgress(
-    @Request() req,
-    @Param('moduleId') moduleId: string,
-  ) {
-    return this.assessmentService.resetModuleProgress(req.user.id, moduleId);
+  @Get('completed-lessons')
+  async getCompletedLessons(@Req() req) {
+    return this.assessmentService.getCompletedLessons(req.user.id);
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  // ADMIN VIEW
+  // ─────────────────────────────────────────────────────────────────
+
+  /** GET /assessment/admin/attempts/:userId  — all attempts for a user */
+  @UseGuards(JwtAuthGuard)
+  @Get('admin/attempts/:userId')
+  async getAttemptsByUser(@Param('userId') userId: string) {
+    return this.assessmentService.getAssessmentsByUserAdmin(userId);
   }
 }

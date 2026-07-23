@@ -96,6 +96,7 @@ export default function Assessment({ onAssessmentActiveChange }) {
   const [gradedResult, setGradedResult] = useState(null);
   const [showCert, setShowCert] = useState(false);
   const [isLoadingStatus, setIsLoadingStatus] = useState(true);
+  const [lockedPopupMessage, setLockedPopupMessage] = useState('');
 
   // Speaking assessment recording states
   const [speakingRecordingState, setSpeakingRecordingState] = useState('idle'); // 'idle', 'recording', 'analyzing', 'completed'
@@ -492,8 +493,12 @@ export default function Assessment({ onAssessmentActiveChange }) {
     }
   }, []);
 
+  const hasFetchedOnMount = useRef(false);
   useEffect(() => {
-    fetchStatus();
+    if (!hasFetchedOnMount.current) {
+      hasFetchedOnMount.current = true;
+      fetchStatus();
+    }
   }, [fetchStatus]);
 
   // Seeding function
@@ -821,8 +826,12 @@ export default function Assessment({ onAssessmentActiveChange }) {
                   </div>
                 ) : (
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', width: '100%' }}>
-                    <button className="lobby-card__action-btn speaking-btn" style={{ flex: 1, minWidth: '150px' }} onClick={() => setActiveCategory('speaking')}>
-                      Start Speaking Assessment →
+                    <button 
+                      className="lobby-card__action-btn speaking-btn" 
+                      style={{ flex: 1, minWidth: '150px', background: '#9ca3af', color: '#fff', cursor: 'not-allowed', opacity: 0.8 }} 
+                      onClick={() => setLockedPopupMessage('Please finish all the learning modules before taking the Speaking assessment.')}
+                    >
+                      🔒 Start Speaking Assessment
                     </button>
                     {status.speakingCertificate && (
                       <button className="lobby-card__action-btn btn--emerald" style={{ flex: 1, minWidth: '150px', background: '#10b981', color: '#fff' }} onClick={() => { setCertCategory('speaking'); setShowCert(true); }}>
@@ -883,8 +892,12 @@ export default function Assessment({ onAssessmentActiveChange }) {
                   </div>
                 ) : (
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', width: '100%' }}>
-                    <button className="lobby-card__action-btn writing-btn" style={{ flex: 1, minWidth: '150px' }} onClick={() => setActiveCategory('writing')}>
-                      Start Writing Assessment →
+                    <button 
+                      className="lobby-card__action-btn writing-btn" 
+                      style={{ flex: 1, minWidth: '150px', background: '#9ca3af', color: '#fff', cursor: 'not-allowed', opacity: 0.8 }} 
+                      onClick={() => setLockedPopupMessage('Please finish all the learning modules before taking the Writing assessment.')}
+                    >
+                      🔒 Start Writing Assessment
                     </button>
                     {status.writingCertificate && (
                       <button className="lobby-card__action-btn btn--emerald" style={{ flex: 1, minWidth: '150px', background: '#10b981', color: '#fff' }} onClick={() => { setCertCategory('writing'); setShowCert(true); }}>
@@ -1589,6 +1602,66 @@ export default function Assessment({ onAssessmentActiveChange }) {
         </div>
       )}
 
+      {/* Custom Locked Popup Modal */}
+      {lockedPopupMessage && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+          backgroundColor: 'rgba(15, 23, 42, 0.6)',
+          backdropFilter: 'blur(4px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 9999,
+          animation: 'fadeIn 0.2s ease'
+        }}>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '16px',
+            padding: '32px',
+            maxWidth: '400px',
+            width: '90%',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            textAlign: 'center',
+            position: 'relative',
+            animation: 'scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+          }}>
+            <button 
+              onClick={() => setLockedPopupMessage('')}
+              style={{
+                position: 'absolute', top: '16px', right: '16px',
+                background: 'transparent', border: 'none', color: '#94a3b8',
+                cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                padding: '4px', borderRadius: '50%', transition: 'background-color 0.2s'
+              }}
+              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#f1f5f9'; e.currentTarget.style.color = '#64748b'; }}
+              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#94a3b8'; }}
+            >
+              <X size={20} />
+            </button>
+            <div style={{ 
+              width: '56px', height: '56px', borderRadius: '50%', background: '#fef3c7', 
+              color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 20px'
+            }}>
+              <Lock size={28} />
+            </div>
+            <h3 style={{ margin: '0 0 12px', fontSize: '20px', color: '#1e293b', fontWeight: 800 }}>Assessment Locked</h3>
+            <p style={{ margin: '0 0 24px', fontSize: '15px', color: '#64748b', lineHeight: '1.5' }}>
+              {lockedPopupMessage}
+            </p>
+            <button 
+              onClick={() => setLockedPopupMessage('')}
+              style={{
+                width: '100%', padding: '12px', borderRadius: '10px',
+                background: '#4f46e5', color: '#ffffff', fontSize: '15px', fontWeight: 700,
+                border: 'none', cursor: 'pointer', transition: 'background-color 0.2s'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#4338ca'}
+              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#4f46e5'}
+            >
+              Okay, got it
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

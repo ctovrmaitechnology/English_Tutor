@@ -1,31 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, Unique, JoinColumn } from 'typeorm';
-import { User } from '../../users/user.entity';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
-@Entity('tutor_module_progress')
-@Unique(['userId', 'subModuleId'])
+@Entity('module_progress')
 export class ModuleProgress {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'user_id', type: 'varchar' })
   userId: string;
 
-  @Column()
-  category: string; // 'speaking' | 'writing'
+  @Column({ name: 'module_id', type: 'varchar' })
+  moduleId: string;
 
-  @Column()
-  moduleId: string; // e.g., 'sp-1', 'wr-1'
+  @Column({ name: 'sub_module_id', type: 'varchar', nullable: true })
+  subModuleId: string;
 
-  @Column()
-  subModuleId: string; // e.g., 'sp-1-1'
-
-  @Column({ default: true })
+  @Column({ default: false })
   completed: boolean;
 
-  @CreateDateColumn()
+  @Column({ name: 'completed_at', type: 'timestamp', nullable: true })
   completedAt: Date;
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'userId' })
-  user: User;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

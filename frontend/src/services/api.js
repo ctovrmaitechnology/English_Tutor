@@ -10,7 +10,7 @@ const api = axios.create({
 
 // Auto-attach JWT token to every request
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('buddy_token');
+  const token = localStorage.getItem('buddy_token') || localStorage.getItem('vrm_admin_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -22,10 +22,13 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('buddy_token');
-      localStorage.removeItem('buddy_user');
-      localStorage.removeItem('vrm_remember_me'); // <-- clear remember me flag
-      window.location.reload();
+      const isAuthRequest = error.config?.url?.includes('/auth/');
+      if (!isAuthRequest) {
+        localStorage.removeItem('buddy_token');
+        localStorage.removeItem('buddy_user');
+        localStorage.removeItem('vrm_remember_me');
+        window.location.reload();
+      }
     }
     return Promise.reject(error);
   },

@@ -1,230 +1,152 @@
-import { useState, useCallback } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { fetchFromCDN } from '../utils/cdn';
+import { useState, useCallback, useEffect } from 'react';
 import './Profile.css';
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Shield, 
-  Sliders, 
-  HelpCircle,
-  Bell,
-  Sparkles,
-  ToggleLeft
-} from 'lucide-react';
-import { CompanionEvents } from '../components';
+import { Mail, Phone, MapPin, Sliders, Sparkles } from 'lucide-react';
+import { useUser } from '../context/UserContext';
+import api from '../services/api';
 
-export default function Profile({ user: currentUser }) {
-  // Fetch user profile and preferences using React Query
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ['profileData'],
-    queryFn: () => fetchFromCDN('mock-data/profile.json'),
-  });
+const CHARACTERS = [
+  { id:'eva',   name:'Eva',   emoji:'👩',  color:'#6366f1', gradient:'linear-gradient(135deg,#4f46e5,#7c3aed)', available:true },
+  { id:'zap',   name:'Zap',   emoji:'⚡',  color:'#f59e0b', gradient:'linear-gradient(135deg,#d97706,#ef4444)', available:true },
+  { id:'tecci', name:'Tecci', emoji:'🤖',  color:'#10b981', gradient:'linear-gradient(135deg,#059669,#0891b2)', available:true },
+  { id:'buffy', name:'Buffy', emoji:'🌟',  color:'#ec4899', gradient:'linear-gradient(135deg,#db2777,#a855f7)', available:true },
+];
 
-  const [grammarStrict, setGrammarStrict] = useState(null);
-  const [speechCoaching, setSpeechCoaching] = useState(null);
-  const [speechThreshold, setSpeechThreshold] = useState(null);
+export default function Profile({ user: currentUser, character: currentCharacter }) {
+  const { updateCharacter } = useUser();
+  const [selectedChar, setSelectedChar] = useState(currentCharacter || 'warrior');
+  const [savingChar,   setSavingChar]   = useState(false);
+  const [charSaved,    setCharSaved]    = useState(false);
+  const [charError,    setCharError]    = useState('');
 
-  const initialPreferences = data?.preferences || {
-    grammarStrict: true,
-    speechCoaching: true,
-    speechThreshold: 80
+  const [grammarStrict,   setGrammarStrict]   = useState(true);
+  const [speechCoaching,  setSpeechCoaching]  = useState(true);
+  const [speechThreshold, setSpeechThreshold] = useState(80);
+
+  // Sync selected character when prop changes
+  useEffect(() => {
+    if (currentCharacter) setSelectedChar(currentCharacter);
+  }, [currentCharacter]);
+
+  const handleToggleGrammar  = useCallback(() => setGrammarStrict(prev => !prev),  []);
+  const handleToggleCoaching = useCallback(() => setSpeechCoaching(prev => !prev), []);
+  const handleThresholdChange= useCallback((e) => setSpeechThreshold(Number(e.target.value)), []);
+
+  const handleSaveCharacter = async () => {
+    if (selectedChar === currentCharacter) return;
+    setSavingChar(true); setCharError(''); setCharSaved(false);
+    try {
+      await updateCharacter(selectedChar);
+      setCharSaved(true);
+      setTimeout(() => setCharSaved(false), 3000);
+    } catch {
+      setCharError('Failed to save character. Please try again.');
+    } finally { setSavingChar(false); }
   };
-
-  const currentGrammarStrict = grammarStrict !== null ? grammarStrict : initialPreferences.grammarStrict;
-  const currentSpeechCoaching = speechCoaching !== null ? speechCoaching : initialPreferences.speechCoaching;
-  const currentSpeechThreshold = speechThreshold !== null ? speechThreshold : initialPreferences.speechThreshold;
-
-  const handleToggleGrammar = useCallback(() => {
-    setGrammarStrict(prev => {
-      const active = prev !== null ? prev : initialPreferences.grammarStrict;
-      return !active;
-    });
-    CompanionEvents.emit('COMPANION_CLICKED');
-  }, [initialPreferences.grammarStrict]);
-
-  const handleToggleCoaching = useCallback(() => {
-    setSpeechCoaching(prev => {
-      const active = prev !== null ? prev : initialPreferences.speechCoaching;
-      return !active;
-    });
-    CompanionEvents.emit('COMPANION_CLICKED');
-  }, [initialPreferences.speechCoaching]);
-
-  const handleThresholdChange = useCallback((e) => {
-    setSpeechThreshold(Number(e.target.value));
-    CompanionEvents.emit('COMPANION_CLICKED');
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="profile-container animate-pulse" style={{ display: 'flex', flexDirection: 'column', gap: '24px', opacity: 0.7 }}>
-        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-          <div style={{ height: '300px', background: 'rgba(37, 99, 235, 0.05)', borderRadius: '16px', flex: 1 }} />
-          <div style={{ height: '300px', background: 'rgba(37, 99, 235, 0.05)', borderRadius: '16px', flex: 2 }} />
-        </div>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="profile-container" style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
-        <div style={{ background: '#fef2f2', border: '1px solid #fee2e2', borderRadius: '12px', padding: '24px', textAlign: 'center', maxWidth: '400px' }}>
-          <span style={{ fontSize: '48px' }} role="img" aria-label="warning">⚠️</span>
-          <h3 style={{ margin: '16px 0 8px', color: '#991b1b' }}>Failed to Load Profile</h3>
-          <p style={{ color: '#7f1d1d', fontSize: '14px', marginBottom: '16px' }}>{error?.message || 'A network error occurred while reaching the cache server.'}</p>
-          <button onClick={() => refetch()} style={{ padding: '8px 16px', background: '#dc2626', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
-            Retry Request
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   const user = {
-    name: currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : (data?.user?.name || "Priya Rajan"),
-    title: data?.user?.title || "Voice Process Associate",
-    department: data?.user?.department || "Customer Support - Inbound Telecom",
-    email: currentUser?.email || data?.user?.email || "priya.rajan@company.com",
-    phone: currentUser?.phone || data?.user?.phone || "+91 98765 43210",
-    location: data?.user?.location || "Chennai, India"
+    name:       currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : 'Agent',
+    title:      'Voice Process Associate',
+    department: 'Customer Support - Inbound Telecom',
+    email:      currentUser?.email || 'agent@company.com',
+    phone:      currentUser?.phone || '+91 98765 43210',
+    location:   'Chennai, India',
   };
 
-  const metrics = data?.metrics || {
-    totalXp: "4,250",
-    completedSessions: 42,
-    averageAccuracy: "84%"
-  };
+  const activeChar = CHARACTERS.find(c => c.id === selectedChar) || CHARACTERS[0];
 
   return (
     <div className="profile-container animate-fade-in">
-      {/* Two Column Layout */}
       <div className="pr-layout">
-        
-        {/* Left Side: Profile ID Card */}
+
+        {/* Left: Profile Card */}
         <div className="pr-profile-card content-card">
           <div className="pr-avatar-container">
             <div className="pr-avatar-circle">
               <span>{user.name.split(' ').map(n => n[0]).join('')}</span>
             </div>
-            <div className="pr-avatar-badge">
-              <Sparkles size={12} fill="currentColor" /> Active
-            </div>
+            <div className="pr-avatar-badge"><Sparkles size={12} fill="currentColor" /> Active</div>
           </div>
-
           <div className="pr-details">
             <h4>{user.name}</h4>
             <p className="pr-title">{user.title}</p>
             <p className="pr-dept">{user.department}</p>
           </div>
-
-          <div className="pr-divider"></div>
-
+          <div className="pr-divider" />
           <div className="pr-info-list">
-            <div className="pr-info-item">
-              <Mail size={16} className="info-icon" />
-              <span>{user.email}</span>
-            </div>
-            <div className="pr-info-item">
-              <Phone size={16} className="info-icon" />
-              <span>{user.phone}</span>
-            </div>
-            <div className="pr-info-item">
-              <MapPin size={16} className="info-icon" />
-              <span>{user.location}</span>
-            </div>
+            <div className="pr-info-item"><Mail size={16} className="info-icon" /><span>{user.email}</span></div>
+            <div className="pr-info-item"><Phone size={16} className="info-icon" /><span>{user.phone}</span></div>
+            <div className="pr-info-item"><MapPin size={16} className="info-icon" /><span>{user.location}</span></div>
           </div>
         </div>
 
-        {/* Right Side: Stats & Settings */}
+        {/* Right Panel */}
         <div className="pr-main-panel">
-          
-          {/* Stats Grid */}
-          <div className="pr-stats-card content-card">
-            <h3>Learning Metrics</h3>
-            <div className="pr-stats-grid">
-              <div className="pr-stat-box">
-                <span className="pr-stat-val">{metrics.totalXp}</span>
-                <span className="pr-stat-label">Total XP Points</span>
-              </div>
-              <div className="pr-stat-box">
-                <span className="pr-stat-val">{metrics.completedSessions}</span>
-                <span className="pr-stat-label">Completed Sessions</span>
-              </div>
-              <div className="pr-stat-box">
-                <span className="pr-stat-val">{metrics.averageAccuracy}</span>
-                <span className="pr-stat-label">Average Accuracy</span>
-              </div>
-            </div>
-          </div>
 
-          {/* Settings Card */}
-          <div className="pr-settings-card content-card">
-            <div className="pr-settings-header">
-              <Sliders size={20} className="settings-icon" />
-              <h3>Training Preferences</h3>
+          {/* Character Selection */}
+          <div className="content-card" style={{ marginBottom:20 }}>
+            <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:8 }}>
+              <span style={{ fontSize:20 }}>🎮</span>
+              <h3 style={{ margin:0, fontSize:16, fontWeight:700, color:'#1e293b' }}>Your Learning Buddy</h3>
             </div>
-            <p className="card-description">
-              Tweak speech evaluation metrics. Changing options immediately updates your voice coach settings.
+            <p style={{ fontSize:13, color:'#64748b', marginBottom:20 }}>
+              Choose the 3D character that guides you through lessons, games, and practice sessions.
             </p>
 
-            <div className="settings-options-list">
-              
-              {/* Option 1: Grammar */}
-              <div className="setting-option-item">
-                <div className="setting-text">
-                  <span className="setting-title">Strict Grammar Evaluation</span>
-                  <span className="setting-desc">Flags slight grammatical errors during simulation call review.</span>
-                </div>
-                <button 
-                  className={`toggle-switch-btn ${currentGrammarStrict ? 'active' : ''}`}
-                  onClick={handleToggleGrammar}
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:10, marginBottom:16 }}>
+              {CHARACTERS.map(char => (
+                <div
+                  key={char.id}
+                  onClick={() => char.available && setSelectedChar(char.id)}
+                  style={{
+                    borderRadius:14, padding:'14px 8px', textAlign:'center',
+                    cursor: char.available ? 'pointer' : 'not-allowed',
+                    opacity: char.available ? 1 : 0.45,
+                    border:`2px solid ${selectedChar === char.id ? char.color : '#e2e8f0'}`,
+                    background: selectedChar === char.id ? `${char.color}12` : '#f8fafc',
+                    transform: selectedChar === char.id ? 'translateY(-2px)' : 'none',
+                    transition:'all 0.15s', position:'relative',
+                  }}
                 >
-                  <div className="toggle-handle"></div>
-                </button>
-              </div>
-
-              {/* Option 2: Speech Coaching */}
-              <div className="setting-option-item">
-                <div className="setting-text">
-                  <span className="setting-title">Real-time Vocal Coaching</span>
-                  <span className="setting-desc">Displays pronunciation and pacing suggestions on-screen.</span>
+                  {!char.available && (
+                    <div style={{ position:'absolute', top:4, right:4, background:'#e2e8f0', color:'#94a3b8', fontSize:8, fontWeight:700, padding:'1px 5px', borderRadius:10 }}>Soon</div>
+                  )}
+                  {selectedChar === char.id && char.available && (
+                    <div style={{ position:'absolute', top:4, right:4, background:char.color, color:'#fff', width:16, height:16, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:9, fontWeight:800 }}>✓</div>
+                  )}
+                  <div style={{ fontSize:24, marginBottom:6 }}>{char.emoji}</div>
+                  <div style={{ fontSize:11, fontWeight:700, color:'#334155' }}>{char.name}</div>
                 </div>
-                <button 
-                  className={`toggle-switch-btn ${currentSpeechCoaching ? 'active' : ''}`}
-                  onClick={handleToggleCoaching}
-                >
-                  <div className="toggle-handle"></div>
-                </button>
-              </div>
+              ))}
+            </div>
 
-              {/* Option 3: Speech Threshold slider */}
-              <div className="setting-slider-item">
-                <div className="setting-text">
-                  <span className="setting-title">Speech Match Threshold ({currentSpeechThreshold}%)</span>
-                  <span className="setting-desc">Sets the accuracy score required to pass oral assessments.</span>
-                </div>
-                <div className="slider-wrapper">
-                  <input 
-                    type="range" 
-                    min="50" 
-                    max="95" 
-                    value={currentSpeechThreshold} 
-                    onChange={handleThresholdChange}
-                    className="threshold-slider"
-                  />
-                  <span className="slider-value">{currentSpeechThreshold}%</span>
+            {charError && <div style={{ background:'#fef2f2', border:'1px solid #fca5a5', borderRadius:8, padding:'8px 12px', color:'#991b1b', fontSize:12, marginBottom:12 }}>⚠️ {charError}</div>}
+            {charSaved && <div style={{ background:'#f0fdf4', border:'1px solid #86efac', borderRadius:8, padding:'8px 12px', color:'#065f46', fontSize:12, marginBottom:12 }}>✅ Character updated! Reload the page to see your new buddy.</div>}
+
+            <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+              <div style={{ flex:1, padding:'10px 14px', background:activeChar.gradient, borderRadius:10, display:'flex', alignItems:'center', gap:10 }}>
+                <span style={{ fontSize:20 }}>{activeChar.emoji}</span>
+                <div>
+                  <div style={{ fontSize:12, fontWeight:700, color:'#fff' }}>Currently: {activeChar.name}</div>
                 </div>
               </div>
-
+              <button
+                onClick={handleSaveCharacter}
+                disabled={savingChar || selectedChar === currentCharacter}
+                style={{
+                  padding:'10px 20px', borderRadius:10, border:'none',
+                  background: selectedChar === currentCharacter ? '#e2e8f0' : '#6366f1',
+                  color: selectedChar === currentCharacter ? '#94a3b8' : '#fff',
+                  fontSize:13, fontWeight:700,
+                  cursor: selectedChar === currentCharacter ? 'default' : 'pointer',
+                  opacity: savingChar ? 0.7 : 1,
+                }}
+              >
+                {savingChar ? 'Saving...' : selectedChar === currentCharacter ? 'Current' : 'Save Change'}
+              </button>
             </div>
           </div>
 
         </div>
-
       </div>
     </div>
   );

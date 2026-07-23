@@ -6,246 +6,95 @@ import CompanionEvents from './CompanionEvents';
 
 const TALKING_STATES = new Set(['ai_talking', 'challenge_started', 'clicked', 'hover_wave']);
 
-// ── Removed all useGLTF.preload() calls — they loaded all 6 GLBs
-// into GPU memory simultaneously, causing GL_OUT_OF_MEMORY crashes.
-// Now only the model needed for the current state loads on demand.
+// ── Character animation path map ──────────────────────────────────────────────
+// Add new characters here as their GLB files become available.
+// Each character needs: standing, talking, hello, victory, chicken_dance, dance_2
+const CHARACTER_PATHS = {
+  eva: {
+    standing: '/Eva.glb',
+    talking: '/Evatalking.glb',
+    hello: '/Evahello.glb',
+    victory: '/Evavictory.glb',
+    chicken_dance: '/Evachicken_dance.glb',
+    dance_2: '/Evadance_2.glb',
+  },
+  zap: {
+    standing: '/Zap.glb',
+    talking: '/Zap.glb',
+    hello: '/Zap.glb',
+    victory: '/Zap.glb',
+    chicken_dance: '/Zap.glb',
+    dance_2: '/Zap.glb',
+  },
+  tecci: {
+    standing: '/Tecci.glb',
+    talking: '/Tecci.glb',
+    hello: '/Tecci.glb',
+    victory: '/Tecci.glb',
+    chicken_dance: '/Tecci.glb',
+    dance_2: '/Tecci.glb',
+  },
+  buffy: {
+    standing: '/Buffy.glb',
+    talking: '/Buffy.glb',
+    hello: '/Buffy.glb',
+    victory: '/Buffy.glb',
+    chicken_dance: '/Buffy.glb',
+    dance_2: '/Buffy.glb',
+  },
+  shadow: {
+    standing: '/shadow.glb',
+    talking: '/shadow.glb',
+    hello: '/shadow.glb',
+    victory: '/shadow.glb',
+    chicken_dance: '/shadow.glb',
+    dance_2: '/shadow.glb',
+    _fallback: '/Eva.glb',
+  },
+  nova: {
+    standing: '/nova.glb',
+    talking: '/nova.glb',
+    hello: '/nova.glb',
+    victory: '/nova.glb',
+    chicken_dance: '/nova.glb',
+    dance_2: '/nova.glb',
+    _fallback: '/Eva.glb',
+  },
+  titan: {
+    standing: '/titan.glb',
+    talking: '/titan.glb',
+    hello: '/titan.glb',
+    victory: '/titan.glb',
+    chicken_dance: '/titan.glb',
+    dance_2: '/titan.glb',
+    _fallback: '/Eva.glb',
+  },
+};
 
-// ─────────────────────────────────────────────────────────────────
-// Talking Avatar (Plays the speech/talking animation)
-// ─────────────────────────────────────────────────────────────────
-function TalkingAvatarModel() {
-  const outerGroup = useRef();
-  const innerGroup = useRef();
-  const { scene, animations } = useGLTF('/talking.glb');
-  const { actions, names } = useAnimations(animations, innerGroup);
+export const KENZA_PATHS = {
+  standing: '/kenzaidle11.glb',
+  talking: '/kenzatalk2glb.glb',
+  hello: '/kenzagreeting%20.glb',
+  happy: '/kenzahappy%20.glb',
+  waving: '/kenzawaving%20.glb',
+  idle2: '/kenzaidle2%20.glb',
+  angry: '/kenzaanger.glb',
+};
 
-  useEffect(() => {
-    if (!scene) return;
-    scene.rotation.set(0, 0, 0);
-    scene.updateMatrixWorld(true);
-  }, [scene]);
-
-  useEffect(() => {
-    if (!names.length) return;
-    const clipName = names[0];
-    const action = actions[clipName];
-    if (!action) return;
-
-    action.setLoop(THREE.LoopRepeat, Infinity);
-    action.setEffectiveTimeScale(0.8);
-    action.setEffectiveWeight(1);
-    action.reset().play();
-
-    return () => { action.stop(); };
-  }, [actions, names]);
-
-  // Clean up morph targets on unmount
-  useEffect(() => {
-    return () => {
-      if (!scene) return;
-      scene.traverse((child) => {
-        if (child.isMesh && child.morphTargetDictionary && child.morphTargetInfluences) {
-          const dict = child.morphTargetDictionary;
-          Object.keys(dict).forEach((key) => {
-            child.morphTargetInfluences[dict[key]] = 0;
-          });
-        }
-      });
-    };
-  }, [scene]);
-
-  // Animate mouth/lip targets dynamically to simulate talking
-  useFrame((state) => {
-    if (!scene) return;
-    const time = state.clock.getElapsedTime();
-    const mouthOpen = (Math.sin(time * 16) * 0.45 + 0.45) * (0.6 + Math.random() * 0.4);
-    const jawOpen   = mouthOpen * 0.8;
-    const visemeAE  = (Math.sin(time * 12) * 0.3 + 0.3) * mouthOpen;
-    const visemeO   = (Math.cos(time * 10) * 0.3 + 0.3) * mouthOpen;
-
-    scene.traverse((child) => {
-      if (child.isMesh && child.morphTargetDictionary && child.morphTargetInfluences) {
-        const dict = child.morphTargetDictionary;
-        if ('mouthOpen'  in dict) child.morphTargetInfluences[dict['mouthOpen']]  = mouthOpen;
-        if ('jawOpen'    in dict) child.morphTargetInfluences[dict['jawOpen']]    = jawOpen;
-        if ('mouthSmile' in dict) child.morphTargetInfluences[dict['mouthSmile']] = 0.15;
-        if ('viseme_aa'  in dict) child.morphTargetInfluences[dict['viseme_aa']]  = mouthOpen;
-        if ('viseme_O'   in dict) child.morphTargetInfluences[dict['viseme_O']]   = visemeO;
-        if ('viseme_E'   in dict) child.morphTargetInfluences[dict['viseme_E']]   = visemeAE;
-        if ('viseme_I'   in dict) child.morphTargetInfluences[dict['viseme_I']]   = visemeAE * 0.5;
-        if ('viseme_U'   in dict) child.morphTargetInfluences[dict['viseme_U']]   = visemeO  * 0.5;
-      }
-    });
-  });
-
-  return (
-    <group ref={outerGroup} rotation={[0, 0, 0]}>
-      <group ref={innerGroup} scale={[150, 150, 150]} position={[0, -0.8, 0]}>
-        <primitive object={scene} dispose={null} />
-      </group>
-    </group>
-  );
+function getPath(character, animation) {
+  if (character === 'kenza') {
+    return KENZA_PATHS[animation] || KENZA_PATHS.standing;
+  }
+  const paths = CHARACTER_PATHS[character] || CHARACTER_PATHS.eva;
+  return paths[animation] || paths._fallback || CHARACTER_PATHS.eva[animation] || CHARACTER_PATHS.eva.standing;
 }
 
-// ─────────────────────────────────────────────────────────────────
-// Standing Avatar (Plays the idle standing breathing animation)
-// ─────────────────────────────────────────────────────────────────
-function StandingAvatarModel() {
+// ── Generic Avatar Model ───────────────────────────────────────────────────────
+// One reusable component for all animations — handles loop/once/talking states
+function AvatarModel({ path, loop = true, speed = 0.8, onFinished, isTalking = false }) {
   const outerGroup = useRef();
   const innerGroup = useRef();
-  const { scene, animations } = useGLTF('/standing.glb');
-  const { actions, names } = useAnimations(animations, innerGroup);
-
-  useEffect(() => {
-    if (!scene) return;
-    scene.rotation.set(0, 0, 0);
-    scene.updateMatrixWorld(true);
-  }, [scene]);
-
-  useEffect(() => {
-    if (!names.length) return;
-    const clipName = names[0];
-    const action = actions[clipName];
-    if (!action) return;
-
-    action.setLoop(THREE.LoopRepeat, Infinity);
-    action.setEffectiveTimeScale(0.4);
-    action.setEffectiveWeight(1);
-    action.reset().play();
-
-    return () => { action.stop(); };
-  }, [actions, names]);
-
-  return (
-    <group ref={outerGroup} rotation={[0, 0, 0]}>
-      <group ref={innerGroup} scale={[150, 150, 150]} position={[0, -0.8, 0]}>
-        <primitive object={scene} dispose={null} />
-      </group>
-    </group>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────
-// Victory/Celebration Avatar (Plays the victory dance)
-// ─────────────────────────────────────────────────────────────────
-function VictoryAvatarModel() {
-  const outerGroup = useRef();
-  const innerGroup = useRef();
-  const { scene, animations } = useGLTF('/victory.glb');
-  const { actions, names } = useAnimations(animations, innerGroup);
-
-  useEffect(() => {
-    if (!scene) return;
-    scene.rotation.set(0, 0, 0);
-    scene.updateMatrixWorld(true);
-  }, [scene]);
-
-  useEffect(() => {
-    if (!names.length) return;
-    const clipName = names[0];
-    const action = actions[clipName];
-    if (!action) return;
-
-    action.setLoop(THREE.LoopRepeat, Infinity);
-    action.setEffectiveTimeScale(0.9);
-    action.setEffectiveWeight(1);
-    action.reset().play();
-
-    return () => { action.stop(); };
-  }, [actions, names]);
-
-  return (
-    <group ref={outerGroup} rotation={[0, 0, 0]}>
-      <group ref={innerGroup} scale={[150, 150, 150]} position={[0, -0.8, 0]}>
-        <primitive object={scene} dispose={null} />
-      </group>
-    </group>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────
-// Chicken Dance Avatar
-// ─────────────────────────────────────────────────────────────────
-function ChickenDanceAvatarModel() {
-  const outerGroup = useRef();
-  const innerGroup = useRef();
-  const { scene, animations } = useGLTF('/chicken_dance.glb');
-  const { actions, names } = useAnimations(animations, innerGroup);
-
-  useEffect(() => {
-    if (!scene) return;
-    scene.rotation.set(0, 0, 0);
-    scene.updateMatrixWorld(true);
-  }, [scene]);
-
-  useEffect(() => {
-    if (!names.length) return;
-    const clipName = names[0];
-    const action = actions[clipName];
-    if (!action) return;
-
-    action.setLoop(THREE.LoopRepeat, Infinity);
-    action.setEffectiveTimeScale(0.95);
-    action.setEffectiveWeight(1);
-    action.reset().play();
-
-    return () => { action.stop(); };
-  }, [actions, names]);
-
-  return (
-    <group ref={outerGroup} rotation={[0, 0, 0]}>
-      <group ref={innerGroup} scale={[150, 150, 150]} position={[0, -0.8, 0]}>
-        <primitive object={scene} dispose={null} />
-      </group>
-    </group>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────
-// Dance 2 Avatar
-// ─────────────────────────────────────────────────────────────────
-function Dance2AvatarModel() {
-  const outerGroup = useRef();
-  const innerGroup = useRef();
-  const { scene, animations } = useGLTF('/dance_2.glb');
-  const { actions, names } = useAnimations(animations, innerGroup);
-
-  useEffect(() => {
-    if (!scene) return;
-    scene.rotation.set(0, 0, 0);
-    scene.updateMatrixWorld(true);
-  }, [scene]);
-
-  useEffect(() => {
-    if (!names.length) return;
-    const clipName = names[0];
-    const action = actions[clipName];
-    if (!action) return;
-
-    action.setLoop(THREE.LoopRepeat, Infinity);
-    action.setEffectiveTimeScale(0.9);
-    action.setEffectiveWeight(1);
-    action.reset().play();
-
-    return () => { action.stop(); };
-  }, [actions, names]);
-
-  return (
-    <group ref={outerGroup} rotation={[0, 0, 0]}>
-      <group ref={innerGroup} scale={[150, 150, 150]} position={[0, -0.8, 0]}>
-        <primitive object={scene} dispose={null} />
-      </group>
-    </group>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────
-// Hello/Wave Avatar (Plays the hello/wave animation)
-// ─────────────────────────────────────────────────────────────────
-function HelloAvatarModel() {
-  const outerGroup = useRef();
-  const innerGroup = useRef();
-  const { scene, animations } = useGLTF('/hello.glb');
+  const { scene, animations } = useGLTF(path);
   const { actions, names, mixer } = useAnimations(animations, innerGroup);
 
   useEffect(() => {
@@ -256,119 +105,157 @@ function HelloAvatarModel() {
 
   useEffect(() => {
     if (!names.length) return;
-    const clipName = names[0];
-    const action = actions[clipName];
+    const action = actions[names[0]];
     if (!action) return;
-
-    action.setLoop(THREE.LoopOnce, 1);
-    action.clampWhenFinished = true;
-    action.setEffectiveTimeScale(0.9);
+    action.setLoop(loop ? THREE.LoopRepeat : THREE.LoopOnce, loop ? Infinity : 1);
+    if (!loop) action.clampWhenFinished = true;
+    action.setEffectiveTimeScale(speed);
     action.setEffectiveWeight(1);
     action.reset().play();
 
-    const handleFinished = (e) => {
-      if (e.action === action) {
-        CompanionEvents.emit('WAVE_FINISHED');
+    if (!loop && onFinished && mixer) {
+      const handle = (e) => { if (e.action === action) onFinished(); };
+      mixer.addEventListener('finished', handle);
+      return () => { mixer.removeEventListener('finished', handle); action.stop(); };
+    }
+    return () => { action.stop(); };
+  }, [actions, names, loop, speed, onFinished, mixer]);
+
+  // Animate mouth for talking state
+  useFrame((state) => {
+    if (!isTalking || !scene) return;
+    const time = state.clock.getElapsedTime();
+    const mouthOpen = (Math.sin(time * 16) * 0.45 + 0.45) * (0.6 + Math.random() * 0.4);
+    const jawOpen = mouthOpen * 0.8;
+    const visemeAE = (Math.sin(time * 12) * 0.3 + 0.3) * mouthOpen;
+    const visemeO = (Math.cos(time * 10) * 0.3 + 0.3) * mouthOpen;
+
+    scene.traverse((child) => {
+      if (child.isMesh && child.morphTargetDictionary && child.morphTargetInfluences) {
+        const d = child.morphTargetDictionary;
+        if ('mouthOpen' in d) child.morphTargetInfluences[d['mouthOpen']] = mouthOpen;
+        if ('jawOpen' in d) child.morphTargetInfluences[d['jawOpen']] = jawOpen;
+        if ('mouthSmile' in d) child.morphTargetInfluences[d['mouthSmile']] = 0.15;
+        if ('viseme_aa' in d) child.morphTargetInfluences[d['viseme_aa']] = mouthOpen;
+        if ('viseme_O' in d) child.morphTargetInfluences[d['viseme_O']] = visemeO;
+        if ('viseme_E' in d) child.morphTargetInfluences[d['viseme_E']] = visemeAE;
+        if ('viseme_I' in d) child.morphTargetInfluences[d['viseme_I']] = visemeAE * 0.5;
+        if ('viseme_U' in d) child.morphTargetInfluences[d['viseme_U']] = visemeO * 0.5;
       }
-    };
+    });
+  });
 
-    mixer.addEventListener('finished', handleFinished);
-
+  // Cleanup morph targets on unmount
+  useEffect(() => {
     return () => {
-      mixer.removeEventListener('finished', handleFinished);
-      action.stop();
+      if (!scene) return;
+      scene.traverse((child) => {
+        if (child.isMesh && child.morphTargetDictionary && child.morphTargetInfluences) {
+          const dict = child.morphTargetDictionary;
+          Object.keys(dict).forEach(key => {
+            child.morphTargetInfluences[dict[key]] = 0;
+          });
+        }
+      });
     };
-  }, [actions, names, mixer]);
+  }, [scene]);
+
+  const isKenza = path && path.toLowerCase().includes('kenza');
+  const scale = isKenza ? [1.3, 1.3, 1.3] : [150, 150, 150];
+  const positionY = isKenza ? -1.0 : -0.8;
 
   return (
-    <group ref={outerGroup} rotation={[0, 0, 0]}>
-      <group ref={innerGroup} scale={[150, 150, 150]} position={[0, -0.8, 0]}>
+    <group ref={outerGroup}>
+      <group ref={innerGroup} scale={scale} position={[0, positionY, 0]}>
         <primitive object={scene} dispose={null} />
       </group>
     </group>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────
-// Switcher — only the matching component mounts, others are unmounted
-// key prop on each ensures full cleanup when switching models
-// ─────────────────────────────────────────────────────────────────
-function AvatarModel({ state }) {
+// ── State → animation mapping ──────────────────────────────────────────────────
+function CharacterModel({ state, character }) {
+  const char = character || 'eva';
+
   if (state === 'victory' || state === 'ai_happy' || state === 'assessment_submitted' || state === 'badge_unlocked') {
-    return <VictoryAvatarModel key="victory" />;
+    return <AvatarModel key={`victory-${char}`} path={getPath(char, 'victory')} speed={0.9} />;
   }
   if (state === 'chicken_dance') {
-    return <ChickenDanceAvatarModel key="chicken" />;
+    return <AvatarModel key={`chicken-${char}`} path={getPath(char, 'chicken_dance')} speed={0.95} />;
   }
   if (state === 'dance_2') {
-    return <Dance2AvatarModel key="dance2" />;
+    return <AvatarModel key={`dance2-${char}`} path={getPath(char, 'dance_2')} speed={0.9} />;
   }
   if (state === 'hello' || state === 'hover_wave') {
-    return <HelloAvatarModel key="hello" />;
+    return (
+      <AvatarModel
+        key={`hello-${char}`}
+        path={getPath(char, 'hello')}
+        loop={false}
+        speed={0.9}
+        onFinished={() => CompanionEvents.emit('WAVE_FINISHED')}
+      />
+    );
   }
   if (TALKING_STATES.has(state)) {
-    return <TalkingAvatarModel key="talking" />;
+    return <AvatarModel key={`talking-${char}`} path={getPath(char, 'talking')} speed={0.8} isTalking />;
   }
-  return <StandingAvatarModel key="standing" />;
+  return <AvatarModel key={`standing-${char}`} path={getPath(char, 'standing')} speed={0.4} />;
 }
 
-// ─────────────────────────────────────────────────────────────────
-// Loading fallback
-// ─────────────────────────────────────────────────────────────────
+// Preload core character GLB assets so they render instantly with 0ms latency
+[
+  '/Eva.glb',
+  '/Evatalking.glb',
+  '/Evahello.glb',
+  '/Evavictory.glb',
+  '/Zap.glb',
+  '/Tecci.glb',
+  '/Buffy.glb',
+  '/kenzaidle11.glb',
+  '/kenzatalk2glb.glb',
+].forEach(path => {
+  try {
+    useGLTF.preload(path);
+  } catch (e) { }
+});
+
+// ── Loading / Error fallbacks ─────────────────────────────────────────────────
 function LoadingFallback() {
   return (
-    <div style={{
-      width: '100%', height: '100%',
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center', gap: '8px',
-    }}>
+    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
       <div style={{
-        width: '48px', height: '48px', borderRadius: '50%',
-        background: 'radial-gradient(circle at 35% 35%, #60a5fa, #2563eb)',
-        animation: 'glb-pulse 1.4s ease-in-out infinite',
-        boxShadow: '0 0 18px rgba(37,99,235,0.4)',
-      }} />
-      <span style={{ fontSize: '10px', color: '#94a3b8', letterSpacing: '0.04em' }}>Loading…</span>
+        width: 60, height: 60, borderRadius: '50%',
+        background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 30, color: '#fff',
+        boxShadow: '0 8px 24px rgba(99, 102, 241, 0.4)',
+        animation: 'glb-pulse 1.2s ease-in-out infinite'
+      }}>
+        🤖
+      </div>
+      <span style={{ fontSize: 11, fontWeight: 600, color: '#6366f1', letterSpacing: '0.04em' }}>Loading Character…</span>
     </div>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────
-// WebGL context lost — shows a retry button instead of blank screen
-// ─────────────────────────────────────────────────────────────────
 function ContextLostOverlay({ onRetry }) {
   return (
-    <div style={{
-      width: '100%', height: '100%',
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center', gap: '10px',
-    }}>
-      <span style={{ fontSize: '36px' }}>🤖</span>
-      <button
-        onClick={onRetry}
-        style={{
-          background: '#3b82f6', color: '#fff', border: 'none',
-          borderRadius: '8px', padding: '8px 16px',
-          fontSize: '12px', fontWeight: 600, cursor: 'pointer',
-        }}
-      >
+    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+      <span style={{ fontSize: 36 }}>🤖</span>
+      <button onClick={onRetry} style={{ background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
         Reload Character
       </button>
     </div>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────
-// Main exported component
-// ─────────────────────────────────────────────────────────────────
-const CompanionAnimations = memo(function CompanionAnimations({ state = 'idle' }) {
+// ── Main exported component ───────────────────────────────────────────────────
+const CompanionAnimations = memo(function CompanionAnimations({ state = 'idle', character = 'eva' }) {
   const [contextLost, setContextLost] = useState(false);
-  const [canvasKey, setCanvasKey]     = useState(0);
+  const [canvasKey, setCanvasKey] = useState(0);
 
-  const handleRetry = () => {
-    setContextLost(false);
-    setCanvasKey(k => k + 1); // remount Canvas fresh with a new WebGL context
-  };
+  const handleRetry = () => { setContextLost(false); setCanvasKey(k => k + 1); };
 
   if (contextLost) {
     return (
@@ -384,15 +271,10 @@ const CompanionAnimations = memo(function CompanionAnimations({ state = 'idle' }
         <Canvas
           key={canvasKey}
           camera={{ fov: 45, near: 0.01, far: 500, position: [0, 0.3, 2.8] }}
-          gl={{
-            alpha: true,
-            antialias: true,
-            powerPreference: 'default',        // was 'high-performance' — reduced GPU pressure
-            failIfMajorPerformanceCaveat: false,
-          }}
+          gl={{ alpha: true, antialias: true, powerPreference: 'high-performance', failIfMajorPerformanceCaveat: false }}
           onCreated={({ gl }) => {
             gl.setClearColor(0x000000, 0);
-            gl.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // was 2 — reduced
+            gl.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
           }}
           onContextLost={() => setContextLost(true)}
         >
@@ -400,9 +282,8 @@ const CompanionAnimations = memo(function CompanionAnimations({ state = 'idle' }
           <directionalLight position={[2, 3, 3]} intensity={3} />
           <directionalLight position={[-2, 1, -1]} intensity={1.2} />
           <pointLight position={[0, 2, 2]} intensity={2} color="#bfdbfe" />
-
           <Suspense fallback={null}>
-            <AvatarModel state={state} />
+            <CharacterModel state={state} character={character} />
           </Suspense>
         </Canvas>
       </Suspense>

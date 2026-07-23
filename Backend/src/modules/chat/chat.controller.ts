@@ -1,6 +1,6 @@
 import {
   Controller, Post, Delete, Get,
-  Body, Req, UseGuards,
+  Body, Req, Query, UseGuards,
   UseInterceptors, UploadedFile,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -19,10 +19,10 @@ export class ChatController {
   @Post('message')
   @ApiOperation({ summary: 'Send text message to AI tutor' })
   sendMessage(
-    @Body() body: { message: string },
+    @Body() body: { message: string; remarkContext?: string; mode?: 'buddy' | 'tutor' },
     @Req() req,
   ) {
-    return this.chatService.sendMessage(req.user.id, body.message);
+    return this.chatService.sendMessage(req.user.id, body.message, body.remarkContext, body.mode || 'buddy');
   }
 
   // ── Send voice message ───────────────────────────────────────
@@ -32,23 +32,26 @@ export class ChatController {
   @UseInterceptors(FileInterceptor('audio'))
   sendVoice(
     @UploadedFile() file: any,
+    @Query('mode') queryMode: 'buddy' | 'tutor',
+    @Body() body: any,
     @Req() req,
   ) {
-    return this.chatService.sendVoiceMessage(req.user.id, file.buffer);
+    const mode = queryMode || body?.mode || 'buddy';
+    return this.chatService.sendVoiceMessage(req.user.id, file.buffer, mode);
   }
 
   // ── Get history ──────────────────────────────────────────────
   @Get('history')
   @ApiOperation({ summary: 'Get conversation history' })
-  getHistory(@Req() req) {
-    const history = this.chatService.getHistory(req.user.id);
+  getHistory(@Query('mode') mode: 'buddy' | 'tutor', @Req() req) {
+    const history = this.chatService.getHistory(req.user.id, mode || 'buddy');
     return { messages: history };
   }
 
   // ── Clear history ────────────────────────────────────────────
   @Delete('history')
   @ApiOperation({ summary: 'Clear conversation history' })
-  clearHistory(@Req() req) {
-    return this.chatService.clearHistory(req.user.id);
+  clearHistory(@Query('mode') mode: 'buddy' | 'tutor', @Req() req) {
+    return this.chatService.clearHistory(req.user.id, mode);
   }
 }

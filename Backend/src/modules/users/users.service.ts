@@ -2,12 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { PlacementAttempt } from '../placement/entities/placement-attempt.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(PlacementAttempt)
+    private readonly placementAttemptRepository: Repository<PlacementAttempt>,
   ) {}
 
   async findAll(): Promise<User[]> {
@@ -22,6 +25,25 @@ export class UsersService {
     });
     if (!user) throw new NotFoundException(`User with id ${id} not found`);
     return user;
+  }
+
+  async getUserWithLevel(id: string) {
+    const user = await this.findOneById(id);
+
+    const latestAttempt = await this.placementAttemptRepository.findOne({
+      where: { userId: id, status: 'completed' },
+      order: { startedAt: 'DESC' },
+    });
+
+    const { password_hash, ...safeUser } = user as any;
+    return {
+      ...safeUser,
+      englishLevel: latestAttempt?.finalLevel ?? null,
+      placementScore: latestAttempt?.totalScore ?? null,
+      skillScores: latestAttempt?.skillScores ?? null,
+      placementCompletedAt: latestAttempt?.completedAt ?? null,
+      hasCompletedPlacement: !!latestAttempt,
+    };
   }
 
   async findOneByUsername(username: string): Promise<User | null> {

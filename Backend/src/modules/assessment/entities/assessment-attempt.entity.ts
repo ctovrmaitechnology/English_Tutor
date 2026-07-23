@@ -1,33 +1,37 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { User } from '../../users/user.entity';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
-@Entity('tutor_assessment_attempts')
+@Entity('assessment_attempts', { synchronize: false })
 export class AssessmentAttempt {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'user_id', type: 'varchar' })
   userId: string;
 
-  @Column()
-  level: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+  @Column({ name: 'module_id', type: 'varchar', nullable: true })
+  moduleId: string;
 
-  @Column({ default: 'speaking' })
-  category: 'speaking' | 'writing';
+  @Column({ type: 'varchar', nullable: true })
+  category: string; // e.g. 'writing'
 
-  @Column()
-  score: number; // out of 30
+  @Column({ type: 'varchar', nullable: true })
+  level: string;
 
-  @Column()
+  @Column({ type: 'float', default: 0 })
+  score: number;
+
+  @Column({ type: 'float', nullable: true })
+  overallScore: number;
+
+  @Column({ type: 'boolean', nullable: true })
   passed: boolean;
 
-  @Column({ type: 'jsonb' })
-  answers: { questionId: string; selectedOption: number; isCorrect: boolean }[];
+  @Column({ type: 'jsonb', nullable: true })
+  responses: any;
 
-  @CreateDateColumn()
+  @Column({ type: 'jsonb', nullable: true })
+  answers: any;
+
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
-
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'userId' })
-  user: User;
 }

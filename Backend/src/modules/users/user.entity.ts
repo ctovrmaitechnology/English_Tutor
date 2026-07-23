@@ -36,6 +36,15 @@ export class User {
   @Column({ default: true })
   is_active: boolean;
 
+  @Column({ nullable: true, length: 50 })
+  batch: string; // e.g. 'Batch A', 'Batch B'
+
+  @Column({ default: false })
+  hasSelectedCharacter: boolean;
+
+  @Column({ nullable: true, length: 30 })
+  role: string | null; // null | 'Agent' | 'Team Lead' | 'Trainer'
+
 
   @CreateDateColumn()
   created_at: Date;
