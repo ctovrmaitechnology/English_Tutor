@@ -82,11 +82,11 @@ export const KENZA_PATHS = {
 };
 
 function getPath(character, animation) {
-  if (character === 'kenza') {
+  if (!character || character === 'kenza' || !CHARACTER_PATHS[character]) {
     return KENZA_PATHS[animation] || KENZA_PATHS.standing;
   }
   const paths = CHARACTER_PATHS[character] || CHARACTER_PATHS.eva;
-  return paths[animation] || paths._fallback || CHARACTER_PATHS.eva[animation] || CHARACTER_PATHS.eva.standing;
+  return paths[animation] || paths._fallback || KENZA_PATHS[animation] || KENZA_PATHS.standing;
 }
 
 // ── Generic Avatar Model ───────────────────────────────────────────────────────
@@ -175,7 +175,7 @@ function AvatarModel({ path, loop = true, speed = 0.8, onFinished, isTalking = f
 
 // ── State → animation mapping ──────────────────────────────────────────────────
 function CharacterModel({ state, character }) {
-  const char = character || 'eva';
+  const char = character || 'kenza';
 
   if (state === 'victory' || state === 'ai_happy' || state === 'assessment_submitted' || state === 'badge_unlocked') {
     return <AvatarModel key={`victory-${char}`} path={getPath(char, 'victory')} speed={0.9} />;

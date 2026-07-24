@@ -7,14 +7,14 @@ import { ulid } from 'ulid';
 import { User } from '../users/user.entity';
 
 export interface BulkUploadResult {
-  total:   number;
+  total: number;
   created: number;
-  failed:  number;
+  failed: number;
   rows: {
-    row:     number;
-    name:    string;
-    email:   string;
-    status:  'created' | 'failed';
+    row: number;
+    name: string;
+    email: string;
+    status: 'created' | 'failed';
     reason?: string;
   }[];
 }
@@ -26,7 +26,7 @@ export class BulkUploadService {
   constructor(
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
-  ) {}
+  ) { }
 
   // ── Generate template Excel buffer ─────────────────────────────────────────
   generateTemplate(): Buffer {
@@ -35,9 +35,9 @@ export class BulkUploadService {
     // Sample data rows
     const data = [
       ['First Name', 'Last Name', 'Username', 'Email', 'Password', 'Batch', 'Role'],
-      ['Arun',       'Kumar',     'arunkumar','arun@company.com',  'Pass@123', 'Batch A', 'Agent'],
-      ['Priya',      'Sharma',    'priyasharma','priya@company.com','Pass@123', 'Batch A', 'Agent'],
-      ['John',       'Doe',       'johndoe',  'john@company.com',  'Pass@123', 'Batch B', 'Agent'],
+      ['Arun', 'Kumar', 'arunkumar', 'arun@company.com', 'Pass@123', 'Batch A', 'Agent'],
+      ['Priya', 'Sharma', 'priyasharma', 'priya@company.com', 'Pass@123', 'Batch A', 'Agent'],
+      ['John', 'Doe', 'johndoe', 'john@company.com', 'Pass@123', 'Batch B', 'Agent'],
     ];
 
     const ws = XLSX.utils.aoa_to_sheet(data);
@@ -54,8 +54,8 @@ export class BulkUploadService {
 
   // ── Parse uploaded Excel ───────────────────────────────────────────────────
   private parseExcel(buffer: Buffer): any[] {
-    const wb   = XLSX.read(buffer, { type: 'buffer' });
-    const ws   = wb.Sheets[wb.SheetNames[0]];
+    const wb = XLSX.read(buffer, { type: 'buffer' });
+    const ws = wb.Sheets[wb.SheetNames[0]];
     const rows = XLSX.utils.sheet_to_json(ws, { header: 1 }) as any[][];
 
     if (!rows.length) return [];
@@ -78,12 +78,12 @@ export class BulkUploadService {
     // Support both "first name" and "firstname" style headers
     return {
       firstName: raw['first name'] || raw['firstname'] || raw['first_name'] || '',
-      lastName:  raw['last name']  || raw['lastname']  || raw['last_name']  || '',
-      username:  raw['username']   || raw['user name'] || raw['user_name']  || '',
-      email:     raw['email']      || raw['email address'] || '',
-      password:  raw['password']   || raw['pass']      || 'VrmBuddy@123',
-      batch:     raw['batch']      || raw['batch name'] || 'Batch A',
-      role:      raw['role']       || 'Agent',
+      lastName: raw['last name'] || raw['lastname'] || raw['last_name'] || '',
+      username: raw['username'] || raw['user name'] || raw['user_name'] || '',
+      email: raw['email'] || raw['email address'] || '',
+      password: raw['password'] || raw['pass'] || 'VrmBuddy@123',
+      batch: raw['batch'] || raw['batch name'] || 'Batch A',
+      role: raw['role'] || 'Agent',
     };
   }
 
@@ -96,8 +96,8 @@ export class BulkUploadService {
 
     for (let i = 0; i < rawRows.length; i++) {
       const rowNum = i + 2; // +2 because row 1 is header
-      const data   = this.normalizeRow(rawRows[i]);
-      const name   = `${data.firstName} ${data.lastName}`.trim() || `Row ${rowNum}`;
+      const data = this.normalizeRow(rawRows[i]);
+      const name = `${data.firstName} ${data.lastName}`.trim() || `Row ${rowNum}`;
 
       try {
         // Validation
@@ -117,17 +117,17 @@ export class BulkUploadService {
 
         // Create user
         const user = this.userRepo.create({
-          id:            ulid(),
-          first_name:    data.firstName,
-          last_name:     data.lastName,
-          username:      data.username.toLowerCase().replace(/\s+/g, ''),
-          email:         data.email.toLowerCase(),
+          id: ulid(),
+          first_name: data.firstName,
+          last_name: data.lastName,
+          username: data.username.toLowerCase().replace(/\s+/g, ''),
+          email: data.email.toLowerCase(),
           password_hash: await bcrypt.hash(data.password || 'VrmBuddy@123', 10),
-          phone:         '',
-          character:     'eva',
-          is_active:     true,
-          batch:         data.batch  || 'Batch A',
-          role:          data.role   || 'Agent',
+          phone: '',
+          character: 'eva',
+          is_active: true,
+          batch: data.batch || 'Batch A',
+          role: data.role || 'Agent',
           hasSelectedCharacter: false,
         } as any);
 

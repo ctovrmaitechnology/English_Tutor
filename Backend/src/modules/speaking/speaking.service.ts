@@ -183,7 +183,60 @@ Return ONLY the JSON object.
     partBScore: number;
     responses: any;
   }) {
-    const overallScore = (data.partAScore + data.partBScore) / 2;
+    const lId = data.lessonId || data.moduleId;
+    const existing = await this.attemptRepo.findOne({
+      where: [
+        { userId: data.userId, lessonId: lId },
+        { userId: data.userId, moduleId: lId },
+      ],
+      order: { createdAt: 'DESC' },
+    });
+
+    const mergedResponses = {
+      ...(existing?.responses || {}),
+      ...(data.responses || {}),
+    };
+
+    const hasPartA = !!(
+      mergedResponses?.partA &&
+      (Array.isArray(mergedResponses.partA.questions)
+        ? mergedResponses.partA.questions.length > 0
+        : mergedResponses.partA.score !== undefined)
+    );
+
+    const hasPartB = !!(
+      mergedResponses?.partB &&
+      (Array.isArray(mergedResponses.partB.questions)
+        ? mergedResponses.partB.questions.length > 0
+        : (mergedResponses.partB.score !== undefined || data.partBScore !== undefined))
+    );
+
+    const status = (hasPartA && hasPartB) ? 'completed' : 'incomplete';
+
+    const pA = data.partAScore ?? mergedResponses?.partA?.score ?? mergedResponses?.partA?.overallScore;
+    const pB = data.partBScore ?? mergedResponses?.partB?.score ?? mergedResponses?.partB?.overallScore;
+
+    let overallScore: number;
+    if (hasPartA && hasPartB) {
+      const scoreA = pA !== undefined ? pA : 0;
+      const scoreB = pB !== undefined ? pB : 0;
+      overallScore = Math.round((scoreA + scoreB) / 2);
+    } else if (hasPartA) {
+      overallScore = Math.round(pA !== undefined ? pA : 0);
+    } else if (hasPartB) {
+      overallScore = Math.round(pB !== undefined ? pB : 0);
+    } else {
+      overallScore = Math.round((data.partAScore + data.partBScore) / 2);
+    }
+
+    if (existing) {
+      existing.overallScore = overallScore;
+      existing.responses = mergedResponses;
+      existing.status = status;
+      if (data.set) existing.set = data.set;
+      if (data.username) existing.username = data.username;
+      return this.attemptRepo.save(existing);
+    }
 
     const attempt = this.attemptRepo.create({
       userId: data.userId,
@@ -193,20 +246,15 @@ Return ONLY the JSON object.
       level: data.level,
       set: data.set,
       overallScore,
-      responses: data.responses,
-      status: 'completed',
+      responses: mergedResponses,
+      status,
     });
 
     return this.attemptRepo.save(attempt);
   }
 
   async getCompletedLessons(userId: string): Promise<string[]> {
-    const attempts = await this.attemptRepo.find({
-      where: { userId, status: 'completed' },
-      select: ['lessonId'],
-    });
-    const ids = attempts.map(a => a.lessonId).filter(Boolean);
-    return [...new Set(ids)];
+    return this.getCompletedLessonIds(userId);
   }
 
   // Lean method — returns only unique completed lessonIds for a given userId
@@ -214,10 +262,33 @@ Return ONLY the JSON object.
   async getCompletedLessonIds(userId: string): Promise<string[]> {
     const attempts = await this.attemptRepo.find({
       where: { userId, status: 'completed' },
-      select: ['lessonId'],
+      select: ['lessonId', 'moduleId', 'responses'],
     });
-    const ids = attempts.map(a => a.lessonId).filter(Boolean);
-    return [...new Set(ids)];
+
+    const validIds = attempts
+      .filter(a => {
+        const id = a.lessonId || a.moduleId;
+        if (id?.startsWith('sp-')) {
+          const hasPartA = !!(
+            a.responses?.partA &&
+            (Array.isArray(a.responses.partA.questions)
+              ? a.responses.partA.questions.length > 0
+              : a.responses.partA.score !== undefined)
+          );
+          const hasPartB = !!(
+            a.responses?.partB &&
+            (Array.isArray(a.responses.partB.questions)
+              ? a.responses.partB.questions.length > 0
+              : (a.responses.partB.score !== undefined || a.responses.partB.overallScore !== undefined))
+          );
+          return hasPartA && hasPartB;
+        }
+        return true;
+      })
+      .map(a => a.lessonId || a.moduleId)
+      .filter(Boolean);
+
+    return [...new Set(validIds)];
   }
 
   // GET all attempts for a user (all lessons)

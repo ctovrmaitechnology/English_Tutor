@@ -149,4 +149,37 @@ export class AssessmentService {
       order: { createdAt: 'DESC' },
     });
   }
+
+  async getStatus(userId: string) {
+    const attempts = await this.assessmentRepo.find({
+      where: { userId, status: 'completed' },
+      select: ['moduleId', 'lessonId', 'overallScore'],
+    });
+
+    const checkPassed = (prefix: string) =>
+      attempts.some(a =>
+        ((a.moduleId && a.moduleId.toLowerCase().startsWith(prefix.toLowerCase())) ||
+         (a.lessonId && a.lessonId.toLowerCase().startsWith(prefix.toLowerCase()))) &&
+        (a.overallScore ?? 0) >= 60
+      );
+
+    const passedSpeakingBeginner = checkPassed('sp-1');
+    const passedSpeakingIntermediate = checkPassed('sp-2');
+    const passedSpeakingAdvanced = checkPassed('sp-3');
+
+    const passedWritingBeginner = checkPassed('wr-1');
+    const passedWritingIntermediate = checkPassed('wr-2');
+    const passedWritingAdvanced = checkPassed('wr-3');
+
+    return {
+      passedSpeakingBeginner,
+      passedSpeakingIntermediate,
+      passedSpeakingAdvanced,
+      passedWritingBeginner,
+      passedWritingIntermediate,
+      passedWritingAdvanced,
+      speakingCertificate: passedSpeakingBeginner || passedSpeakingIntermediate || passedSpeakingAdvanced,
+      writingCertificate: passedWritingBeginner || passedWritingIntermediate || passedWritingAdvanced,
+    };
+  }
 }

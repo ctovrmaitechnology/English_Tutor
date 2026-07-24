@@ -1,10 +1,39 @@
+let currentActiveAudio = null;
+
+// Stop any currently playing audio (base64 TTS, HTML5 audio, speech synthesis)
+export const stopActiveAudio = () => {
+  if (currentActiveAudio) {
+    try {
+      currentActiveAudio.pause();
+      currentActiveAudio.currentTime = 0;
+    } catch (e) {}
+    currentActiveAudio = null;
+  }
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    try {
+      window.speechSynthesis.cancel();
+    } catch (e) {}
+  }
+};
+
 // Play base64 audio returned from backend TTS
 export const playBase64Audio = (base64String, mimeType = 'audio/wav') => {
+  stopActiveAudio();
   return new Promise((resolve, reject) => {
     const audio = new Audio(`data:${mimeType};base64,${base64String}`);
-    audio.onended = resolve;
-    audio.onerror = reject;
-    audio.play().catch(reject);
+    currentActiveAudio = audio;
+    audio.onended = () => {
+      if (currentActiveAudio === audio) currentActiveAudio = null;
+      resolve();
+    };
+    audio.onerror = (err) => {
+      if (currentActiveAudio === audio) currentActiveAudio = null;
+      reject(err);
+    };
+    audio.play().catch((err) => {
+      if (currentActiveAudio === audio) currentActiveAudio = null;
+      reject(err);
+    });
   });
 };
 

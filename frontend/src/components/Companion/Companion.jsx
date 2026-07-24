@@ -6,7 +6,7 @@ import { useCompanionState } from './CompanionStateManager';
 import CompanionEvents from './CompanionEvents';
 import { chatService } from '../../services/chat.service';
 import api from '../../services/api';
-import { playBase64Audio, startRecording, blobToFormData } from '../../utils/audio';
+import { playBase64Audio, stopActiveAudio, startRecording, blobToFormData } from '../../utils/audio';
 import { useUser } from '../../context/UserContext';
 import './CompanionStyles.css';
 
@@ -43,41 +43,49 @@ function blobToBase64(blob) {
 }
 
 // ── Entry Test Locked State ────────────────────────────────────────────────────
-function LockedCompanion({ character }) {
+function LockedCompanion() {
   return (
-    <div className="panda-companion-container" style={{ pointerEvents: 'none', opacity: 0.9 }}>
-      {/* Clean speech bubble */}
+    <div className="panda-companion-container" style={{ pointerEvents: 'none', opacity: 1 }}>
+      {/* Exact purple pill speech bubble matching screenshot */}
       <div style={{
         position: 'absolute',
-        bottom: '85%',
+        bottom: '86%',
         left: '50%',
         transform: 'translateX(-50%)',
-        background: 'linear-gradient(135deg,#1e1b4b,#4f46e5)',
-        color: '#e0e7ff',
-        borderRadius: 14,
-        padding: '10px 16px',
-        fontSize: 12,
-        fontWeight: 600,
+        background: 'linear-gradient(90deg, #1b174d 0%, #2f2785 45%, #4d3fe7 100%)',
+        color: '#ffffff',
+        borderRadius: 50,
+        padding: '11px 22px',
+        fontSize: 14,
+        fontWeight: 700,
         whiteSpace: 'nowrap',
-        boxShadow: '0 4px 20px rgba(79,70,229,0.4)',
-        border: '1px solid rgba(165,180,252,0.2)',
-        lineHeight: 1.4,
-        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        boxShadow: '0 10px 30px rgba(74, 62, 227, 0.5), 0 0 20px rgba(99, 102, 241, 0.35)',
+        border: '1px solid rgba(165, 180, 252, 0.25)',
+        lineHeight: 1,
+        letterSpacing: '-0.01em',
         zIndex: 10,
       }}>
-        🎯 Complete Entry Test first!
-        {/* Arrow */}
+        <span style={{ fontSize: 16, display: 'inline-flex', alignItems: 'center' }}>🎯</span>
+        <span>Complete Entry Test first!</span>
+        
+        {/* Downward triangle arrow */}
         <div style={{
           position: 'absolute',
-          bottom: -7, left: '50%',
-          transform: 'translateX(-50%)',
-          width: 0, height: 0,
-          borderLeft: '7px solid transparent',
-          borderRight: '7px solid transparent',
-          borderTop: '7px solid #4f46e5',
+          bottom: -5,
+          left: '50%',
+          transform: 'translateX(-50%) rotate(45deg)',
+          width: 10,
+          height: 10,
+          background: '#4d3fe7',
+          borderRight: '1px solid rgba(165, 180, 252, 0.2)',
+          borderBottom: '1px solid rgba(165, 180, 252, 0.2)',
+          borderRadius: 1,
         }} />
       </div>
-      <CompanionAnimations state="idle" character={character} />
+      <CompanionAnimations state="idle" character="kenza" />
     </div>
   );
 }
@@ -113,15 +121,15 @@ export default function Companion() {
 
   // ── Show locked state if entry test not completed ─────────────────────────
   if (!hasCompletedEntryTest) {
-    return <LockedCompanion character={character} />;
+    return <LockedCompanion />;
   }
 
   // Lesson tutor session trigger
   useEffect(() => {
     const handleTutorLogic = async (data, isPreload = false) => {
-      const topic       = data?.topic || 'this lesson';
+      const topic = data?.topic || 'this lesson';
       const moduleTitle = data?.moduleTitle || 'the module';
-      const greetingId  = 'lesson-init';
+      const greetingId = 'lesson-init';
       const greetingText = `Hi ${userName}! Ready to practice ${topic}? You can either speak your response or type it here!`;
 
       setChatMode('tutor');
@@ -142,7 +150,7 @@ export default function Companion() {
         const ttsRes = await api.post('/voice/synthesize', { text: greetingText, voice: 'af_sarah', speed: 1.1 }, { responseType: 'blob' });
         greetingAudioBase64 = await blobToBase64(ttsRes.data);
         initialMessages[0].audioBase64 = greetingAudioBase64;
-        
+
         if (!isPreload) {
           setMessages(prev => prev.map(m => m.id === greetingId ? { ...m, audioBase64: greetingAudioBase64 } : m));
           if (greetingAudioBase64) { try { await playBase64Audio(greetingAudioBase64); } catch { } }
@@ -241,29 +249,42 @@ export default function Companion() {
     setMessages([{ id: 'init', sender: 'ai', text: "Chat cleared! Let's start fresh. How can I help you? 😊", audioBase64: null }]);
   };
 
+  const handleClose = () => {
+    stopActiveAudio();
+    setIsPlaying(false);
+    setIsExpanded(false);
+  };
+
   // Track AI tutor time — start timer when chat opens, save when closes
   useEffect(() => {
-    if (!isExpanded) return;
+    if (!isExpanded) {
+      stopActiveAudio();
+      setIsPlaying(false);
+      return;
+    }
     const start = Date.now();
     return () => {
+      stopActiveAudio();
+      setIsPlaying(false);
       const elapsed = Math.floor((Date.now() - start) / 1000);
-      const prev = parseInt(sessionStorage.getItem('vrm_ai_tutor_secs') || '0');
-      const total = prev + elapsed;
-      sessionStorage.setItem('vrm_ai_tutor_secs', String(total));
-      // Update backend periodically
-      api.post('/sessions/ai-tutor', { aiTutorDuration: total }).catch(() => { });
+      if (elapsed > 2) {
+        const prev = parseInt(sessionStorage.getItem('vrm_ai_tutor_secs') || '0');
+        const total = prev + elapsed;
+        sessionStorage.setItem('vrm_ai_tutor_secs', String(total));
+        api.post('/sessions/ai-tutor', { aiTutorDuration: total }).catch(() => { });
+      }
     };
   }, [isExpanded]);
   if (isExpanded) {
     return (
-      <div className="panda-chat-overlay" role="dialog" aria-modal="true" aria-label="VRM Buddy chat">
-        <button className="panda-close-btn" onClick={() => setIsExpanded(false)} title="Minimize VRM Buddy">
+      <div className="panda-chat-overlay" role="dialog" aria-modal="true" aria-label="Kenza AI Tutor chat">
+        <button className="panda-close-btn" onClick={handleClose} title="Minimize Kenza AI Tutor">
           <X size={24} />
         </button>
 
         <div className="panda-chat-avatar-pane">
           <div style={{ width: '100%', height: '85%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <CompanionAnimations state={state} character={character} />
+            <CompanionAnimations state={state} character="kenza" />
           </div>
           {subtitles && <div className="panda-chat-subtitles">{subtitles}</div>}
         </div>
@@ -349,7 +370,7 @@ export default function Companion() {
         style={{ cursor: 'pointer', userSelect: 'none' }}
         title="Click to open VRM Buddy chat"
       >
-        <CompanionAnimations state={state} character={character} />
+        <CompanionAnimations state={state} character="kenza" />
         <div className="panda-chat-hint"><span>💬 Tap to chat</span></div>
       </div>
     </div>

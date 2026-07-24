@@ -3,6 +3,7 @@ import { Lock, CheckCircle, PlayCircle, ArrowLeft, Mic, PenTool, Award, HelpCirc
 import api from '../services/api';
 import CompanionEvents from '../components/Companion/CompanionEvents';
 import SpeakingLessonFlow from './SpeakingLessonFlow';
+import WritingLessonFlow from './WritingLessonFlow';
 import KenzaTutor from './KenzaTutor';
 import { useUser } from '../context/UserContext';
 import './Modules.css';
@@ -2740,29 +2741,36 @@ export default function ModulesPage({ onNavigate }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedModule, setSelectedModule] = useState(null);
   const [activeSubModule, setActiveSubModule] = useState(null);
-  const [completedSubModules, setCompletedSubModules] = useState([]);
+  const [completedSubModules, setCompletedSubModules] = useState(() => {
+    try {
+      const cached = sessionStorage.getItem('vrm_completed_submodules');
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
   const [assessmentStatus, setAssessmentStatus] = useState(null);
 
-  const fetchProgressAndStatus = async () => {
-    try {
-      let speakingCompleted = [];
-      let writingCompleted = [];
-      if (currentUser?.id) {
-        const [spRes, wrRes] = await Promise.all([
-          api.get(`/speaking/completed-lesson-ids/user/${currentUser.id}`),
-          api.get(`/writing/completed-lesson-ids/user/${currentUser.id}`),
-        ]);
-        speakingCompleted = spRes.data || [];
-        writingCompleted = wrRes.data || [];
-      }
+  const fetchProgressAndStatus = () => {
+    api.get('/lesson/completed-lessons')
+      .then(res => {
+        const completedIds = Array.isArray(res.data) ? res.data : [];
+        setCompletedSubModules(completedIds);
+        try {
+          sessionStorage.setItem('vrm_completed_submodules', JSON.stringify(completedIds));
+        } catch {}
+      })
+      .catch(err => {
+        console.error('Failed to fetch completed lessons:', err);
+      });
 
-      setCompletedSubModules([...new Set([...speakingCompleted, ...writingCompleted])]);
-
-      const statusRes = await api.get('/assessment/status');
-      setAssessmentStatus(statusRes.data);
-    } catch (err) {
-      console.error('Failed to load progress or status:', err);
-    }
+    api.get('/assessment/status')
+      .then(res => {
+        if (res.data) setAssessmentStatus(res.data);
+      })
+      .catch(err => {
+        console.warn('Assessment status not available:', err);
+      });
   };
 
   useEffect(() => {
@@ -2821,18 +2829,20 @@ export default function ModulesPage({ onNavigate }) {
           videoUrl={VIDEO_SOURCES[activeSubModule.sub.id]}
           onBack={() => setActiveSubModule(null)}
           onComplete={handleCompleteSubModule}
+          onRefreshProgress={fetchProgressAndStatus}
           onUncomplete={() => handleUncompleteSubModule(activeSubModule.sub.id, activeSubModule.module.id)}
           isCompleted={completedSubModules.includes(activeSubModule.sub.id)}
         />
       );
     }
     return (
-      <LessonFlowView
+      <WritingLessonFlow
         sub={activeSubModule.sub}
         module={activeSubModule.module}
-        category={selectedCategory.id}
+        videoUrl={VIDEO_SOURCES[activeSubModule.sub.id]}
         onBack={() => setActiveSubModule(null)}
         onComplete={handleCompleteSubModule}
+        onRefreshProgress={fetchProgressAndStatus}
         onUncomplete={() => handleUncompleteSubModule(activeSubModule.sub.id, activeSubModule.module.id)}
         isCompleted={completedSubModules.includes(activeSubModule.sub.id)}
       />

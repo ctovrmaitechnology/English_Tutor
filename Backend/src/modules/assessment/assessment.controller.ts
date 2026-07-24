@@ -146,6 +146,13 @@ export class AssessmentController {
     return this.assessmentService.getCompletedLessons(req.user.id);
   }
 
+  /** GET /assessment/status — overall user assessment & certificate status */
+  @UseGuards(JwtAuthGuard)
+  @Get('status')
+  async getStatus(@Req() req) {
+    return this.assessmentService.getStatus(req.user.id);
+  }
+
   // ─────────────────────────────────────────────────────────────────
   // ADMIN VIEW
   // ─────────────────────────────────────────────────────────────────

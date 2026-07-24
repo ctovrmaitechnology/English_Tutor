@@ -49,8 +49,8 @@ export default function Login({ onLoginSuccess }) {
         last_name:  lastName,
         username:   regUsername,
         email,
-        // New users get 'warrior' as default — they will pick on first login
-        character:  'warrior',
+        // New users get 'kenza' as default AI Tutor character
+        character:  'kenza',
         password:   regPassword,
         phone:      phone || undefined,
       });

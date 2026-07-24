@@ -12,12 +12,12 @@ const UserContext = createContext(null);
  * - remarkContext (formatted string for system prompt injection)
  */
 export function UserProvider({ children }) {
-  const [currentUser,    setCurrentUser]    = useState(null);
-  const [character,      setCharacter]      = useState('eva');
-  const [entryLevel,     setEntryLevel]     = useState('beginner');
+  const [currentUser, setCurrentUser] = useState(null);
+  const [character, setCharacter] = useState('eva');
+  const [entryLevel, setEntryLevel] = useState('beginner');
   const [candidateRemark, setCandidateRemark] = useState(null);
-  const [remarkContext,  setRemarkContext]  = useState('');
-  const [loading,        setLoading]        = useState(true);
+  const [remarkContext, setRemarkContext] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const loadUserData = useCallback(async () => {
     setLoading(true);
@@ -29,7 +29,7 @@ export function UserProvider({ children }) {
       setEntryLevel(profile.entryLevel || 'beginner');
 
       // Start session tracking
-      try { await api.post('/sessions/start'); } catch {}
+      try { await api.post('/sessions/start'); } catch { }
 
       // Tab close / page unload — end session
       const handleUnload = () => {
@@ -106,4 +106,4 @@ export function useUser() {
   return ctx;
 }
 
-export default UserContext;
+export default UserContext;

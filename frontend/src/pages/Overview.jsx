@@ -4,16 +4,16 @@ import { fetchFromCDN } from '../utils/cdn';
 import api from '../services/api';
 import './Overview.css';
 import './Assessment.css';
-import { 
-  Clock, 
-  BookOpen, 
-  CheckCircle, 
-  Flame, 
-  Play, 
-  Square, 
-  Sparkles, 
-  ChevronRight, 
-  Volume2, 
+import {
+  Clock,
+  BookOpen,
+  CheckCircle,
+  Flame,
+  Play,
+  Square,
+  Sparkles,
+  ChevronRight,
+  Volume2,
   Mic,
   Award,
   TrendingUp,
@@ -74,7 +74,7 @@ export default function Overview({ user: currentUser, onNavigate }) {
     if (roleplayState === 'recording') {
       setSecondsElapsed(0);
       setActiveSpeechText('Listening... Start speaking your greeting.');
-      
+
       timerRef.current = setInterval(() => {
         setSecondsElapsed(prev => {
           const nextSec = prev + 1;
@@ -157,29 +157,29 @@ export default function Overview({ user: currentUser, onNavigate }) {
   const skills = data?.skills || [];
   const dailyInsight = data?.dailyInsight || '';
 
-  const scoreTrends = data?.scoreTrend?.length > 0 
-    ? data.scoreTrend.slice(-4) 
+  const scoreTrends = data?.scoreTrend?.length > 0
+    ? data.scoreTrend.slice(-4)
     : [
-        { attempt: 'Cycle 1', score: 52, date: '15 May' },
-        { attempt: 'Cycle 2', score: 61, date: '30 May' },
-        { attempt: 'Cycle 3', score: 70, date: '15 Jun' },
-        { attempt: 'Cycle 4', score: 78, date: '15 Aug' },
-      ];
+      { attempt: 'Cycle 1', score: 52, date: '15 May' },
+      { attempt: 'Cycle 2', score: 61, date: '30 May' },
+      { attempt: 'Cycle 3', score: 70, date: '15 Jun' },
+      { attempt: 'Cycle 4', score: 78, date: '15 Aug' },
+    ];
 
   const firstScore = scoreTrends[0]?.score || 0;
   const latestScore = scoreTrends[scoreTrends.length - 1]?.score || 0;
   const improvementPoints = latestScore - firstScore;
 
-  const avgFirst3 = scoreTrends.length > 1 
-    ? Math.round(scoreTrends.slice(0, scoreTrends.length - 1).reduce((a, b) => a + b.score, 0) / (scoreTrends.length - 1)) 
+  const avgFirst3 = scoreTrends.length > 1
+    ? Math.round(scoreTrends.slice(0, scoreTrends.length - 1).reduce((a, b) => a + b.score, 0) / (scoreTrends.length - 1))
     : firstScore;
   const improvementVsAvg = latestScore - avgFirst3;
 
   const chartPoints = scoreTrends.map((t, i) => {
     const x = 80 + i * 100;
     const y = 190 - (t.score / 100) * 150;
-    const dateFormatted = t.date && !isNaN(new Date(t.date).getTime()) 
-      ? new Date(t.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) 
+    const dateFormatted = t.date && !isNaN(new Date(t.date).getTime())
+      ? new Date(t.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
       : t.date || '';
     return { x, y, score: t.score, attempt: t.attempt, date: dateFormatted };
   });
@@ -206,7 +206,7 @@ export default function Overview({ user: currentUser, onNavigate }) {
 
         {/* Custom Premium Dropdown */}
         <div className="db-view-dropdown-container" ref={dropdownRef}>
-          <button 
+          <button
             className="db-view-select-btn"
             onClick={() => setDropdownOpen(!dropdownOpen)}
             aria-expanded={dropdownOpen}
@@ -218,7 +218,7 @@ export default function Overview({ user: currentUser, onNavigate }) {
 
           {dropdownOpen && (
             <div className="db-dropdown-menu-floating animate-scale-up">
-              <button 
+              <button
                 className={`db-dropdown-item ${activeView === 'overview' ? 'active' : ''}`}
                 onClick={() => { setActiveView('overview'); setDropdownOpen(false); }}
               >
@@ -229,7 +229,7 @@ export default function Overview({ user: currentUser, onNavigate }) {
                 </div>
               </button>
 
-              <button 
+              <button
                 className={`db-dropdown-item ${activeView === 'assessment' ? 'active' : ''}`}
                 onClick={() => { setActiveView('assessment'); setDropdownOpen(false); }}
               >
@@ -240,7 +240,7 @@ export default function Overview({ user: currentUser, onNavigate }) {
                 </div>
               </button>
 
-              <button 
+              <button
                 className={`db-dropdown-item ${activeView === 'progress' ? 'active' : ''}`}
                 onClick={() => { setActiveView('progress'); setDropdownOpen(false); }}
               >
@@ -270,7 +270,7 @@ export default function Overview({ user: currentUser, onNavigate }) {
                 <p className="ov-designation">Customer Support Associate</p>
               </div>
             </div>
-            
+
             <div className="ov-band-card">
               <div className="ov-band-circle">
                 <span className="ov-band-letter">B</span>
@@ -501,13 +501,13 @@ export default function Overview({ user: currentUser, onNavigate }) {
                     <line x1="50" y1="190" x2="450" y2="190" stroke="#e2e8f0" strokeWidth="1.5" />
 
                     {pathD && (
-                      <path 
+                      <path
                         d={pathD}
-                        fill="none" 
-                        stroke="#10b981" 
-                        strokeWidth="3.5" 
+                        fill="none"
+                        stroke="#10b981"
+                        strokeWidth="3.5"
                         strokeLinecap="round"
-                        strokeLinejoin="round" 
+                        strokeLinejoin="round"
                       />
                     )}
 

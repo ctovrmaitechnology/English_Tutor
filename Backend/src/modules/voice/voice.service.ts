@@ -36,11 +36,11 @@ export class VoiceService {
   }
 
   // ── Text to Speech ──────────────────────────────────────────
-async synthesize(
-  text: string,
-  voice = 'af_heart',
-  speed = 1.1,       // ← natural conversational speed
-): Promise<Buffer> {
+  async synthesize(
+    text: string,
+    voice = 'af_heart',
+    speed = 1.1,       // ← natural conversational speed
+  ): Promise<Buffer> {
     const attempt = async (): Promise<Buffer> => {
       const response = await axios.post(
         `${this.ttsUrl}/synthesize`,

@@ -26,54 +26,72 @@ export class LessonService {
     const lId = data.lessonId || data.moduleId;
     const setUsed = data.set || 'SET_1';
 
-    let attemptStatus = data.status || 'completed';
-    const isTwoPartLesson = (data.moduleId?.startsWith('sp-') || lId?.startsWith('sp-'));
-    const hasPartB = !!(data.responses?.partB && Array.isArray(data.responses.partB.questions) && data.responses.partB.questions.length > 0);
+    const isTwoPartLesson = (
+      data.moduleId?.startsWith('sp-') ||
+      lId?.startsWith('sp-') ||
+      data.moduleId?.startsWith('wr-') ||
+      lId?.startsWith('wr-')
+    );
 
-    // Strict rule: Speaking lessons without Part B completed must stay 'incomplete'
-    if (isTwoPartLesson && !hasPartB) {
-      attemptStatus = 'incomplete';
-    }
-
-    const pA = data.partAScore ?? data.responses?.partA?.score ?? data.score ?? 0;
-    const pB = data.partBScore ?? data.responses?.partB?.score ?? data.score ?? 0;
-    
-    let overallScore = data.score;
-    if (overallScore === undefined || overallScore === null) {
-      if (data.partAScore !== undefined && data.partBScore !== undefined) {
-        overallScore = (data.partAScore + data.partBScore) / 2;
-      } else if (data.partAScore !== undefined) {
-        overallScore = data.partAScore;
-      } else if (data.partBScore !== undefined) {
-        overallScore = data.partBScore;
-      } else {
-        overallScore = 100;
-      }
-    }
-
-    // Check if an incomplete attempt exists for this user, lesson, and set
-    const existingIncomplete = await this.attemptRepo.findOne({
+    // Check if an existing attempt exists for this user, lesson, and set (incomplete or completed)
+    const existingAttempt = await this.attemptRepo.findOne({
       where: [
-        { userId: data.userId, lessonId: lId, set: setUsed, status: 'incomplete' },
-        { userId: data.userId, moduleId: lId, set: setUsed, status: 'incomplete' },
-        { userId: data.userId, lessonId: lId, status: 'incomplete' },
-        { userId: data.userId, moduleId: lId, status: 'incomplete' },
+        { userId: data.userId, lessonId: lId, set: setUsed },
+        { userId: data.userId, moduleId: lId, set: setUsed },
+        { userId: data.userId, lessonId: lId },
+        { userId: data.userId, moduleId: lId },
       ],
       order: { createdAt: 'DESC' },
     });
 
-    if (existingIncomplete) {
-      const mergedResponses = {
-        ...(existingIncomplete.responses || {}),
-        ...(data.responses || {}),
-      };
-      existingIncomplete.overallScore = overallScore;
-      existingIncomplete.responses = mergedResponses;
-      existingIncomplete.status = attemptStatus;
-      if (data.set) existingIncomplete.set = data.set;
-      if (data.username) existingIncomplete.username = data.username;
+    const mergedResponses = {
+      ...(existingAttempt?.responses || {}),
+      ...(data.responses || {}),
+    };
 
-      return this.attemptRepo.save(existingIncomplete);
+    const hasPartA = !!(
+      mergedResponses?.partA &&
+      (Array.isArray(mergedResponses.partA.questions)
+        ? mergedResponses.partA.questions.length > 0
+        : mergedResponses.partA.score !== undefined)
+    );
+
+    const hasPartB = !!(
+      mergedResponses?.partB &&
+      (Array.isArray(mergedResponses.partB.questions)
+        ? mergedResponses.partB.questions.length > 0
+        : (mergedResponses.partB.score !== undefined || data.partBScore !== undefined))
+    );
+
+    let attemptStatus: 'completed' | 'incomplete' = 'completed';
+    if (isTwoPartLesson && (!hasPartA || !hasPartB)) {
+      attemptStatus = 'incomplete';
+    }
+
+    const pA = data.partAScore ?? mergedResponses?.partA?.score ?? mergedResponses?.partA?.overallScore;
+    const pB = data.partBScore ?? mergedResponses?.partB?.score ?? mergedResponses?.partB?.overallScore;
+
+    let overallScore: number;
+    if (hasPartA && hasPartB) {
+      const scoreA = pA !== undefined ? pA : 0;
+      const scoreB = pB !== undefined ? pB : 0;
+      overallScore = Math.round((scoreA + scoreB) / 2);
+    } else if (hasPartA) {
+      overallScore = Math.round(pA !== undefined ? pA : (data.score ?? 0));
+    } else if (hasPartB) {
+      overallScore = Math.round(pB !== undefined ? pB : (data.score ?? 0));
+    } else {
+      overallScore = Math.round(data.score ?? 0);
+    }
+
+    if (existingAttempt) {
+      existingAttempt.overallScore = overallScore;
+      existingAttempt.responses = mergedResponses;
+      existingAttempt.status = attemptStatus;
+      if (data.set) existingAttempt.set = data.set;
+      if (data.username) existingAttempt.username = data.username;
+
+      return this.attemptRepo.save(existingAttempt);
     }
 
     const attempt = this.attemptRepo.create({
@@ -84,7 +102,7 @@ export class LessonService {
       level: data.level || 'BEGINNER',
       set: setUsed,
       overallScore,
-      responses: data.responses || {},
+      responses: mergedResponses,
       status: attemptStatus,
     });
 
@@ -102,21 +120,40 @@ export class LessonService {
   }
 
   async getCompletedLessons(userId: string): Promise<string[]> {
-    const attempts = await this.attemptRepo.find({
-      where: { userId, status: 'completed' },
-      select: ['lessonId', 'moduleId'],
-    });
-    const ids = attempts.map(a => a.lessonId || a.moduleId).filter(Boolean);
-    return [...new Set(ids)];
+    return this.getCompletedLessonIds(userId);
   }
 
   async getCompletedLessonIds(userId: string): Promise<string[]> {
     const attempts = await this.attemptRepo.find({
       where: { userId, status: 'completed' },
-      select: ['lessonId', 'moduleId'],
+      select: ['lessonId', 'moduleId', 'responses'],
     });
-    const ids = attempts.map(a => a.lessonId || a.moduleId).filter(Boolean);
-    return [...new Set(ids)];
+
+    const validIds = attempts
+      .filter(a => {
+        const id = a.lessonId || a.moduleId;
+        const isTwoPart = id?.startsWith('sp-') || id?.startsWith('wr-');
+        if (isTwoPart) {
+          const hasPartA = !!(
+            a.responses?.partA &&
+            (Array.isArray(a.responses.partA.questions)
+              ? a.responses.partA.questions.length > 0
+              : a.responses.partA.score !== undefined)
+          );
+          const hasPartB = !!(
+            a.responses?.partB &&
+            (Array.isArray(a.responses.partB.questions)
+              ? a.responses.partB.questions.length > 0
+              : (a.responses.partB.score !== undefined || a.responses.partB.overallScore !== undefined))
+          );
+          return hasPartA && hasPartB;
+        }
+        return true;
+      })
+      .map(a => a.lessonId || a.moduleId)
+      .filter(Boolean);
+
+    return [...new Set(validIds)];
   }
 
   async getAttempts(userId: string) {
